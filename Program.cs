@@ -6,7 +6,9 @@ var connectionString = builder.Configuration.GetConnectionString("LinkedInCloneI
 
 builder.Services.AddDbContext<LinkedInCloneIdentityDbContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<LinkedInCloneIdentityDbContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+ options.SignIn.RequireConfirmedAccount = false)
+ .AddEntityFrameworkStores<LinkedInCloneIdentityDbContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -27,17 +29,25 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+app.UseStatusCodePages(async context =>
+{
+    var response = context.HttpContext.Response;
 
+    if (response.StatusCode == (int)System.Net.HttpStatusCode.Unauthorized ||
+            response.StatusCode == (int)System.Net.HttpStatusCode.Forbidden)
+        response.Redirect("/Identity/Account/Login");
+});
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-app.UseEndpoints(endpoints =>
-    {
-        endpoints.MapRazorPages();
-    });
+app.MapRazorPages(); //cant tell if theres a difference between <--- and below
+// app.UseEndpoints(endpoints =>
+//     {
+//         endpoints.MapRazorPages();
+//     });
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
