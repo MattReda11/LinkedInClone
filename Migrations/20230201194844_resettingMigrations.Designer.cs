@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LinkedInClone.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230201192505_Likes")]
-    partial class Likes
+    [Migration("20230201194844_resettingMigrations")]
+    partial class resettingMigrations
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
