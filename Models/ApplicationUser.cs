@@ -7,8 +7,7 @@ using Microsoft.AspNetCore.Identity;
 namespace LinkedInClone.Models
 {
     public class ApplicationUser : IdentityUser
-    {
-        public string CustomTag { get; set; }
+    {    
 
         public ICollection<Connection> SentConnections { get; set; }
 

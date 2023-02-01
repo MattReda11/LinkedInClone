@@ -21,7 +21,7 @@ namespace LinkedInClone.Data
 
         public DbSet<Post> Posts { get; set; }
 
-        //public DbSet<Like> Likes { get; set; }
+        public DbSet<Like> Likes { get; set; }
         public DbSet<Connection> Connections { get; set; }
 
         //  UserManager<IdentityUser> _userManager;

@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LinkedInClone.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230201183544_AddingMoreTables")]
-    partial class AddingMoreTables
+    [Migration("20230201192505_Likes")]
+    partial class Likes
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,6 +54,19 @@ namespace LinkedInClone.Migrations
                     b.HasIndex("FriendId");
 
                     b.ToTable("Connections");
+                });
+
+            modelBuilder.Entity("LinkedInClone.Models.Like", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Likes");
                 });
 
             modelBuilder.Entity("LinkedInClone.Models.Message", b =>

@@ -53,6 +53,19 @@ namespace LinkedInClone.Migrations
                     b.ToTable("Connections");
                 });
 
+            modelBuilder.Entity("LinkedInClone.Models.Like", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Likes");
+                });
+
             modelBuilder.Entity("LinkedInClone.Models.Message", b =>
                 {
                     b.Property<int>("Id")
