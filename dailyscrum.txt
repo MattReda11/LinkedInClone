@@ -40,8 +40,11 @@
 2/1/2023 Kevin
 1. Done/not done since last scrum:
 - User stories on Trello
+- Generated project MVC structure
+- Register & Login (MS Identity)
 2. To do until next Scrum:
-- Contribute towards initial project structure
+- Extend User class
+- Integrate Razor pages
 3. Need assistance / figure things out:
 -
 
@@ -58,18 +61,18 @@
 
 2/1/2023 Chris
 1. Done/not done since last scrum:
-- assisted in project proposal 
+-  research
 2. To do until next Scrum:
 - populate Trello with user stories
-- assist in initial project structure/setup
-- dbcontext, dependencies, CSS library
+- connections, messages models
+- later on, after models in place: dbcontext, dependencies, CSS library
 3. Need assistance / figure things out:
-- looking into MVC vs Razor Pages
+
 
 2/1/2023 Seena
 1. Done/not done since last scrum:
-- User Case Diagram created
+- Research
 2. To do until next Scrum:
-- Create Post.cs model after initial MVC projet is setup
+- Create JobApplications and JobPostings Models
 3. Need assistance / figure things out:
 -
