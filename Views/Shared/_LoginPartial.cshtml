@@ -1,27 +1,94 @@
 @using Microsoft.AspNetCore.Identity
-
 @inject SignInManager<IdentityUser> SignInManager
-@inject UserManager<IdentityUser> UserManager
+    @inject UserManager<IdentityUser> UserManager
 
-<ul class="navbar-nav">
-@if (SignInManager.IsSignedIn(User))
-{
-    <li class="nav-item">
-        <a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
-    </li>
-    <li class="nav-item">
-        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button id="logout" type="submit" class="nav-link btn btn-link text-dark border-0">Logout</button>
-        </form>
-    </li>
-}
-else
-{
-    <li class="nav-item">
-        <a class="nav-link text-dark" id="register" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" id="login" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
-}
-</ul>
+
+        <header>
+            <div class="header-container">
+                <nav class="no-hover">
+                    <div class="header header-fixed custom-header">
+
+                        <div class="nav-item nav-left no-hover">
+                            <a asp-controller="Home" asp-action="Index"><img class="img-nav-logo"
+                                    srcset="/Images/logo.png" />
+                            </a>
+                        </div>
+
+
+
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                        <div class="nav-right">
+                            <div class="nav-item active">
+
+                                <div class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home"
+                                        asp-action="Index">Home</a>
+                                </div>
+
+                                <div class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home"
+                                        asp-action="Privacy">My
+                                        Network</a>
+                                </div>
+
+                                <div class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home"
+                                        asp-action="Privacy">Jobs</a>
+                                </div>
+
+                                <div class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home"
+                                        asp-action="Privacy">Notifications</a>
+                                </div>
+
+                                <div class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home"
+                                        asp-action="Privacy">My Profile</a>
+                                </div>
+
+                                <div class="nav-item">
+                                    <a id="manage" class="nav-link text-dark" asp-area="Identity"
+                                        asp-page="/Account/Manage/Index" title="Manage">Hello
+                                        @UserManager.GetUserName(User)!</a>
+                                </div>
+
+                                <div class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Logout"
+                                        asp-route-returnUrl="@Url.Action(" Index", "Home" , new { area="" })">Log Out
+                                    </a>
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                        }
+                        else
+                        {
+
+                        <div class="nav-right">
+                            <div class="nav-item active">
+
+                                <div class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home"
+                                        asp-action="Index">Home</a>
+                                </div>
+
+                                <div class="nav-item">
+                                    <a class="nav-link text-dark" id="register" asp-area="Identity"
+                                        asp-page="/Account/Register">Register</a>
+                                </div>
+
+                                <div class="nav-item">
+                                    <a class="nav-link text-dark" id="login" asp-area="Identity"
+                                        asp-page="/Account/Login">Log
+                                        In</a>
+                                </div>
+
+                            </div>
+                        </div>
+                        }
+                    </div>
+                </nav>
+            </div>
+        </header>
