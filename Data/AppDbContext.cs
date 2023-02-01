@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LinkedInClone.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -13,9 +14,13 @@ namespace LinkedInClone.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<IdentityUser> AspNetUsers { get; set; }
-      //  UserManager<IdentityUser> _userManager;
-       // RoleManager<IdentityRole> _roleManager;
+         public DbSet<IdentityUser> AspNetUsers { get; set; }
+         public DbSet<Message> Messages { get; set; }
+        // public DbSet<Comment> Comments { get; set; }
+        // public DbSet<Connection> Connections { get; set; }
+
+        //  UserManager<IdentityUser> _userManager;
+        // RoleManager<IdentityRole> _roleManager;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -23,6 +28,8 @@ namespace LinkedInClone.Data
         }
         protected override async void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //relationships should be specified here
+            
             base.OnModelCreating(modelBuilder);
         }
     }
