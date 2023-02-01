@@ -29,7 +29,6 @@ namespace LinkedInClone.Data
         protected override async void OnModelCreating(ModelBuilder modelBuilder)
         {
             //relationships should be specified here
-
             base.OnModelCreating(modelBuilder);
         }
     }
