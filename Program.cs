@@ -6,7 +6,7 @@ var connectionString = builder.Configuration.GetConnectionString("LinkedInCloneI
 
 builder.Services.AddDbContext<LinkedInCloneIdentityDbContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<LinkedInCloneIdentityDbContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false).AddEntityFrameworkStores<LinkedInCloneIdentityDbContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
