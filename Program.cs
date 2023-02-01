@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using LinkedInClone.Data;
+using Azure.Storage.Blobs;
+using LinkedInClone.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("AppDbContext") ?? throw new InvalidOperationException("Connection string 'AppDbContext' not found.");
@@ -15,6 +17,14 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Services needed to store blobs
+var blobConnection = builder.Configuration.GetConnectionString("BlobConnectionString");
+
+builder.Services.AddSingleton(x => new BlobServiceClient(blobConnection));
+
+builder.Services.AddSingleton<IBlobService, BlobService>();
+
 //builder.Services.AddDbContext<
 var app = builder.Build();
 
