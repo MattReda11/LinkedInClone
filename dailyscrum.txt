@@ -36,3 +36,40 @@
 -
 
 ------------------------------------------------------------------------------------
+
+2/1/2023 Kevin
+1. Done/not done since last scrum:
+- User stories on Trello
+2. To do until next Scrum:
+- Contribute towards initial project structure
+3. Need assistance / figure things out:
+-
+
+2/1/2023 Matthew
+1. Done/not done since last scrum:
+- Research on how to work with MVC
+2. To do until next Scrum:
+- Create Likes, Comments and Posts Models
+- Initialize db context
+- Register and Login
+3. Need assistance / figure things out:
+- 
+
+
+2/1/2023 Chris
+1. Done/not done since last scrum:
+- assisted in project proposal 
+2. To do until next Scrum:
+- populate Trello with user stories
+- assist in initial project structure/setup
+- dbcontext, dependencies, CSS library
+3. Need assistance / figure things out:
+- looking into MVC vs Razor Pages
+
+2/1/2023 Seena
+1. Done/not done since last scrum:
+- User Case Diagram created
+2. To do until next Scrum:
+- Create Post.cs model after initial MVC projet is setup
+3. Need assistance / figure things out:
+-
