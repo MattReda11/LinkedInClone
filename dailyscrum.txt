@@ -55,7 +55,7 @@
 2. To do until next Scrum:
 - Create Likes, Comments and Posts Models
 - Initialize db context
-- Register and Login
+- Blob Storage research for Images/Files
 3. Need assistance / figure things out:
 - 
 

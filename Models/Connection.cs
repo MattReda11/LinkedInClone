@@ -13,9 +13,15 @@ namespace LinkedInClone.Models
         [Key]
         public int Id { get; set; }
 
-        public IdentityUser SentBy { get; set; }
-        public IdentityUser ReceivedBy { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public bool Accepted { get; set; }
+        [Required, Display(Name = "Account Owner")]
+        public IdentityUser AccountOwner { get; set; }
+
+        [Required]
+        public IdentityUser Friend { get; set; }
+
+        [Display(Name = "Creation Date"), DataType(DataType.Date)]
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
+
+        public bool Accepted { get; set; } = false;
     }
 }
