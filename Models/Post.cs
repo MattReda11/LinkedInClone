@@ -32,5 +32,9 @@ namespace LinkedInClone.Models
         [Required]
         public string FileName { get; set; }
 
+        public ICollection<Like> Likes { get; set; }
+
+        public ICollection<Comment> Comments { get; set; }
+
     }
 }

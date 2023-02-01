@@ -20,7 +20,7 @@ namespace LinkedInClone.Data
 
         public DbSet<Message> Messages { get; set; }
 
-        //public DbSet<Comment> Comments { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
         public DbSet<Post> Posts { get; set; }
 
