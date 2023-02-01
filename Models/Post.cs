@@ -27,7 +27,10 @@ namespace LinkedInClone.Models
         public DateTime PostedDate { get; set; }
 
         [Required]
-        public BlobInfo Image { get; set; }
+        public string FilePath { get; set; }
+
+        [Required]
+        public string FileName { get; set; }
 
     }
 }
