@@ -45,6 +45,7 @@
 2. To do until next Scrum:
 - Extend User class
 - Integrate Razor pages
+- Try to implement OAuth (Google/MS login)
 3. Need assistance / figure things out:
 -
 
