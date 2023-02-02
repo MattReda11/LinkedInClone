@@ -46,7 +46,7 @@ namespace LinkedInClone.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {           
             base.OnModelCreating(modelBuilder);
-            //modelBuilder.Entity<ApplicationUser>().ToTable("AppUsers");
+            //modelBuilder.Entity<ApplicationUser>().ToTable("AppUsers"); <--- this will rename/recreate default user table 
 
 
             //Fluent API 

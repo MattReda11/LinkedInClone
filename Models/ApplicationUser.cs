@@ -11,7 +11,10 @@ namespace LinkedInClone.Models
 
     
     public class ApplicationUser : IdentityUser
-    {    
+    {
+
+        [DataType(DataType.Date)]
+        public DateTime CreatedDate { get; set; } = DateTime.Now;
         
         public ICollection<Connection> SentConnections { get; set; }
         
