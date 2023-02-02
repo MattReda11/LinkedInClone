@@ -1,28 +1,28 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LinkedInClone.Data;
 using LinkedInClone.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace LinkedInClone.Controllers
 {
     public class JobPostingsController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly ILogger _logger;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public JobPostingsController(AppDbContext context)
+        public JobPostingsController(AppDbContext context, ILogger<JobPosting> logger, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _logger = logger;
+            _userManager = userManager;
         }
 
         // GET: JobPostings
         public async Task<IActionResult> Index()
         {
-              return View(await _context.JobPosting.ToListAsync());
+            return View(await _context.JobPosting.ToListAsync());
         }
 
         // GET: JobPostings/Details/5
@@ -50,16 +50,19 @@ namespace LinkedInClone.Controllers
         }
 
         // POST: JobPostings/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,JobTitle,Description,CreatedDate")] JobPosting jobPosting)
         {
+            ModelState.Remove("Recruiter");
+            ApplicationUser loggedInUser = await _userManager.GetUserAsync(User);
+            jobPosting.Recruiter = loggedInUser;
+
             if (ModelState.IsValid)
             {
                 _context.Add(jobPosting);
                 await _context.SaveChangesAsync();
+                _logger.LogInformation("JobPosting added successfully");
                 return RedirectToAction(nameof(Index));
             }
             return View(jobPosting);
@@ -82,8 +85,6 @@ namespace LinkedInClone.Controllers
         }
 
         // POST: JobPostings/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,JobTitle,Description,CreatedDate")] JobPosting jobPosting)
@@ -92,6 +93,10 @@ namespace LinkedInClone.Controllers
             {
                 return NotFound();
             }
+
+            ModelState.Remove("Recruiter");
+            ApplicationUser loggedInUser = await _userManager.GetUserAsync(User);
+            jobPosting.Recruiter = loggedInUser;
 
             if (ModelState.IsValid)
             {
@@ -148,14 +153,14 @@ namespace LinkedInClone.Controllers
             {
                 _context.JobPosting.Remove(jobPosting);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool JobPostingExists(int id)
         {
-          return _context.JobPosting.Any(e => e.Id == id);
+            return _context.JobPosting.Any(e => e.Id == id);
         }
     }
 }
