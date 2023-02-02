@@ -8,7 +8,7 @@ namespace LinkedInClone.Models
         public int Id { get; set; }
 
         [Required]
-        public IdentityUser Applicant { get; set; }
+        public ApplicationUser Applicant { get; set; }
 
         [Required]
         public string FilePath { get; set; }

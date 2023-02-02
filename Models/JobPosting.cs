@@ -8,7 +8,7 @@ namespace LinkedInClone.Models
         public int Id { get; set; }
 
         [Required]
-        public IdentityUser Recruiter { get; set; }
+        public ApplicationUser Recruiter { get; set; }
 
         [Required]
         [StringLength(200)]
@@ -20,5 +20,7 @@ namespace LinkedInClone.Models
 
         [Display(Name = "Creation Date"), DataType(DataType.Date)]
         public DateTime CreatedDate { get; set; } = DateTime.Now;
+
+        public ICollection<JobApplication> JobApplications { get; set; }
     }
 }

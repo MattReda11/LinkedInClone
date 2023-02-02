@@ -6,15 +6,15 @@ namespace LinkedInClone.Controllers
     {
         // 
         // GET: /JobPostings/
-        public string Index()
+        public IActionResult Index()
         {
-            return "This is my default action...";
+            return View();
         }
         // 
         // GET: /JobPostings/Add/ 
-        public string Add()
+        public IActionResult Add()
         {
-            return "This is the add action method...";
+            return View();
         }
     }
 }
