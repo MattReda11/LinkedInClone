@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using LinkedInClone.Models;
 
 namespace LinkedInClone.Services
 {
@@ -12,26 +13,31 @@ namespace LinkedInClone.Services
 
         private readonly BlobServiceClient _blobServiceClient;
 
+        private BlobContainerClient _client;
+
         public BlobService(BlobServiceClient blobServiceClient)
         {
-
             _blobServiceClient = blobServiceClient;
-
+            _client = _blobServiceClient.GetBlobContainerClient("blob-storage");
         }
 
-        public Task<BlobInfo> GetBlobAsync(string name)
+        public void DeleteBlob(string name)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<string>> ListBlobsAsync()
+        Task<BlobObject> IBlobService.GetBlobAsync(string name)
         {
             throw new NotImplementedException();
         }
 
-        public Task UploadFileBlobAsync(string filePath, string fileName)
+        async Task<string> IBlobService.UploadFileBlobAsync(string filePath, string fileName)
         {
-            throw new NotImplementedException();
+            var blobClient = _client.GetBlobClient(fileName);
+
+            var status = await blobClient.UploadAsync(filePath);
+
+            return blobClient.Uri.AbsoluteUri;
         }
     }
 }

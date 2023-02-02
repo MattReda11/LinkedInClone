@@ -3,16 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Azure.Storage.Blobs.Models;
+using LinkedInClone.Models;
 
 namespace LinkedInClone.Services
 {
     public interface IBlobService
     {
-        public Task<BlobInfo> GetBlobAsync(string name);
+        public Task<BlobObject> GetBlobAsync(string name);
 
-        public Task<IEnumerable<string>> ListBlobsAsync();
+        public Task<string> UploadFileBlobAsync(string filePath, string fileName);
 
-        public Task UploadFileBlobAsync(string filePath, string fileName);
+        public void DeleteBlob(string name);
 
     }
 }

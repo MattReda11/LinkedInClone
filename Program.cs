@@ -31,12 +31,12 @@ var blobConnection = builder.Configuration.GetConnectionString("BlobConnectionSt
 
 builder.Services.AddSingleton(x => new BlobServiceClient(blobConnection));
 
-builder.Services.AddSingleton<IBlobService, BlobService>();
+builder.Services.AddScoped<IBlobService, BlobService>();
 builder.Services.AddMvc();
 //builder.Services.AddDbContext<
 var app = builder.Build();
 
-app.MapRazorPages(); 
+app.MapRazorPages();
 // using (var scope = app.Services.CreateScope())
 // {
 //     var services = scope.ServiceProvider;
