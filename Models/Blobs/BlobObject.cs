@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace LinkedInClone.Models
+namespace LinkedInClone.Models.Blobs
 {
     public class BlobObject
     {
