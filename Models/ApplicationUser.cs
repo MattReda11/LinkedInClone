@@ -12,12 +12,10 @@ namespace LinkedInClone.Models
     
     public class ApplicationUser : IdentityUser
     {    
-        [Required]
-        [ForeignKey("SenderId")]
-        public ICollection<Connection> SentConnections { get; set; } = null;
-        [Required]
-        [ForeignKey("ReceiverId")] 
-        public ICollection<Connection> ReceivedConnections { get; set; } = null;
+        
+        public ICollection<Connection> SentConnections { get; set; }
+        
+        public ICollection<Connection> ReceivedConnections { get; set; }
         
     }
 }

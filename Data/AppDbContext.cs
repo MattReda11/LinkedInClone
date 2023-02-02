@@ -12,7 +12,11 @@ namespace LinkedInClone.Data
     //main DB context that will contain Identity context
     public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
+
+        private readonly DbContextOptions _options;
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { 
+            _options = options;
+        }
 
         //  public DbSet<IdentityUser> AspNetUsers { get; set; }
 
@@ -40,19 +44,42 @@ namespace LinkedInClone.Data
 
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            //relationships should be specified here
+        {           
             base.OnModelCreating(modelBuilder);
             //modelBuilder.Entity<ApplicationUser>().ToTable("AppUsers");
+
+
+            //Fluent API 
+            //AppUser
             modelBuilder.Entity<ApplicationUser>()
                .HasMany(u => u.SentConnections)
                 .WithOne(c => c.AccountOwner)
                 .HasForeignKey(c => c.SenderId);
+               
 
             modelBuilder.Entity<ApplicationUser>()
                 .HasMany(u => u.ReceivedConnections)
                 .WithOne(c => c.Friend)
                 .HasForeignKey(c => c.ReceiverId);
+
+            //Connection
+
+            modelBuilder.Entity<Connection>()
+                           .HasOne(c => c.Friend)
+                           .WithMany(u => u.ReceivedConnections)
+                           .HasForeignKey(c => c.ReceiverId)
+                           .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Connection>()
+                           .HasOne(c => c.AccountOwner)
+                           .WithMany(u => u.SentConnections)
+                           .HasForeignKey(c => c.SenderId)
+                           .OnDelete(DeleteBehavior.Restrict);
+            
+
+            // Other entity
+
+           
         }
 
     }
