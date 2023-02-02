@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace LinkedInClone.Models
 {
-    public class JobPostings
+    public class JobPosting
     {
         public int Id { get; set; }
 
