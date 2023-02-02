@@ -78,6 +78,28 @@
 3. Need assistance / figure things out:
 -
 
+------------------------------------------------------------------------------------
+2/2/2023 Kevin
+1. Done/not done since last scrum:
+- Setting up database & tables
+- Began implementing ApplicationUser
+2. To do until next Scrum:
+- Finish AppUser
+- Integrate AppUser into other classes
+  that have a User field
+3. Need assistance / figure things out:
+-
+
+2/2/2023 Matthew
+1. Done/not done since last scrum:
+- Research on how to work with MVC
+- Started implementation of Blob storage
+- Created Posts, Comments and Likes models
+2. To do until next Scrum:
+- Test Blob implementation
+- Implement Posts CRUD
+- Implement Likes/Comments on Posts
+3. Need assistance / figure things out:
 
 2/2/2023 Chris
 1. Done/not done since last scrum:
@@ -89,3 +111,13 @@
 - 
 3. Need assistance / figure things out:
 - allowing users to 'add' each other and see the posts of others
+
+2/2/2023 Seena
+1. Done/not done since last scrum:
+- Create JobApplications and JobPostings Models
+- Started working on Controller/View for JobPostings
+2. To do until next Scrum:
+- Set up scaffolding crud for JobPostings to test out with MVC
+3. Need assistance / figure things out:
+- Connections --> Friends can have many friends
+
