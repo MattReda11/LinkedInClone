@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,10 +12,12 @@ namespace LinkedInClone.Models
     
     public class ApplicationUser : IdentityUser
     {    
-
-        public ICollection<Connection> SentConnections { get; set; }
-
-        public ICollection<Connection> ReceivedConnections { get; set; }
+        [Required]
+        [ForeignKey("SenderId")]
+        public ICollection<Connection> SentConnections { get; set; } = null;
+        [Required]
+        [ForeignKey("ReceiverId")] 
+        public ICollection<Connection> ReceivedConnections { get; set; } = null;
         
     }
 }

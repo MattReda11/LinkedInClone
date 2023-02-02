@@ -43,17 +43,16 @@ namespace LinkedInClone.Data
         {
             //relationships should be specified here
             base.OnModelCreating(modelBuilder);
-
+            //modelBuilder.Entity<ApplicationUser>().ToTable("AppUsers");
             modelBuilder.Entity<ApplicationUser>()
-     .HasMany(u => u.SentConnections)
-     .WithOne(c => c.AccountOwner)
-     .HasForeignKey(c => c.SenderId);
+               .HasMany(u => u.SentConnections)
+                .WithOne(c => c.AccountOwner)
+                .HasForeignKey(c => c.SenderId);
 
             modelBuilder.Entity<ApplicationUser>()
                 .HasMany(u => u.ReceivedConnections)
                 .WithOne(c => c.Friend)
                 .HasForeignKey(c => c.ReceiverId);
-
         }
 
     }
