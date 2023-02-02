@@ -12,7 +12,7 @@ namespace LinkedInClone.Models
         public int Id { get; set; }
 
         [Required]
-        public IdentityUser Author { get; set; }
+        public ApplicationUser Author { get; set; }
 
         [Required]
         [StringLength(20)]

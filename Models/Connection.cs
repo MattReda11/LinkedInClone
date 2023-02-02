@@ -14,14 +14,18 @@ namespace LinkedInClone.Models
         public int Id { get; set; }
 
         [Required, Display(Name = "Account Owner")]
-        public IdentityUser AccountOwner { get; set; }
+        public ApplicationUser AccountOwner { get; set; } // treating AccountOwner as sender
 
         [Required]
-        public IdentityUser Friend { get; set; }
+        public ApplicationUser Friend { get; set; } // Friend as receiver
 
         [Display(Name = "Creation Date"), DataType(DataType.Date)]
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
         public bool Accepted { get; set; } = false;
+     
+        public string SenderId { get; set; }
+        public string ReceiverId { get; set; }
+       
     }
 }

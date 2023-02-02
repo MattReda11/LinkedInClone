@@ -5,15 +5,22 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using LinkedInClone.Data;
 using Azure.Storage.Blobs;
 using LinkedInClone.Services;
+using LinkedInClone.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("AppDbContext") ?? throw new InvalidOperationException("Connection string 'AppDbContext' not found.");
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options =>
- options.SignIn.RequireConfirmedAccount = false)
- .AddEntityFrameworkStores<AppDbContext>();
+// builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+//  options.SignIn.RequireConfirmedAccount = false)
+//  .AddEntityFrameworkStores<AppDbContext>();
+
+
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -24,10 +31,11 @@ var blobConnection = builder.Configuration.GetConnectionString("BlobConnectionSt
 builder.Services.AddSingleton(x => new BlobServiceClient(blobConnection));
 
 builder.Services.AddSingleton<IBlobService, BlobService>();
-
+builder.Services.AddMvc();
 //builder.Services.AddDbContext<
 var app = builder.Build();
 
+app.MapRazorPages(); 
 // using (var scope = app.Services.CreateScope())
 // {
 //     var services = scope.ServiceProvider;
@@ -56,7 +64,7 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapRazorPages(); //cant tell if theres a difference between <--- and below
+
 // app.UseEndpoints(endpoints =>
 //     {
 //         endpoints.MapRazorPages();

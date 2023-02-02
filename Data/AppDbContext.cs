@@ -10,13 +10,13 @@ using Microsoft.EntityFrameworkCore;
 namespace LinkedInClone.Data
 {
     //main DB context that will contain Identity context
-    public class AppDbContext : IdentityDbContext<IdentityUser>
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<IdentityUser> AspNetUsers { get; set; }
+      //  public DbSet<IdentityUser> AspNetUsers { get; set; }
 
-        //public DbSet<ApplicationUser> Users { get; set; }
+        public DbSet<ApplicationUser> AppUsers { get; set; }
 
         public DbSet<Message> Messages { get; set; }
 
@@ -40,10 +40,15 @@ namespace LinkedInClone.Data
             //relationships should be specified here
             base.OnModelCreating(modelBuilder);
 
-            //         modelBuilder.Entity<Connection>()
-            // .HasOne(c => c.AccountOwner)        
-            // .HasForeignKey(c => c.AccountOwner)
-            // .WillCascadeOnDelete(false);
+            modelBuilder.Entity<ApplicationUser>()
+     .HasMany(u => u.SentConnections)
+     .WithOne(c => c.AccountOwner)
+     .HasForeignKey(c => c.SenderId);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(u => u.ReceivedConnections)
+                .WithOne(c => c.Friend)
+                .HasForeignKey(c => c.ReceiverId);
 
         }
     }

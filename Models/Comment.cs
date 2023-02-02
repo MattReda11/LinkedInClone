@@ -15,7 +15,7 @@ namespace LinkedInClone.Models
         public Post Post { get; set; }
 
         [Required]
-        public IdentityUser Author { get; set; }
+        public ApplicationUser Author { get; set; }
 
         [Required]
         [StringLength(500)]

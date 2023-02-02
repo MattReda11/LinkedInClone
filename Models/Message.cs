@@ -13,9 +13,9 @@ namespace LinkedInClone.Models
         [Key]
         public int Id { get; set; }
 
-        public IdentityUser SentBy { get; set; }
+        public ApplicationUser SentBy { get; set; }
 
-        public IdentityUser ReceivedUser { get; set; }
+        public ApplicationUser ReceivedUser { get; set; }
 
         [Required, MinLength(1), MaxLength(20000)]
         public string Content { get; set; }

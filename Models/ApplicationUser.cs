@@ -12,5 +12,6 @@ namespace LinkedInClone.Models
         public ICollection<Connection> SentConnections { get; set; }
 
         public ICollection<Connection> ReceivedConnections { get; set; }
+        
     }
 }

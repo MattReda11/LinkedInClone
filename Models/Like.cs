@@ -15,7 +15,7 @@ namespace LinkedInClone.Models
         public Post LikedPost { get; set; }
 
         [Required]
-        public IdentityUser LikedBy { get; set; }
+        public ApplicationUser LikedBy { get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]
