@@ -14,7 +14,7 @@ namespace LinkedInClone.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-      //  public DbSet<IdentityUser> AspNetUsers { get; set; }
+        //  public DbSet<IdentityUser> AspNetUsers { get; set; }
 
         public DbSet<ApplicationUser> AppUsers { get; set; }
 
@@ -27,6 +27,10 @@ namespace LinkedInClone.Data
         public DbSet<Like> Likes { get; set; }
 
         public DbSet<Connection> Connections { get; set; }
+
+        public DbSet<JobPosting> JobPosting { get; set; }
+
+        public DbSet<JobApplication> JobApplications { get; set; }
 
         //  UserManager<IdentityUser> _userManager;
         // RoleManager<IdentityRole> _roleManager;
@@ -51,5 +55,6 @@ namespace LinkedInClone.Data
                 .HasForeignKey(c => c.ReceiverId);
 
         }
+
     }
 }
