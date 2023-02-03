@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using LinkedInClone.Data;
 using LinkedInClone.Models;
 using Microsoft.AspNetCore.Authorization;
+using LinkedInClone.Services;
 
 namespace LinkedInClone.Controllers
 {
@@ -15,15 +16,20 @@ namespace LinkedInClone.Controllers
     {
         private readonly AppDbContext _context;
 
-        public PostsController(AppDbContext context)
+        public static IBlobService _blobService;
+
+        private readonly ILogger<PostsController> _logger;
+        public PostsController(AppDbContext context, IBlobService blobService, ILogger<PostsController> logger)
         {
             _context = context;
+            _blobService = blobService;
+            _logger = logger;
         }
 
         // GET: Posts
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Posts.ToListAsync());
+            return View(await _context.Posts.Include("Author").ToListAsync());
         }
 
         // GET: Posts/Details/5
@@ -58,10 +64,30 @@ namespace LinkedInClone.Controllers
         // [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Content,PostedDate,FilePath,FileName")] Post post)
+        public async Task<IActionResult> Create([Bind("Id,Content,FileName")] Post post)
         {
+            ModelState.Remove("Author");
+            ModelState.Remove("PostedDate");
+
+            var userName = User.Identity.Name;
+            var user = _context.Users.Where(u => u.UserName == userName).FirstOrDefault();
+
+            var today = DateTime.Now;
+
+            post.Author = user;
+            post.PostedDate = today;
+
             if (ModelState.IsValid)
             {
+
+                if (post.FileName != null)
+                {
+                    post.FilePath = @$"C:\Users\m_red\Desktop\FSD-2022-2023\15- Application Development II\Project\LinkedInClone\wwwroot\Images\{post.FileName}";
+                    await _blobService.UploadFileBlobAsync(post.FilePath, post.FileName);
+
+                    _logger.LogInformation(string.Empty, "File has been uploaded successfully to Blob.");
+                }
+
                 _context.Add(post);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -91,7 +117,7 @@ namespace LinkedInClone.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,PostedDate,FilePath,FileName")] Post post)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Content,FileName")] Post post)
         {
             if (id != post.Id)
             {

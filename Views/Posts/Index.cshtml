@@ -1,54 +1,46 @@
-@model IEnumerable<LinkedInClone.Models.Post>
+@using LinkedInClone.Controllers;
 
+@model IEnumerable<LinkedInClone.Models.Post>
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div>
+    <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Content)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PostedDate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FilePath)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FileName)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+    <div class="divider">
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Content)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PostedDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FilePath)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FileName)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+
+            <div>
+                <div>
+                    <h4>@item.Author.UserName</h4>
+                </div>
+                <div>
+                    <p>Posted on @item.PostedDate.Month/@item.PostedDate.Day/@item.PostedDate.Year at
+                        @item.PostedDate.Hour:@item.PostedDate.Minute </p>
+                </div>
+                <div>
+                    <p>@item.Content</p>
+                </div>
+                <div>
+                    @if (item.FileName != null)
+                    {
+                        @* Downloading the image from Blob Storage *@
+                        var downloadedImage = await
+                        PostsController._blobService.GetBlobAsync($"https://fsd05regex.blob.core.windows.net/blob-storage/{item.FileName}");
+
+                    }
+                    else
+                    {
+                        <div></div>
+                    }
+                </div>
+            </div>
+
         }
-    </tbody>
-</table>
+    </div>
+</div>
