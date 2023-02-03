@@ -7,6 +7,7 @@ using Azure.Storage.Blobs;
 using LinkedInClone.Services;
 using LinkedInClone.Models;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Authentication.OAuth;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("AppDbContext") ?? throw new InvalidOperationException("Connection string 'AppDbContext' not found.");
@@ -18,7 +19,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.S
     .AddRoleManager<RoleManager<IdentityRole>>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
-
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
 builder.Services.ConfigureApplicationCookie(options =>
    {
@@ -41,6 +42,31 @@ builder.Services.AddSingleton(x => new BlobServiceClient(blobConnection));
 
 builder.Services.AddScoped<IBlobService, BlobService>();
 builder.Services.AddMvc();
+
+builder.Services.AddAuthentication().AddOAuth("OAuth", options =>
+{
+    options.ClientId = builder.Configuration["OAuth:ClientId"];
+    options.ClientSecret = builder.Configuration["OAuth:ClientSecret"];
+    options.CallbackPath = new PathString("/signin-oauth");
+    options.AuthorizationEndpoint = "https://accounts.google.com/o/oauth2/v2/auth";
+    options.TokenEndpoint = "https://oauth2.googleapis.com/token";
+
+    options.ClaimsIssuer = "OAuth";
+
+    options.SaveTokens = true;
+
+    options.Events = new OAuthEvents
+    {
+        OnCreatingTicket = async context =>
+        {
+            // custom code to handle additional claims from the OAuth provider
+        }
+    };
+
+    
+}
+
+);
 
 var app = builder.Build();
 
