@@ -13,7 +13,7 @@ public class HomeController : Controller
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly AppDbContext _db;
 
-   
+
     public HomeController(ILogger<HomeController> logger, AppDbContext db, RoleManager<IdentityRole> roleManager)
     {
         _logger = logger;
@@ -69,4 +69,12 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
+    [HttpGet]
+    [AllowAnonymous]
+    public IActionResult AccessDenied()
+    {
+        return View();
+    }
+
 }
