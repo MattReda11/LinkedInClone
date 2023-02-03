@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LinkedInClone.Data;
 using LinkedInClone.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LinkedInClone.Controllers
 {
@@ -22,7 +23,7 @@ namespace LinkedInClone.Controllers
         // GET: Posts
         public async Task<IActionResult> Index()
         {
-              return View(await _context.Posts.ToListAsync());
+            return View(await _context.Posts.ToListAsync());
         }
 
         // GET: Posts/Details/5
@@ -43,6 +44,7 @@ namespace LinkedInClone.Controllers
             return View(post);
         }
 
+        // [Authorize]
         // GET: Posts/Create
         public IActionResult Create()
         {
@@ -52,6 +54,8 @@ namespace LinkedInClone.Controllers
         // POST: Posts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        // [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Content,PostedDate,FilePath,FileName")] Post post)
@@ -84,6 +88,7 @@ namespace LinkedInClone.Controllers
         // POST: Posts/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Content,PostedDate,FilePath,FileName")] Post post)
@@ -148,14 +153,14 @@ namespace LinkedInClone.Controllers
             {
                 _context.Posts.Remove(post);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool PostExists(int id)
         {
-          return _context.Posts.Any(e => e.Id == id);
+            return _context.Posts.Any(e => e.Id == id);
         }
     }
 }

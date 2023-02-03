@@ -15,10 +15,6 @@ namespace LinkedInClone.Models
         public ApplicationUser Author { get; set; }
 
         [Required]
-        [StringLength(20)]
-        public string Title { get; set; }
-
-        [Required]
         [StringLength(1000)]
         public string Content { get; set; }
 
@@ -26,11 +22,9 @@ namespace LinkedInClone.Models
         [DataType(DataType.DateTime)]
         public DateTime PostedDate { get; set; }
 
-        [Required]
-        public string FilePath { get; set; }
+        public string? FilePath { get; set; }
 
-        [Required]
-        public string FileName { get; set; }
+        public string? FileName { get; set; }
 
         public ICollection<Like> Likes { get; set; }
 
