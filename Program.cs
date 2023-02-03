@@ -13,15 +13,12 @@ var connectionString = builder.Configuration.GetConnectionString("AppDbContext")
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
-// builder.Services.AddDefaultIdentity<IdentityUser>(options =>
-//  options.SignIn.RequireConfirmedAccount = false)
-//  .AddEntityFrameworkStores<AppDbContext>();
 
-
-
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+builder.Services.AddIdentity<ApplicationUser, IdentityRole >(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoleManager<RoleManager<IdentityRole>>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -33,16 +30,10 @@ builder.Services.AddSingleton(x => new BlobServiceClient(blobConnection));
 
 builder.Services.AddScoped<IBlobService, BlobService>();
 builder.Services.AddMvc();
-//builder.Services.AddDbContext<
+
 var app = builder.Build();
 
 app.MapRazorPages();
-// using (var scope = app.Services.CreateScope())
-// {
-//     var services = scope.ServiceProvider;
-
-//     SeedData.Initialize(services);
-// }
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
