@@ -37,16 +37,10 @@
                                         asp-page="/Account/Manage/Index" title="Manage">Hello
                                         @UserManager.GetUserName(User)!</a>
                                 </div>
-
-@*  uncomment this block to enable older, working version. Then comment out the block under it *@
-                                @* <div class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Logout"
+                                <div class="nav-item">
+                                    <a class="nav-link text-dark utb utb-C" asp-area="Identity" asp-page="/Account/Logout"
                                         asp-route-returnUrl="@Url.Action(" Index", "Home" , new { area="" })">Log Out
                                     </a>
-                                </div> *@
-
-                                <div>
-                                    <a href="#logoutModalDialog" class="utb utb-C" data-toggle="modal" data-target="#logoutModalDialog">Log Out</a>
                                 </div>
                             </div>
                         </div>
