@@ -26,7 +26,7 @@ body {
 }
 
 .nav-items {
-  background-color: rgb(124, 67, 67);
+  background-color: rgb(67, 87, 124);
   display: flex;
   flex-flow: row nowrap;
   justify-content: flex-start;
@@ -34,7 +34,7 @@ body {
 }
 
 .img-nav-logo {
-  width: 70px;
+  width: 60px;
   height: 60px;
 }
 
@@ -43,10 +43,11 @@ body {
   width: 100%;
 }
 
-/* .custom-header {
-  width: fit-content;
-} */
+.logout-container {
+  margin-left: 25px;
+}
 
-/* .nav-item {
-  background-color: aqua;
-} */
+.btn-custom {
+  margin-right: 20px;
+  margin-top: 20px;
+}

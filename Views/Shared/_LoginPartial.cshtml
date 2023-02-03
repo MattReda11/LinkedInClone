@@ -9,9 +9,9 @@
                 <nav class="no-hover">
                     <div class="header header-fixed custom-header">
 
-                        <div class="nav-item nav-left no-hover">
+                        <div class=" nav-left no-hover">
                             <a asp-controller="Home" asp-action="Index"><img class="img-nav-logo"
-                                    srcset="/Images/logo.png" />
+                                    srcset="/Images/nav-icon.png" />
                             </a>
                         </div>
 
@@ -54,15 +54,10 @@
                                         @UserManager.GetUserName(User)!</a>
                                 </div>
 
-@*  uncomment this block to enable older, working version. Then comment out the block under it *@
-                                @* <div class="nav-item">
+                                <div class="nav-item">
                                     <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Logout"
                                         asp-route-returnUrl="@Url.Action(" Index", "Home" , new { area="" })">Log Out
                                     </a>
-                                </div> *@
-
-                                <div>
-                                    <a href="#logoutModalDialog" class="utb utb-C" data-toggle="modal" data-target="#logoutModalDialog">Log Out</a>
                                 </div>
                                 
                             </div>
@@ -76,17 +71,17 @@
                             <div class="nav-item active">
 
                                 <div class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home"
+                                    <a class="nav-link text-dark utb utb-C" asp-area="" asp-controller="Home"
                                         asp-action="Index">Home</a>
                                 </div>
 
                                 <div class="nav-item">
-                                    <a class="nav-link text-dark" id="register" asp-area="Identity"
+                                    <a class="nav-link text-dark utb utb-C" id="register" asp-area="Identity"
                                         asp-page="/Account/Register">Register</a>
                                 </div>
 
                                 <div class="nav-item">
-                                    <a class="nav-link text-dark" id="login" asp-area="Identity"
+                                    <a class="nav-link text-dark utb utb-C" id="login" asp-area="Identity"
                                         asp-page="/Account/Login">Log
                                         In</a>
                                 </div>

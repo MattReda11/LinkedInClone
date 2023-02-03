@@ -4,21 +4,25 @@
 ViewData["Title"] = "Log out";
 }
 
-<header>
-    @* <h1>@ViewData["Title"]</h1> *@
+<div class="logout-container">
+    <h1>@ViewData["Title"]</h1>
     @{
     if (User.Identity.IsAuthenticated)
     {
     <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page(" /", new {
         area="" })" method="post">
-        <h1>You've been logged out</h1>
-        <button type="submit" class="nav-link btn btn-link text-dark">Continue to Home Page</button>
+        <h3>Are you sure?</h3>
+
+        <button type="submit" class="btn-custom btn outline btn-primary">Log Out and return to Home Page</button>
+
+        <a class="utb utb-C" href="javascript: history.go(-1)">Back to previous page</a>
     </form>
     }
     else
     {
-    <p>You have successfully logged out of the application.</p>
+    <p>Either you were previously logged out or you need to <a class="text-dark utb utb-C" id="login"
+            asp-area="Identity" asp-page="/Account/Login"><b>Log In</b></a> again.</p>
     }
     }
 
-</header>
+</div>
