@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LinkedInClone.Models.Blobs
 {
-    public class BlobInfo
+    public class BlobContent
     {
         public string FilePath { get; set; }
         public string FileName { get; set; }

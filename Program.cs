@@ -14,13 +14,22 @@ var connectionString = builder.Configuration.GetConnectionString("AppDbContext")
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole >(options => options.SignIn.RequireConfirmedAccount = false)
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoleManager<RoleManager<IdentityRole>>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
 
 
+builder.Services.ConfigureApplicationCookie(options =>
+   {
+       // Cookie settings
+       // options.Cookie.HttpOnly = true;
+       // options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
 
+       // options.LoginPath = "/Account/Login";
+       options.AccessDeniedPath = "/Home/AccessDenied";
+       // options.SlidingExpiration = true;`
+   });
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

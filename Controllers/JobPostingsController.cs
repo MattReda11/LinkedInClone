@@ -4,9 +4,11 @@ using LinkedInClone.Data;
 using LinkedInClone.Models;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LinkedInClone.Controllers
 {
+    [Authorize(Roles = "Recruiter")]
     public class JobPostingsController : Controller
     {
         private readonly AppDbContext _context;
