@@ -43,11 +43,19 @@ body {
   width: 100%;
 }
 
-.logout-container {
+.universal-container {
   margin-left: 25px;
 }
 
 .btn-custom {
   margin-right: 20px;
   margin-top: 20px;
+}
+
+input[type="file"] {
+  cursor: pointer;
+}
+
+textarea {
+  max-height: 350px;
 }
