@@ -22,18 +22,18 @@ namespace LinkedInClone.Controllers
         // GET: JobPostings
         public async Task<IActionResult> Index()
         {
-            return View(await _context.JobPosting.ToListAsync());
+            return View(await _context.JobPostings.ToListAsync());
         }
 
         // GET: JobPostings/Details/5
         public async Task<IActionResult> Details(int? id)
         {
-            if (id == null || _context.JobPosting == null)
+            if (id == null || _context.JobPostings == null)
             {
                 return NotFound();
             }
 
-            var jobPosting = await _context.JobPosting
+            var jobPosting = await _context.JobPostings
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (jobPosting == null)
             {
@@ -71,12 +71,12 @@ namespace LinkedInClone.Controllers
         // GET: JobPostings/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null || _context.JobPosting == null)
+            if (id == null || _context.JobPostings == null)
             {
                 return NotFound();
             }
 
-            var jobPosting = await _context.JobPosting.FindAsync(id);
+            var jobPosting = await _context.JobPostings.FindAsync(id);
             if (jobPosting == null)
             {
                 return NotFound();
@@ -124,12 +124,12 @@ namespace LinkedInClone.Controllers
         // GET: JobPostings/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            if (id == null || _context.JobPosting == null)
+            if (id == null || _context.JobPostings == null)
             {
                 return NotFound();
             }
 
-            var jobPosting = await _context.JobPosting
+            var jobPosting = await _context.JobPostings
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (jobPosting == null)
             {
@@ -144,14 +144,14 @@ namespace LinkedInClone.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            if (_context.JobPosting == null)
+            if (_context.JobPostings == null)
             {
                 return Problem("Entity set 'AppDbContext.JobPosting'  is null.");
             }
-            var jobPosting = await _context.JobPosting.FindAsync(id);
+            var jobPosting = await _context.JobPostings.FindAsync(id);
             if (jobPosting != null)
             {
-                _context.JobPosting.Remove(jobPosting);
+                _context.JobPostings.Remove(jobPosting);
             }
 
             await _context.SaveChangesAsync();
@@ -160,7 +160,7 @@ namespace LinkedInClone.Controllers
 
         private bool JobPostingExists(int id)
         {
-            return _context.JobPosting.Any(e => e.Id == id);
+            return _context.JobPostings.Any(e => e.Id == id);
         }
     }
 }

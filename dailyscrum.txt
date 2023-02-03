@@ -124,12 +124,12 @@
 ------------------------------------------------------------------------------------
 2/3/2023 Kevin
 1. Done/not done since last scrum:
-- Setting up database & tables
-- Began implementing ApplicationUser
+- Extend AppUser
+- Began implementing Admin + recruiter roles
 2. To do until next Scrum:
-- Finish AppUser
-- Integrate AppUser into other classes
-  that have a User field
+- Finish admin/recruiter roles
+- Seperate login portals admin/recruiter
+- OAuth
 3. Need assistance / figure things out:
 -
 
@@ -146,7 +146,7 @@
 
 2/3/2023 Chris
 1. Done/not done since last scrum:
-- site-wde nav, connected w/conditional logged in/out, logout modal
+-  became unavailable yesterday 
 2. To do until next Scrum:
 - work on main page (feed)
 - individual post form (recruiter & seeker)
@@ -159,6 +159,7 @@
 - Create JobApplications and JobPostings Models
 - Started working on Controller/View for JobPostings
 2. To do until next Scrum:
-- Set up scaffolding crud for JobPostings to test out with MVC
+- User/Member can view all available jobs & apply for a job
+- Recruiter can view all applicants that applied for a specific job 
 3. Need assistance / figure things out:
-- Connections --> Friends can have many friends
+- 

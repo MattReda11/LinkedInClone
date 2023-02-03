@@ -14,7 +14,8 @@ namespace LinkedInClone.Data
     {
 
         private readonly DbContextOptions _options;
-        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { 
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
+        {
             _options = options;
         }
 
@@ -32,7 +33,7 @@ namespace LinkedInClone.Data
 
         public DbSet<Connection> Connections { get; set; }
 
-        public DbSet<JobPosting> JobPosting { get; set; }
+        public DbSet<JobPosting> JobPostings { get; set; }
 
         public DbSet<JobApplication> JobApplications { get; set; }
 
@@ -44,7 +45,7 @@ namespace LinkedInClone.Data
 
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {           
+        {
             base.OnModelCreating(modelBuilder);
             //modelBuilder.Entity<ApplicationUser>().ToTable("AppUsers"); <--- this will rename/recreate default user table 
 
@@ -55,7 +56,7 @@ namespace LinkedInClone.Data
                .HasMany(u => u.SentConnections)
                 .WithOne(c => c.AccountOwner)
                 .HasForeignKey(c => c.SenderId);
-               
+
 
             modelBuilder.Entity<ApplicationUser>()
                 .HasMany(u => u.ReceivedConnections)
@@ -75,11 +76,11 @@ namespace LinkedInClone.Data
                            .WithMany(u => u.SentConnections)
                            .HasForeignKey(c => c.SenderId)
                            .OnDelete(DeleteBehavior.Restrict);
-            
+
 
             // Other entity
 
-           
+
         }
 
     }

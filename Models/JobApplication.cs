@@ -11,6 +11,9 @@ namespace LinkedInClone.Models
         public ApplicationUser Applicant { get; set; }
 
         [Required]
+        public JobPosting Job { get; set; }
+
+        [Required]
         public string FilePath { get; set; }
 
         [Required]
