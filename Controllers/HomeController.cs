@@ -36,6 +36,34 @@ public class HomeController : Controller
         return View();
     }
 
+    // [HttpPost]
+    // public async Task<ActionResult> CreateRoles()
+    // {
+    //     Console.WriteLine("Attempting to create user role...");
+    //     var regUser = new IdentityRole();
+    //     regUser.Name = "User";
+    //    await _roleManager.CreateAsync(regUser);
+    //     Console.WriteLine("user role created!");
+
+    //     Console.WriteLine("Attempting to create recruiter role...");
+    //     var recruiter = new IdentityRole();
+    //     recruiter.Name = "Recruiter";
+    //     await _roleManager.CreateAsync(recruiter);
+    //     Console.WriteLine("recruiter role created!");
+
+    //     Console.WriteLine("Attempting to create admin role...");
+    //     var admin = new IdentityRole();
+    //     admin.Name = "Admin";
+    //     await _roleManager.CreateAsync(admin);
+    //     Console.WriteLine("admin role created!");
+
+    //     Console.WriteLine("Attempting to save changes...");
+    //     int x = await _db.SaveChangesAsync();
+    //     if (x > 0){
+    //     return RedirectToAction("Index");
+    //     }else return RedirectToAction("Privacy");
+    // }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
