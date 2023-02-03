@@ -3,19 +3,22 @@ using Microsoft.AspNetCore.Mvc;
 using LinkedInClone.Models;
 using Microsoft.AspNetCore.Authorization;
 using LinkedInClone.Data;
+using Microsoft.AspNetCore.Identity;
 
 namespace LinkedInClone.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
-
+    private readonly RoleManager<IdentityRole> _roleManager;
     private readonly AppDbContext _db;
 
-    public HomeController(ILogger<HomeController> logger, AppDbContext db)
+   
+    public HomeController(ILogger<HomeController> logger, AppDbContext db, RoleManager<IdentityRole> roleManager)
     {
         _logger = logger;
         _db = db;
+        _roleManager = roleManager;
     }
 
     public IActionResult Index()

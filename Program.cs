@@ -20,6 +20,8 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole >(options => options.
     .AddDefaultTokenProviders();
 
 
+
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
