@@ -20,8 +20,16 @@
                     <h4>@item.Author.UserName</h4>
                 </div>
                 <div>
-                    <p>Posted on @item.PostedDate.Month/@item.PostedDate.Day/@item.PostedDate.Year at
-                        @item.PostedDate.Hour:@item.PostedDate.Minute </p>
+                    @if (item.PostedDate.Minute > 10)
+                    {
+                        <p>Posted on @item.PostedDate.Month/@item.PostedDate.Day/@item.PostedDate.Year at
+                            @item.PostedDate.Hour:@item.PostedDate.Minute </p>
+                    }
+                    else
+                    {
+                        <p>Posted on @item.PostedDate.Month/@item.PostedDate.Day/@item.PostedDate.Year at
+                            @item.PostedDate.Hour:@item.PostedDate.Minute.ToString().Insert(0, "0")</p>
+                    }
                 </div>
                 <div>
                     <p>@item.Content</p>

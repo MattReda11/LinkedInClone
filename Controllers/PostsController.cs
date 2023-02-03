@@ -82,7 +82,7 @@ namespace LinkedInClone.Controllers
 
                 if (post.FileName != null)
                 {
-                    post.FilePath = @$"C:\Users\m_red\Desktop\FSD-2022-2023\15- Application Development II\Project\LinkedInClone\wwwroot\Images\{post.FileName}";
+                    post.FilePath = @$"wwwroot/Images/{post.FileName}";
                     await _blobService.UploadFileBlobAsync(post.FilePath, post.FileName);
 
                     _logger.LogInformation(string.Empty, "File has been uploaded successfully to Blob.");
