@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using LinkedInClone.Data;
 using LinkedInClone.Models;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace LinkedInClone.Controllers
 {
@@ -19,10 +20,11 @@ namespace LinkedInClone.Controllers
             _userManager = userManager;
         }
 
-        // GET: JobPostings
+        // GET: JobPostings for logged in user only
         public async Task<IActionResult> Index()
         {
-            return View(await _context.JobPostings.ToListAsync());
+            var model = await _context.JobPostings.Where(a => a.Recruiter.Id == HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value).ToListAsync();
+            return View(model);
         }
 
         // GET: JobPostings/Details/5
