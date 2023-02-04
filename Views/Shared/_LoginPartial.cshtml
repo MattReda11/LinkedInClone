@@ -13,6 +13,8 @@
                             <a asp-controller="Home" asp-action="Index"><img class="img-nav-logo"
                                     srcset="/Images/nav-icon.png" />
                             </a>
+                            <h4 class="tracking-loosest font-normal mt-1 ml-5">JobLink</h4>
+                            
                         </div>
 
                         @if (SignInManager.IsSignedIn(User) && User.IsInRole("User"))
@@ -33,7 +35,7 @@
                                         asp-action="Privacy">Notifications</a>
                                 </div>
                                 <div class="nav-item">
-                                    <a id="manage" class="nav-link text-dark utb utb-C" asp-area="Identity"
+                                    <a id="manage" data-tooltip="Tooltip 1" class="nav-link text-dark utb utb-C" asp-area="Identity"
                                         asp-page="/Account/Manage/Index" title="Manage">Hello
                                         @UserManager.GetUserName(User)!</a>
                                 </div>
@@ -55,10 +57,11 @@
                                 asp-page="/Account/Manage/Index" title="Manage">Hello
                                 @UserManager.GetUserName(User)!</a>
                         </div>
-                        <div class="nav-item">
+                        @*! TODO: logout modal was removed, this needs replacement *@
+                        @* <div class="nav-item">
                             <a href="#logoutModalDialog" class="utb utb-C" data-toggle="modal"
                                 data-target="#logoutModalDialog">Log Out</a>
-                        </div>
+                        </div> *@
 
                         } else if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin")){
                         @* TODO: Add Admin tabs and associated controller/views *@

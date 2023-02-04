@@ -59,3 +59,25 @@ input[type="file"] {
 textarea {
   max-height: 350px;
 }
+
+/* HOMEPAGE */
+.homepage-container {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  min-width: 70%;
+  margin: 15px;
+}
+.homepage-left {
+  width: 20%;
+  padding-left: 12px;
+}
+.homepage-center {
+  width: 60%;
+}
+.homepage-right {
+  width: 20%;
+  padding-right: 12px;
+}
