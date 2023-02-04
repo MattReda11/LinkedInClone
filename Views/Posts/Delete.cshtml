@@ -23,18 +23,15 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.PostedDate)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FilePath)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FilePath)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FileName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FileName)
-        </dd>
+        @if (Model.FileName != null)
+        {
+            <dt class="col-sm-2">
+                Image/Video
+            </dt>
+            <dd class="col-sm-10">
+                <img src='@Url.Action("GetMediaFile","Posts", new {fileName = Model.FileName})' />
+            </dd>
+        }
     </dl>
 
     <form asp-action="Delete">

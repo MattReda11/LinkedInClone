@@ -146,10 +146,29 @@ namespace LinkedInClone.Controllers
                 return NotFound();
             }
 
+            ModelState.Remove("Author");
+            ModelState.Remove("PostedDate");
+
+            var userName = User.Identity.Name;
+            var user = _context.Users.Where(u => u.UserName == userName).FirstOrDefault();
+            post.Author = user;
+
+            post.PostedDate = DateTime.Now;
+
             if (ModelState.IsValid)
             {
                 try
                 {
+                    var downloadedData = await _blobService.GetBlobAsync($"https://fsd05regex.blob.core.windows.net/blob-storage/{post.FileName}");
+
+                    if (downloadedData == null)
+                    {
+                        post.FilePath = @$"wwwroot/Images/{post.FileName}";
+                        await _blobService.UploadFileBlobAsync(post.FilePath, post.FileName);
+
+                        _logger.LogInformation(string.Empty, $"File for post {post.Id} has been updated and uploaded to Blob.");
+                    }
+
                     _context.Update(post);
                     await _context.SaveChangesAsync();
                 }
