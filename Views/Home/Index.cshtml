@@ -1,5 +1,6 @@
-﻿@{
-ViewData["Title"] = "Home Page";
+﻿@model dynamic
+@{
+    ViewData["Title"] = "Home Page";
 }
 
 <h5>🚧 Homepage under construction 🚧</h5>
@@ -52,31 +53,67 @@ ViewData["Title"] = "Home Page";
         <p><a asp-controller="Posts" asp-action="Create">Add a Post</a></p> -->
     </div>
     <div class="homepage-center">
-        <h6>posts go here and that's why they get 60% of the screen</h6>
+        @foreach (var item in Model)
+        {
+
+            <div>
+                <div>
+                    <h4>@item.Author.UserName</h4>
+                </div>
+                <div>
+                    @if (item.PostedDate.Minute > 10)
+                    {
+                        <p>Posted on @item.PostedDate.Month/@item.PostedDate.Day/@item.PostedDate.Year at
+                            @item.PostedDate.Hour:@item.PostedDate.Minute </p>
+                    }
+                    else
+                    {
+                        <p>Posted on @item.PostedDate.Month/@item.PostedDate.Day/@item.PostedDate.Year at
+                            @item.PostedDate.Hour:@item.PostedDate.Minute.ToString().Insert(0, "0")</p>
+                    }
+                </div>
+                <div>
+                    <p>@item.Content</p>
+                </div>
+                <div>
+                    @if (item.FileName != null)
+                    {
+                        <img src='@Url.Action("GetMediaFile","Posts", new {fileName = item.FileName})' />
+                    }
+                    else
+                    {
+                        <div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        }
     </div>
     <div class="homepage-right">
         <h6>other stuff goes here</h6>
-<p>maybe links like</p> 
+        <p>maybe links like</p>
         <a href="https://youtu.be/dQw4w9WgXcQ">Our Partners</a>
 
 
         <div class="card">
-    <div class="card__container">
-        <div class="card__image"></div>
-        <div class="card__title-container">
-            <p class="title">Featured Post</p><span class="subtitle">X Amount of Likes Today!</span></div>
-    </div>
-    <div class="content">
-        <p>the post content</p>
-    </div>
-    <div class="card__action-bar u-center">
-        <button class="btn-link outline">View full post</button>
-        <button class="btn-link outline">Share</button>
-    </div>
-    <div class="card__footer">
-        <div class="u-text-center"><span>This was posted <code>Yesterday</code></span></div>
-    </div>
-</div>
+            <div class="card__container">
+                <div class="card__image"></div>
+                <div class="card__title-container">
+                    <p class="title">Featured Post</p><span class="subtitle">X Amount of Likes Today!</span>
+                </div>
+            </div>
+            <div class="content">
+                <p>the post content</p>
+            </div>
+            <div class="card__action-bar u-center">
+                <button class="btn-link outline">View full post</button>
+                <button class="btn-link outline">Share</button>
+            </div>
+            <div class="card__footer">
+                <div class="u-text-center"><span>This was posted <code>Yesterday</code></span></div>
+            </div>
+        </div>
 
     </div>
 </div>

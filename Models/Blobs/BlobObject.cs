@@ -7,7 +7,7 @@ namespace LinkedInClone.Models.Blobs
 {
     public class BlobObject
     {
-        public byte[]? Content { get; set; }
+        public Stream? Content { get; set; }
 
         public string? ContentType { get; set; }
     }

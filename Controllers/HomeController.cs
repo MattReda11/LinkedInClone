@@ -4,6 +4,7 @@ using LinkedInClone.Models;
 using Microsoft.AspNetCore.Authorization;
 using LinkedInClone.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace LinkedInClone.Controllers;
 
@@ -21,9 +22,9 @@ public class HomeController : Controller
         _roleManager = roleManager;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        return View(await _db.Posts.Include("Author").ToListAsync());
     }
     [Authorize] //testing authorization
     public IActionResult Privacy()

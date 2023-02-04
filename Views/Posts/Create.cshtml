@@ -1,7 +1,7 @@
 @model LinkedInClone.Models.Post
 
 @{
-ViewData["Title"] = "Create";
+    ViewData["Title"] = "Create";
 }
 
 
@@ -33,7 +33,8 @@ ViewData["Title"] = "Create";
                 </div>
 
                 <div class="col-xs-9 level-item input-control">
-                    <input asp-for="FileName" type="file" class="input-contains-icon" />
+                    <input asp-for="FileName" type="file" class="input-contains-icon"
+                        accept=".png, .jpg, .jpeg, .gif, .mp4, .mov, .avi" />
                     <span class="icon">
                         <i style="padding-left:9px;font-size:30px;color:rgb(250, 158, 158);"
                             class="fa-solid fa-file-import"></i></span>
@@ -58,7 +59,7 @@ ViewData["Title"] = "Create";
 
 
 @section Scripts {
-@{
-await Html.RenderPartialAsync("_ValidationScriptsPartial");
-}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

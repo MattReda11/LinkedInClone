@@ -44,7 +44,7 @@ namespace LinkedInClone.Services
                 if (await blobClient.ExistsAsync())
                 {
                     BlobDownloadResult content = await blobClient.DownloadContentAsync();
-                    var downloadData = content.Content.ToArray();
+                    var downloadData = content.Content.ToStream();
 
                     if (ImageExtensions.Contains(Path.GetExtension(fileName.ToUpperInvariant())))
                     {

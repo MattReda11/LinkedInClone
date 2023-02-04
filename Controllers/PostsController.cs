@@ -10,6 +10,8 @@ using LinkedInClone.Models;
 using Microsoft.AspNetCore.Authorization;
 using LinkedInClone.Services;
 using LinkedInClone.Models.Blobs;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace LinkedInClone.Controllers
 {
@@ -32,10 +34,19 @@ namespace LinkedInClone.Controllers
         {
             var downloadedData = await _blobService.GetBlobAsync($"https://fsd05regex.blob.core.windows.net/blob-storage/{fileName}");
 
+            if (downloadedData.ContentType.Contains("image/"))
+            {
+                var image = Image.FromStream(downloadedData.Content);
+                var resizedImage = new Bitmap(image, new Size(500, 300));
+
+                using var imageStream = new MemoryStream();
+                resizedImage.Save(imageStream, ImageFormat.Jpeg);
+
+                return File(imageStream.ToArray(), downloadedData.ContentType);
+            }
             return File(downloadedData.Content, downloadedData.ContentType);
         }
 
-        // GET: Posts
         public async Task<IActionResult> Index()
         {
             return View(await _context.Posts.Include("Author").ToListAsync());
@@ -59,7 +70,7 @@ namespace LinkedInClone.Controllers
             return View(post);
         }
 
-        // [Authorize]
+        [Authorize]
         // GET: Posts/Create
         public IActionResult Create()
         {
@@ -70,7 +81,7 @@ namespace LinkedInClone.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 
-        // [Authorize]
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Content,FileName")] Post post)
@@ -104,6 +115,7 @@ namespace LinkedInClone.Controllers
             return View(post);
         }
 
+        [Authorize]
         // GET: Posts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -124,6 +136,7 @@ namespace LinkedInClone.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
 
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Content,FileName")] Post post)
@@ -156,6 +169,7 @@ namespace LinkedInClone.Controllers
             return View(post);
         }
 
+        [Authorize]
         // GET: Posts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -174,6 +188,7 @@ namespace LinkedInClone.Controllers
             return View(post);
         }
 
+        [Authorize]
         // POST: Posts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
