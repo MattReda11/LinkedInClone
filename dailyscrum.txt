@@ -166,12 +166,13 @@
 ------------------------------------------------------------------------------------
 2/4/2023 Kevin
 1. Done/not done since last scrum:
-- Extend AppUser
-- Began implementing Admin + recruiter roles
+- Roles implemented
+- OAuth implemented (works on localhost)
 2. To do until next Scrum:
-- Finish admin/recruiter roles
+- Special admin interface 
 - Seperate login portals admin/recruiter
-- OAuth
+- News Headline API
+
 3. Need assistance / figure things out:
 -
 
