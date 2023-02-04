@@ -9,6 +9,7 @@ using LinkedInClone.Data;
 using LinkedInClone.Models;
 using Microsoft.AspNetCore.Authorization;
 using LinkedInClone.Services;
+using LinkedInClone.Models.Blobs;
 
 namespace LinkedInClone.Controllers
 {
@@ -16,14 +17,22 @@ namespace LinkedInClone.Controllers
     {
         private readonly AppDbContext _context;
 
-        public static IBlobService _blobService;
+        private readonly IBlobService _blobService;
 
         private readonly ILogger<PostsController> _logger;
+
         public PostsController(AppDbContext context, IBlobService blobService, ILogger<PostsController> logger)
         {
             _context = context;
             _blobService = blobService;
             _logger = logger;
+        }
+
+        public async Task<IActionResult> GetMediaFile(string fileName)
+        {
+            var downloadedData = await _blobService.GetBlobAsync($"https://fsd05regex.blob.core.windows.net/blob-storage/{fileName}");
+
+            return File(downloadedData.Content, downloadedData.ContentType);
         }
 
         // GET: Posts

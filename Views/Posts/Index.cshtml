@@ -1,6 +1,6 @@
 @using LinkedInClone.Controllers;
 
-@model IEnumerable<LinkedInClone.Models.Post>
+@model dynamic
 @{
     ViewData["Title"] = "Index";
 }
@@ -37,14 +37,12 @@
                 <div>
                     @if (item.FileName != null)
                     {
-                        @* Downloading the image from Blob Storage *@
-                        var downloadedImage = await
-                        PostsController._blobService.GetBlobAsync($"https://fsd05regex.blob.core.windows.net/blob-storage/{item.FileName}");
-
+                        <img src='@Url.Action("GetMediaFile","Posts", new {fileName = item.FileName})' />
                     }
                     else
                     {
-                        <div></div>
+                        <div>
+                        </div>
                     }
                 </div>
             </div>
