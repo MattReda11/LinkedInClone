@@ -42,31 +42,26 @@ builder.Services.AddSingleton(x => new BlobServiceClient(blobConnection));
 
 builder.Services.AddScoped<IBlobService, BlobService>();
 builder.Services.AddMvc();
-
-builder.Services.AddAuthentication().AddOAuth("OAuth", options =>
+builder.Services.Configure<CookiePolicyOptions>(options =>
 {
-    options.ClientId = builder.Configuration["OAuth:ClientId"];
-    options.ClientSecret = builder.Configuration["OAuth:ClientSecret"];
-    options.CallbackPath = new PathString("/signin-oauth");
-    options.AuthorizationEndpoint = "https://accounts.google.com/o/oauth2/v2/auth";
-    options.TokenEndpoint = "https://oauth2.googleapis.com/token";
+    options.MinimumSameSitePolicy = SameSiteMode.None;
+    options.OnAppendCookie = cookieContext =>
+        cookieContext.CookieOptions.Secure = true;
+    options.OnDeleteCookie = cookieContext =>
+        cookieContext.CookieOptions.Secure = true;
+});
 
-    options.ClaimsIssuer = "OAuth";
 
-    options.SaveTokens = true;
 
-    options.Events = new OAuthEvents
-    {
-        OnCreatingTicket = async context =>
-        {
-            // custom code to handle additional claims from the OAuth provider
-        }
-    };
-
-    
-}
-
-);
+builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = "379601028963-alml822od0odsmo04m5hl4png6ikqasp.apps.googleusercontent.com"; //builder.Configuration["Authentication:Google:ClientId"];
+    googleOptions.ClientSecret = "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";
+           //builder.Configuration["Authentication:Google:ClientSecret"];
+    googleOptions.SignInScheme = IdentityConstants.ExternalScheme;
+    googleOptions.SaveTokens = true;
+    //googleOptions.CallbackPath = "http://localhost:5027/Identity/Account/Login";
+});
 
 var app = builder.Build();
 
@@ -79,6 +74,8 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+//redirects to login page if any restricted url is accessed
 app.UseStatusCodePages(async context =>
 {
     var response = context.HttpContext.Response;

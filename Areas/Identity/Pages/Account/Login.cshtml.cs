@@ -83,6 +83,8 @@ namespace LinkedInClone.Areas.Identity.Pages.Account
             /// </summary>
             [Display(Name = "Remember me?")]
             public bool RememberMe { get; set; }
+
+            public IList<AuthenticationScheme> ExternalLogins { get; set; }
         }
 
         public async Task OnGetAsync(string returnUrl = null)

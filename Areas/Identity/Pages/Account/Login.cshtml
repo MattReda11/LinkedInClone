@@ -46,7 +46,7 @@
         </section>
     </div>
     <div class="col-md-6 col-md-offset-2">
-        <section>
+        @* <section>
             <p>Or sign in with:</p>
   <a>
     <img src="/Images/OAuthGoogle.png" id="google-button" alt="Google">
@@ -54,29 +54,40 @@
   <hr />
   <p>Secondary google button</p>
   <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        </section> *@
+
+         <section>
+            <h3>Use another service to log in.</h3>
+            <hr />
+            @{
+                if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                {
+                    <div>
+                        <p>
+                            There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715">article
+                            about setting up this ASP.NET application to support logging in via external services</a>.
+                        </p>
+                    </div>
+                }
+                else
+                {
+                    <form id="external-account" asp-controller="Account" asp-action="ExternalLogin"  method="post" class="form-horizontal">
+                        <div>
+                            <p>
+                                @foreach (var provider in Model.ExternalLogins!)
+                                {
+                                    <button  class="btn btn-primary" asp-controller="Account" asp-action="GoogleLogin" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                }
+                            </p>
+                        </div>
+                    </form>
+                }
+            }
         </section>
     </div>
 </div>
-<script>
-function onSignIn(googleUser) {
-  var profile = googleUser.getBasicProfile();
-  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-  console.log('Name: ' + profile.getName());
-  console.log('Image URL: ' + profile.getImageUrl());
-  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-}
-    </script>
-@* <script>
-    disabling for now as i cant progress further without have the site hosted i think
-    document.getElementById("google-button").addEventListener("click", function () {
-  var url = "https://accounts.google.com/o/oauth2/v2/auth?" +
-    "response_type=code&" +
-    "client_id=379601028963-alml822od0odsmo04m5hl4png6ikqasp.apps.googleusercontent.com&" +
-    "redirect_uri=http://localhost:5027&" + //swap this out with real url once site is hosted
-    "scope=openid%20email%20profile";
-  window.location = url;
-});
-</script> *@
+
+
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <meta name="google-signin-client_id" content="379601028963-alml822od0odsmo04m5hl4png6ikqasp.apps.googleusercontent.com">
 @section Scripts {

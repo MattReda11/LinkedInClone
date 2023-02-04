@@ -1,0 +1,13 @@
+@model IEnumerable<string>
+ 
+<h1 class="bg-info text-white">Your Login Details</h1>
+ 
+<table class="table table-sm table-bordered">
+    <tr><th>Name</th><th>Email</th></tr>
+    <tr>
+        @foreach (string info in Model)
+        {
+            <td>@info</td>
+        }
+    </tr>
+</table>
