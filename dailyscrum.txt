@@ -170,8 +170,9 @@
 - OAuth implemented (works on localhost)
 2. To do until next Scrum:
 - Special admin interface 
-- Seperate login portals admin/recruiter
-- News Headline API
+- Admin CRUD privileges
+- Separate login portals admin/recruiter
+
 
 3. Need assistance / figure things out:
 -

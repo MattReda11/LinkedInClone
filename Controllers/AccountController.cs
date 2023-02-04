@@ -63,19 +63,17 @@ public class AccountController : Controller
                 UserName = info.Principal.FindFirst(ClaimTypes.Email).Value
             };
 
-            IdentityResult identResult = await _userManager.CreateAsync(user);
-            _logger.LogInformation($"[DEBUG-2] ts{identResult.ToString()} ,gt {identResult.GetType()}");
+            IdentityResult identResult = await _userManager.CreateAsync(user);            
             foreach (var error in identResult.Errors)
             {
                 _logger.LogInformation($"Create Async result -> {error.Description}");
             }
             if (identResult.Succeeded)
-            {
-                _logger.LogInformation($"[DEBUG-3]1st IdentR");
+            {                
                 identResult = await _userManager.AddLoginAsync(user, info);
                 if (identResult.Succeeded)
                 {
-                    _logger.LogInformation($"[DEBUG-3]2nd IdentR Google login information added for user {userInfo[0]}");
+                    _logger.LogInformation($"Google login information added for user {userInfo[0]}");
                     await _signInManager.SignInAsync(user, false);
                     return View(userInfo);
                 }
