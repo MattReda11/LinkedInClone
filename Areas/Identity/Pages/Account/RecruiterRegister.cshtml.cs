@@ -92,9 +92,9 @@ namespace LinkedInClone.Areas.Identity.Pages.Account
         }
 
 
-        public async Task OnGetAsync()
+        public async Task OnGetAsync(string returnUrl)
         {
-            //ReturnUrl = returnUrl;
+            ReturnUrl = returnUrl;
             //ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
@@ -109,7 +109,7 @@ namespace LinkedInClone.Areas.Identity.Pages.Account
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
-                Console.WriteLine("res =");
+                //Console.WriteLine("res =");
                 if (result.Succeeded)
                 {
                     Console.WriteLine("success");

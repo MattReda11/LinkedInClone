@@ -18,7 +18,7 @@ public class AccountController : Controller
     private readonly UserManager<ApplicationUser> _userManager;
 
 
-    public AccountController(ILogger<AccountController> logger, AppDbContext db, RoleManager<IdentityRole> roleManager,SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+    public AccountController(ILogger<AccountController> logger, AppDbContext db, RoleManager<IdentityRole> roleManager, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
     {
         _logger = logger;
         _db = db;
@@ -41,29 +41,48 @@ public class AccountController : Controller
     public async Task<IActionResult> GoogleResponse()
     {
         ExternalLoginInfo info = await _signInManager.GetExternalLoginInfoAsync();
+
         if (info == null)
-            return RedirectToPage("Login");
+            return View("ExternalLoginFailed");
 
         var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, false);
+
         string[] userInfo = { info.Principal.FindFirst(ClaimTypes.Name).Value, info.Principal.FindFirst(ClaimTypes.Email).Value };
-        if (result.Succeeded){
-            _logger.LogInformation($"User {userInfo[0]} signed in successfully using google.");
-            return View("Index");
+        if (result.Succeeded)
+        {
+            _logger.LogInformation($"[DEBUG-1]User {userInfo[0]} signed in successfully using google.");
+            return RedirectToAction("Index");
         }
-           
         else
         {
-            ApplicationUser user = new ApplicationUser
+            var user = await _userManager.FindByEmailAsync(info.Principal.FindFirst(ClaimTypes.Email).Value);
+            if (user == null){
+            user = new ApplicationUser
             {
                 Email = info.Principal.FindFirst(ClaimTypes.Email).Value,
                 UserName = info.Principal.FindFirst(ClaimTypes.Email).Value
             };
 
             IdentityResult identResult = await _userManager.CreateAsync(user);
-            _logger.LogInformation($"User {userInfo[0]} created an account with google login.");
+            _logger.LogInformation($"[DEBUG-2] ts{identResult.ToString()} ,gt {identResult.GetType()}");
+            foreach (var error in identResult.Errors)
+            {
+                _logger.LogInformation($"Create Async result -> {error.Description}");
+            }
             if (identResult.Succeeded)
             {
+                _logger.LogInformation($"[DEBUG-3]1st IdentR");
                 identResult = await _userManager.AddLoginAsync(user, info);
+                if (identResult.Succeeded)
+                {
+                    _logger.LogInformation($"[DEBUG-3]2nd IdentR Google login information added for user {userInfo[0]}");
+                    await _signInManager.SignInAsync(user, false);
+                    return View(userInfo);
+                }
+            }
+            }else
+            {
+                var identResult = await _userManager.AddLoginAsync(user, info);
                 if (identResult.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, false);
