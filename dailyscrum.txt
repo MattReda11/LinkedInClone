@@ -140,7 +140,6 @@
 2. To do until next Scrum:
 - Implement CRUD for Posts
 - Test Blob Storage with Posts
-- Implement Comments and Likes on Posts
 3. Need assistance / figure things out:
 
 
@@ -155,6 +154,49 @@
 - allowing users to 'add' each other and see the posts of others
 
 2/3/2023 Seena
+1. Done/not done since last scrum:
+- Create JobApplications and JobPostings Models
+- Started working on Controller/View for JobPostings
+2. To do until next Scrum:
+- User/Member can view all available jobs & apply for a job
+- Recruiter can view all applicants that applied for a specific job 
+3. Need assistance / figure things out:
+- 
+
+------------------------------------------------------------------------------------
+2/4/2023 Kevin
+1. Done/not done since last scrum:
+- Extend AppUser
+- Began implementing Admin + recruiter roles
+2. To do until next Scrum:
+- Finish admin/recruiter roles
+- Seperate login portals admin/recruiter
+- OAuth
+3. Need assistance / figure things out:
+-
+
+2/4/2023 Matthew
+1. Done/not done since last scrum:
+- Upload/Download to and from Blob Storage
+- Create Posts
+- Show all Posts on Index page
+2. To do until next Scrum:
+- Implement Edit/Delete Posts
+- Implement Comments and Likes on Posts
+3. Need assistance / figure things out:
+-
+
+2/4/2023 Chris
+1. Done/not done since last scrum:
+-  became unavailable yesterday 
+2. To do until next Scrum:
+- work on main page (feed)
+- individual post form (recruiter & seeker)
+- footer
+3. Need assistance / figure things out:
+- allowing users to 'add' each other and see the posts of others
+
+2/4/2023 Seena
 1. Done/not done since last scrum:
 - Create JobApplications and JobPostings Models
 - Started working on Controller/View for JobPostings
