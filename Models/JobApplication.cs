@@ -5,7 +5,7 @@ namespace LinkedInClone.Models
 {
     public class JobApplication
     {
-        public int Id { get; set; }
+        public int JobApplicationId { get; set; }
 
         [Required]
         public ApplicationUser Applicant { get; set; }

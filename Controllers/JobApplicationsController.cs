@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using LinkedInClone.Data;
 using LinkedInClone.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace LinkedInClone.Controllers
 {
@@ -10,10 +11,14 @@ namespace LinkedInClone.Controllers
     public class JobApplicationsController : Controller
     {
         private readonly AppDbContext _context;
+        private readonly ILogger _logger;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public JobApplicationsController(AppDbContext context)
+        public JobApplicationsController(AppDbContext context, ILogger<JobPosting> logger, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _logger = logger;
+            _userManager = userManager;
         }
 
         // GET: JobApplications
@@ -37,7 +42,7 @@ namespace LinkedInClone.Controllers
             }
 
             var jobApplication = await _context.JobApplications
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.JobApplicationId == id);
             if (jobApplication == null)
             {
                 return NotFound();
@@ -53,12 +58,15 @@ namespace LinkedInClone.Controllers
         }
 
         // POST: JobApplications/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FilePath,FileName,CreatedDate")] JobApplication jobApplication)
+        public async Task<IActionResult> Create(int id, [Bind("Id,FilePath,FileName,CreatedDate")] JobApplication jobApplication)
         {
+            ModelState.Remove("Applicant");
+            ModelState.Remove("Job");
+            jobApplication.Applicant = await _userManager.GetUserAsync(User);
+            jobApplication.Job = await _context.JobPostings.Where(jp => jp.Id == id).FirstOrDefaultAsync();
+
             if (ModelState.IsValid)
             {
                 _context.Add(jobApplication);
@@ -91,7 +99,7 @@ namespace LinkedInClone.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,FilePath,FileName,CreatedDate")] JobApplication jobApplication)
         {
-            if (id != jobApplication.Id)
+            if (id != jobApplication.JobApplicationId)
             {
                 return NotFound();
             }
@@ -105,7 +113,7 @@ namespace LinkedInClone.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!JobApplicationExists(jobApplication.Id))
+                    if (!JobApplicationExists(jobApplication.JobApplicationId))
                     {
                         return NotFound();
                     }
@@ -128,7 +136,7 @@ namespace LinkedInClone.Controllers
             }
 
             var jobApplication = await _context.JobApplications
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(m => m.JobApplicationId == id);
             if (jobApplication == null)
             {
                 return NotFound();
@@ -158,7 +166,7 @@ namespace LinkedInClone.Controllers
 
         private bool JobApplicationExists(int id)
         {
-            return _context.JobApplications.Any(e => e.Id == id);
+            return _context.JobApplications.Any(e => e.JobApplicationId == id);
         }
     }
 }
