@@ -1,17 +1,18 @@
 @model IEnumerable<LinkedInClone.Models.JobApplication>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "My Applications";
 }
 
-<h1>Index</h1>
+<h1>@ViewData["Title"]</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Job.JobTitle)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.FilePath)
             </th>
@@ -19,7 +20,7 @@
                 @Html.DisplayNameFor(model => model.FileName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
+                Submitted On
             </th>
             <th></th>
         </tr>
@@ -27,6 +28,9 @@
     <tbody>
 @foreach (var item in Model) {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Job.JobTitle)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FilePath)
             </td>
@@ -37,7 +41,6 @@
                 @Html.DisplayFor(modelItem => item.CreatedDate)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.JobApplicationId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.JobApplicationId">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.JobApplicationId">Delete</a>
             </td>

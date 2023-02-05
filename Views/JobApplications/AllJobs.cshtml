@@ -34,6 +34,11 @@
                 @Html.DisplayFor(modelItem => item.CreatedDate)
             </td>
             <td>
+                @* FIXME: 
+                    IF User has already applied, show that instead of apply button 
+                    OR
+                    Show a prompt on click that says user has already applied for that particular job
+                *@
                 <a asp-action="Create" asp-route-id="@item.Id">Apply</a> 
             </td>
         </tr>

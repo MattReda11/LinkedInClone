@@ -29,7 +29,7 @@ namespace LinkedInClone.Areas.Identity.Pages.Account
         private readonly IUserStore<ApplicationUser> _userStore;
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly IEmailSender _emailSender;
+       // private readonly IEmailSender _emailSender;
         private readonly RoleManager<IdentityRole> _roleManager;
 
  
