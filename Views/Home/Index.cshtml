@@ -57,23 +57,12 @@ ViewData["Title"] = "Home Page";
                 <div class="content">
                     <h6>@item.Author.UserName</h6>
                 </div>
-                <div>
-                    @if (item.PostedDate.Minute > 10)
-                    {
+              
                     <div class="post-card-date">
                         <p>Posted on @item.PostedDate.ToString("ddd MMMM dd, yyyy") at
                             @item.PostedDate.ToString("h:mm tt") </p>
                     </div>
-                    }
-                    else
-                    {
-                    <div class="post-card-date">
-                        <p>Posted on @item.PostedDate.ToString("ddd MMMM dd, yyyy") at
-                            @item.PostedDate.ToString("h:mm tt") </p>
-                    </div>
-                    }
 
-                </div>
                 <div class="post-card-content">
                     <p>@item.Content</p>
                 </div>
