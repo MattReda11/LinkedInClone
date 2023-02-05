@@ -200,10 +200,9 @@
 
 2/4/2023 Seena
 1. Done/not done since last scrum:
-- Create JobApplications and JobPostings Models
-- Started working on Controller/View for JobPostings
-2. To do until next Scrum:
 - User/Member can view all available jobs & apply for a job
 - Recruiter can view all applicants that applied for a specific job 
+2. To do until next Scrum:
+- Implement CV blobs
 3. Need assistance / figure things out:
-- 
+- Implement CV blobs
