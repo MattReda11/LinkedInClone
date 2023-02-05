@@ -61,15 +61,18 @@ ViewData["Title"] = "Home Page";
                     @if (item.PostedDate.Minute > 10)
                     {
                     <div class="post-card-date">
-                        <p>Posted on @item.PostedDate.Month/@item.PostedDate.Day/@item.PostedDate.Year at
-                            @item.PostedDate.Hour:@item.PostedDate.Minute </p>
+                        <p>Posted on @item.PostedDate.ToString("ddd MMMM dd, yyyy") at
+                            @item.PostedDate.ToString("h:mm tt") </p>
                     </div>
                     }
                     else
                     {
-                    <p>Posted on @item.PostedDate.Month/@item.PostedDate.Day/@item.PostedDate.Year at
-                        @item.PostedDate.Hour:@item.PostedDate.Minute.ToString().Insert(0, "0")</p>
+                    <div class="post-card-date">
+                        <p>Posted on @item.PostedDate.ToString("ddd MMMM dd, yyyy") at
+                            @item.PostedDate.ToString("h:mm tt") </p>
+                    </div>
                     }
+
                 </div>
                 <div class="post-card-content">
                     <p>@item.Content</p>
