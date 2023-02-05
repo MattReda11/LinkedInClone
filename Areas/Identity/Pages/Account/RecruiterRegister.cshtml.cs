@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using LinkedInClone.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -46,10 +47,10 @@ namespace LinkedInClone.Areas.Identity.Pages.Account
         [BindProperty]
         public InputModel Input { get; set; }
 
-        public string ReturnUrl {get; set;} = "#";
+        public string ReturnUrl {get; set;}
 
        
-        // public IList<AuthenticationScheme> ExternalLogins { get; set; }
+        public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
        
         public class InputModel
@@ -95,13 +96,13 @@ namespace LinkedInClone.Areas.Identity.Pages.Account
         public async Task OnGetAsync(string returnUrl)
         {
             ReturnUrl = returnUrl;
-            //ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
-           // returnUrl ??= Url.Content("~/");
-           // ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
+            ReturnUrl ??= Url.Content("~/");
+            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
