@@ -1,0 +1,47 @@
+@model IEnumerable<LinkedInClone.Models.JobApplication>
+
+@{
+    ViewData["Title"] = "Applicants";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.JobApplicationId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Applicant.Email)
+            </th>
+            <th>
+                Applied On
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            @* TODO: 
+                - Display CV column, where recruiter can click and view user CV
+                - Implement Follow Up button --> send an email/notification to user or something
+                - ?Implement Delete Application? --> user will automatically receive email/notification saying their application was considered, but rejected
+             *@
+            <td>
+                @Html.DisplayFor(modelItem => item.JobApplicationId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Applicant.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedDate)
+            </td>
+            <td>
+                <a>Follow Up</a> 
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

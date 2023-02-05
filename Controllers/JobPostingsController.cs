@@ -29,6 +29,13 @@ namespace LinkedInClone.Controllers
             return View(model);
         }
 
+        // GET: All Applicants for specific job
+        public async Task<IActionResult> Applicants(int id)
+        {
+            var model = await _context.JobApplications.Include("Applicant").Where(jp => jp.Job.Id == id).ToListAsync();
+            return View(model);
+        }
+
         // GET: JobPostings/Details/5
         public async Task<IActionResult> Details(int? id)
         {
