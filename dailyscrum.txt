@@ -206,3 +206,15 @@
 - Implement CV blobs
 3. Need assistance / figure things out:
 - Implement CV blobs
+
+--------------------------------------------
+2/5/2023 Chris
+1. Done/not done since last scrum:
+- homepage layout + functionality
+- create post layout + functionality
+- app-wide UI tweaks
+2. To do until next Scrum:
+- get likes and comments to work, as in adding to database and then rendering
+- UI of edit pages, details
+3. Need assistance / figure things out:
+- multiple index pages signed in vs signed out... should be stored in a partial and called conditionally? 

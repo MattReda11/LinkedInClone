@@ -79,14 +79,20 @@ ViewData["Title"] = "Home Page";
                     {
                     <img src='@Url.Action("GetMediaFile","Posts", new {fileName = item.FileName})' />
                     <div class="post-card-interaction-counter">
-                        <p><i class="fa-regular fa-thumbs-up fa-lg"></i> # of likes</p>
+                        @* need some likes to work before this can work *@
+                        <p><i class="fa-regular fa-thumbs-up fa-lg"></i> (# of likes) @item.Likes</p>
 
                     </div>
                     <div class="card__action-bar u-center">
-                        <button class="outline btn-info tooltip tooltip--left" data-tooltip="Like this post"><i
-                                class="fa-regular fa-thumbs-up fa-xl"></i> Like</button>
-                        <button class="outline btn-link tooltip tooltip--right" data-tooltip="Leave a comment"><i
-                                class="fa-regular fa-comment-dots fa-xl"></i> Comment</button>
+
+                        <div class="btn-group">
+                            <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
+                                data-tooltip="Like this post"><i class="fa-regular fa-thumbs-up fa-xl"></i>
+                                Like</button>
+                            <button class="outline btn-transparent text-blue-700 tooltip tooltip--right"
+                                data-tooltip="Leave a comment"><i class="fa-regular fa-comment-dots fa-xl"></i>
+                                Comment</button>
+                        </div>
                     </div>
                     }
                     else
