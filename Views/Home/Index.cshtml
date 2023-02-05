@@ -1,12 +1,12 @@
 ﻿@model dynamic
 @{
-    ViewData["Title"] = "Home Page";
+ViewData["Title"] = "Home Page";
 }
 
-<h5>🚧 Homepage under construction 🚧</h5>
 <div class="homepage-container">
     <div class="homepage-left">
-        <h6>user controls here</h6>
+
+        <h6>Explore</h6>
 
         <div class="tree">
             <div class="tree-item">
@@ -26,7 +26,6 @@
             </div>
         </div>
 
-
         <div class="tree">
             <div class="tree-item">
                 <input type="checkbox" id="tree3" class="u-none">
@@ -37,61 +36,72 @@
                 </label>
                 <div class="tree-item-body">
                     <ul class="menu">
-                        <li class="menu-item"><a asp-controller="JobApplications" asp-action="AllJobs">Apply for Jobs</a></li>
-                        <li class="menu-item"><a asp-controller="JobApplications" asp-action="Index">View My Jobs</a></li>
-                        <li class="menu-item"><a asp-controller="JobApplications" asp-action="Index">Contact a recruiter</a></li>
+                        <li class="menu-item"><a asp-controller="JobApplications" asp-action="AllJobs">Apply for
+                                Jobs</a></li>
+                        <li class="menu-item"><a asp-controller="JobApplications" asp-action="Index">View My Jobs</a>
+                        </li>
+                        <li class="menu-item"><a asp-controller="JobApplications" asp-action="Index">Contact a
+                                recruiter</a></li>
                     </ul>
                 </div>
             </div>
         </div>
-        <!--  if trees don't work out  -->
-        <!-- <p><a asp-controller="Posts" asp-action="Create">Add a Post</a></p>
-        <p><a asp-controller="Posts" asp-action="Create">Your Posts</a></p>
-        <p><a asp-controller="Posts" asp-action="Create">Add a Post</a></p>
-        <p><a asp-controller="Posts" asp-action="Create">Add a Post</a></p>
-        <p><a asp-controller="Posts" asp-action="Create">Add a Post</a></p>
-        <p><a asp-controller="Posts" asp-action="Create">Add a Post</a></p> -->
     </div>
+
     <div class="homepage-center">
         @foreach (var item in Model)
         {
 
-            <div>
-                <div>
-                    <h4>@item.Author.UserName</h4>
+        <div class="card">
+            <div class="card__container m-2">
+                <div class="content">
+                    <h6>@item.Author.UserName</h6>
                 </div>
                 <div>
                     @if (item.PostedDate.Minute > 10)
                     {
+                    <div class="post-card-date">
                         <p>Posted on @item.PostedDate.Month/@item.PostedDate.Day/@item.PostedDate.Year at
                             @item.PostedDate.Hour:@item.PostedDate.Minute </p>
+                    </div>
                     }
                     else
                     {
-                        <p>Posted on @item.PostedDate.Month/@item.PostedDate.Day/@item.PostedDate.Year at
-                            @item.PostedDate.Hour:@item.PostedDate.Minute.ToString().Insert(0, "0")</p>
+                    <p>Posted on @item.PostedDate.Month/@item.PostedDate.Day/@item.PostedDate.Year at
+                        @item.PostedDate.Hour:@item.PostedDate.Minute.ToString().Insert(0, "0")</p>
                     }
                 </div>
-                <div>
+                <div class="post-card-content">
                     <p>@item.Content</p>
                 </div>
                 <div>
                     @if (item.FileName != null)
                     {
-                        <img src='@Url.Action("GetMediaFile","Posts", new {fileName = item.FileName})' />
+                    <img src='@Url.Action("GetMediaFile","Posts", new {fileName = item.FileName})' />
+                    <div class="post-card-interaction-counter">
+                        <p><i class="fa-regular fa-thumbs-up fa-lg"></i> # of likes</p>
+
+                    </div>
+                    <div class="card__action-bar u-center">
+                        <button class="outline btn-info tooltip tooltip--left" data-tooltip="Like this post"><i
+                                class="fa-regular fa-thumbs-up fa-xl"></i> Like</button>
+                        <button class="outline btn-link tooltip tooltip--right" data-tooltip="Leave a comment"><i
+                                class="fa-regular fa-comment-dots fa-xl"></i> Comment</button>
+                    </div>
                     }
                     else
                     {
-                        <div>
-                        </div>
+                    <div>
+                    </div>
                     }
                 </div>
             </div>
+        </div>
 
         }
     </div>
     <div class="homepage-right">
-        <h6>other stuff goes here</h6>
+        <h6>Featured Post</h6>
         <p>maybe links like</p>
         <a href="https://youtu.be/dQw4w9WgXcQ">Our Partners</a>
 
