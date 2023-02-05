@@ -5,6 +5,7 @@ using LinkedInClone.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using LinkedInClone.Services;
 
 namespace LinkedInClone.Controllers
 {
@@ -14,12 +15,14 @@ namespace LinkedInClone.Controllers
         private readonly AppDbContext _context;
         private readonly ILogger _logger;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IBlobService _blobService;
 
-        public JobApplicationsController(AppDbContext context, ILogger<JobPosting> logger, UserManager<ApplicationUser> userManager)
+        public JobApplicationsController(AppDbContext context, ILogger<JobPosting> logger, UserManager<ApplicationUser> userManager, IBlobService blobService)
         {
             _context = context;
             _logger = logger;
             _userManager = userManager;
+            _blobService = blobService;
         }
 
         // GET: All Job Applications for logged in user only
@@ -70,6 +73,15 @@ namespace LinkedInClone.Controllers
 
             if (ModelState.IsValid)
             {
+                // TODO: Implement CV Upload to Azure Blob Storage
+                // if (jobApplication.FileName != null)
+                // {
+                //     jobApplication.FilePath = @$"wwwroot/Documents/{jobApplication.FileName}";
+                //     await _blobService.UploadFileBlobAsync(jobApplication.FilePath, jobApplication.FileName);
+
+                //     _logger.LogInformation(string.Empty, "File has been uploaded successfully to Blob.");
+                // }
+
                 _context.Add(jobApplication);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
