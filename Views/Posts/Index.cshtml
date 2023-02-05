@@ -2,51 +2,6 @@
 
 @model dynamic
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Home";
 }
-
-<div>
-    <h1>Index</h1>
-
-    <p>
-        <a asp-action="Create">Create New</a>
-    </p>
-    <div class="divider">
-        @foreach (var item in Model)
-        {
-
-            <div>
-                <div>
-                    <h4>@item.Author.UserName</h4>
-                </div>
-                <div>
-                    @if (item.PostedDate.Minute > 10)
-                    {
-                        <p>Posted on @item.PostedDate.Month/@item.PostedDate.Day/@item.PostedDate.Year at
-                            @item.PostedDate.Hour:@item.PostedDate.Minute </p>
-                    }
-                    else
-                    {
-                        <p>Posted on @item.PostedDate.Month/@item.PostedDate.Day/@item.PostedDate.Year at
-                            @item.PostedDate.Hour:@item.PostedDate.Minute.ToString().Insert(0, "0")</p>
-                    }
-                </div>
-                <div>
-                    <p>@item.Content</p>
-                </div>
-                <div>
-                    @if (item.FileName != null)
-                    {
-                        <img src='@Url.Action("GetMediaFile","Posts", new {fileName = item.FileName})' />
-                    }
-                    else
-                    {
-                        <div>
-                        </div>
-                    }
-                </div>
-            </div>
-
-        }
-    </div>
-</div>
+<partial name="_HomepagePartial" />
