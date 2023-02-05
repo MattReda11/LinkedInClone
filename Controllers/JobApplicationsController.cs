@@ -4,6 +4,7 @@ using LinkedInClone.Data;
 using LinkedInClone.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace LinkedInClone.Controllers
 {
@@ -21,10 +22,10 @@ namespace LinkedInClone.Controllers
             _userManager = userManager;
         }
 
-        // GET: JobApplications
+        // GET: All Job Applications for logged in user only
         public async Task<IActionResult> Index()
         {
-            return View(await _context.JobApplications.ToListAsync());
+            return View(await _context.JobApplications.Include("Job").Where(ja => ja.Applicant.Id == HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value).ToListAsync());
         }
 
         // GET: All JobPostings
