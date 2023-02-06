@@ -39,7 +39,7 @@ public class HomeController : Controller
     }
 
     [Authorize(Roles = "Recruiter")]
-    public async Task<IActionResult> RecruiterHome()
+    public async Task<IActionResult> Recruiter()
     {
         return View();
     }

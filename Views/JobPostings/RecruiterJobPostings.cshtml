@@ -1,48 +1,27 @@
 @model IEnumerable<LinkedInClone.Models.JobPosting>
 
-@{
-    ViewData["Title"] = "Index";
-}
+    @{
+    ViewData["Title"] = "My Postings";
+    }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.JobTitle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.JobTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
-                <a asp-action="Applicants" asp-route-id="@item.Id">View Applicants</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <div class="u-flex u-justify-center mb-4">
+        <a asp-action="Create">Add Job Posting</a>
+    </div>
+    @foreach (var item in Model) {
+    <div class="card max-w-md mx-auto">
+        <div class="card__header u-flex u-justify-space-between">
+            <p class="font-bold px-3">@Html.DisplayFor(modelItem => item.JobTitle)</p>
+            <p class="font-bold px-3">@Html.DisplayFor(modelItem => item.CreatedDate)</p>
+        </div>
+        <div class="content">
+            <p class="mx-4 u-text-justify">@Html.DisplayFor(modelItem => item.Description)</p>
+        </div>
+        <div class="ml-6 font-bold">Total Applicants: @Html.DisplayFor(modelItem => item.JobApplications.Count)</div>
+        <div class="card__action-bar u-center">
+            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+            <a asp-action="Applicants" asp-route-id="@item.Id">View Applicants</a>
+        </div>
+    </div>
+    }
