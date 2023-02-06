@@ -53,7 +53,16 @@ namespace LinkedInClone.Data
 
 
             //Fluent API 
+
+
+
             //AppUser
+
+            modelBuilder.Entity<ApplicationUser>()
+           .HasDiscriminator<string>("Discriminator")
+           .HasValue<RecruiterUser>("RecruiterUser")
+           .HasValue<ApplicationUser>("ApplicationUser");
+           
             modelBuilder.Entity<ApplicationUser>()
                .HasMany(u => u.SentConnections)
                 .WithOne(c => c.AccountOwner)

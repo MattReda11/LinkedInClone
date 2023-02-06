@@ -110,6 +110,7 @@ namespace LinkedInClone.Areas.Identity.Pages.Account
                 var recruiter = CreateUser(); 
                 recruiter.Company = Input.Company;
                 recruiter.FullName = Input.FullName;
+                
         
                 await _userStore.SetUserNameAsync(recruiter, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(recruiter, Input.Email, CancellationToken.None);

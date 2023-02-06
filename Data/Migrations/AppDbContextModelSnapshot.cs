@@ -138,7 +138,7 @@ namespace LinkedInClone.Data.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("LinkedInClone.Models.Connection", b =>
@@ -169,7 +169,7 @@ namespace LinkedInClone.Data.Migrations
 
                     b.HasIndex("SenderId");
 
-                    b.ToTable("Connections");
+                    b.ToTable("Connections", (string)null);
                 });
 
             modelBuilder.Entity("LinkedInClone.Models.JobApplication", b =>
@@ -204,7 +204,7 @@ namespace LinkedInClone.Data.Migrations
 
                     b.HasIndex("JobId");
 
-                    b.ToTable("JobApplications");
+                    b.ToTable("JobApplications", (string)null);
                 });
 
             modelBuilder.Entity("LinkedInClone.Models.JobPosting", b =>
@@ -236,7 +236,7 @@ namespace LinkedInClone.Data.Migrations
 
                     b.HasIndex("RecruiterId");
 
-                    b.ToTable("JobPostings");
+                    b.ToTable("JobPostings", (string)null);
                 });
 
             modelBuilder.Entity("LinkedInClone.Models.Like", b =>
@@ -263,7 +263,7 @@ namespace LinkedInClone.Data.Migrations
 
                     b.HasIndex("LikedPostId");
 
-                    b.ToTable("Likes");
+                    b.ToTable("Likes", (string)null);
                 });
 
             modelBuilder.Entity("LinkedInClone.Models.Message", b =>
@@ -294,7 +294,7 @@ namespace LinkedInClone.Data.Migrations
 
                     b.HasIndex("SentById");
 
-                    b.ToTable("Messages");
+                    b.ToTable("Messages", (string)null);
                 });
 
             modelBuilder.Entity("LinkedInClone.Models.Post", b =>
@@ -327,7 +327,7 @@ namespace LinkedInClone.Data.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
