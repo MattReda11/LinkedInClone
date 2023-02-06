@@ -1,0 +1,12 @@
+@model dynamic
+@{
+ViewData["Title"] = "My Account";
+}
+@{
+    var data = ViewBag.Message;
+}
+<h2>User Details</h2>
+<p>
+    <div>Id: @data.Id --- will delete later just for visualizing</div>
+    <div>Email: @data.Email</div>
+</p>

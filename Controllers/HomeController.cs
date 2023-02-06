@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using LinkedInClone.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace LinkedInClone.Controllers;
 
@@ -13,13 +14,15 @@ public class HomeController : Controller
     private readonly ILogger<HomeController> _logger;
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly AppDbContext _db;
+    private readonly UserManager<ApplicationUser> _userManager;
 
 
-    public HomeController(ILogger<HomeController> logger, AppDbContext db, RoleManager<IdentityRole> roleManager)
+    public HomeController(ILogger<HomeController> logger, AppDbContext db, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
     {
         _logger = logger;
         _db = db;
         _roleManager = roleManager;
+        _userManager = userManager;
     }
     [Authorize]
     public async Task<IActionResult> Index()
@@ -27,11 +30,26 @@ public class HomeController : Controller
       
         return View(await _db.Posts.OrderByDescending(p => p.PostedDate).Include("Author").ToListAsync());
     }
-    [Authorize] //testing authorization
+    [Authorize] 
     public IActionResult Privacy()
     {
         return View();
     }
+    [Authorize]
+    public IActionResult MyAccount()
+    {      
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); 
+        var userName = User.FindFirstValue(ClaimTypes.Name);
+        ApplicationUser user = new ApplicationUser
+        {
+            Id = userId,
+            Email = userName
+        };
+        ViewBag.Message = user;
+        
+        return View();
+    }
+
     // [HttpPost]
     // public async Task<ActionResult> CreateRoles()
     // {
