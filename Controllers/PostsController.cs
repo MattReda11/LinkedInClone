@@ -235,6 +235,15 @@ namespace LinkedInClone.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [Authorize]
+        public async Task<IActionResult> MyPosts()
+        {
+            var userName = User.Identity.Name;
+            var user = _context.Users.Where(u => u.UserName == userName).FirstOrDefault();
+
+            return View(await _context.Posts.Where(p => p.Author == user).Include("Author").ToListAsync());
+        }
+
         private bool PostExists(int id)
         {
             return _context.Posts.Any(e => e.Id == id);
