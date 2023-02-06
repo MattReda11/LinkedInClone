@@ -38,6 +38,15 @@
                         <i style="padding-left:9px;font-size:30px;color:rgb(250, 158, 158);"
                             class="fa-solid fa-file-import"></i></span>
                 </div>
+                @if (Model.FileName != null)
+                {
+                    <div class="col-xs-3 level-item">
+                        <label asp-for="FileName" class="m-0">Current Image/Video</label>
+                    </div>
+                    <div class="level-item">
+                        <img src='@Url.Action("GetMediaFile","Posts", new {fileName = Model.FileName})' />
+                    </div>
+                }
             </div>
 
             <div class="row level">
@@ -52,7 +61,7 @@
         </form>
     </div>
     <div>
-        <a asp-action="Index" class="ml-1 u u-RL">Back to List</a>
+        <a asp-controller="Home" asp-action="Index" class="ml-1 u u-RL">Back to List</a>
     </div>
 </div>
 

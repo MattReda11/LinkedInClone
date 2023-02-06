@@ -28,7 +28,6 @@ public class AccountController : Controller
     }
 
 
-
     [AllowAnonymous]
     public IActionResult GoogleLogin()
     {
@@ -51,34 +50,36 @@ public class AccountController : Controller
         if (result.Succeeded)
         {
             _logger.LogInformation($"[DEBUG-1]User {userInfo[0]} signed in successfully using google.");
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
         else
         {
             var user = await _userManager.FindByEmailAsync(info.Principal.FindFirst(ClaimTypes.Email).Value);
-            if (user == null){
-            user = new ApplicationUser
+            if (user == null)
             {
-                Email = info.Principal.FindFirst(ClaimTypes.Email).Value,
-                UserName = info.Principal.FindFirst(ClaimTypes.Email).Value
-            };
+                user = new ApplicationUser
+                {
+                    Email = info.Principal.FindFirst(ClaimTypes.Email).Value,
+                    UserName = info.Principal.FindFirst(ClaimTypes.Email).Value
+                };
 
-            IdentityResult identResult = await _userManager.CreateAsync(user);            
-            foreach (var error in identResult.Errors)
-            {
-                _logger.LogInformation($"Create Async result -> {error.Description}");
-            }
-            if (identResult.Succeeded)
-            {                
-                identResult = await _userManager.AddLoginAsync(user, info);
+                IdentityResult identResult = await _userManager.CreateAsync(user);
+                foreach (var error in identResult.Errors)
+                {
+                    _logger.LogInformation($"Create Async result -> {error.Description}");
+                }
                 if (identResult.Succeeded)
                 {
-                    _logger.LogInformation($"Google login information added for user {userInfo[0]}");
-                    await _signInManager.SignInAsync(user, false);
-                    return View(userInfo);
+                    identResult = await _userManager.AddLoginAsync(user, info);
+                    if (identResult.Succeeded)
+                    {
+                        _logger.LogInformation($"Google login information added for user {userInfo[0]}");
+                        await _signInManager.SignInAsync(user, false);
+                        return View(userInfo);
+                    }
                 }
             }
-            }else
+            else
             {
                 var identResult = await _userManager.AddLoginAsync(user, info);
                 if (identResult.Succeeded)

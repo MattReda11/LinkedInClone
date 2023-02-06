@@ -47,6 +47,12 @@
                                 Comment</button>
                         </div>
                     </div>
+                    <div class="post-card-content">
+                        <p>
+                            <a asp-controller="Posts" asp-action="Edit" asp-route-id="@item.Id">Edit Post</a>
+                            <a asp-controller="Posts" asp-action="Delete" asp-route-id="@item.Id">Delete Post</a>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
