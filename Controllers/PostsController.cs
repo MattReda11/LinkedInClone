@@ -243,27 +243,6 @@ namespace LinkedInClone.Controllers
             return View(await _context.Posts.Where(p => p.Author == user).Include("Author").ToListAsync());
         }
 
-        [HttpGet, ActionName("Like")]
-        public async Task<IActionResult> Like(int id)
-        {
-            if (_context.Posts == null)
-            {
-                return Problem("Entity set 'AppDbContext.Posts'  is null.");
-            }
-
-            var userName = User.Identity.Name;
-            var user = _context.Users.Where(u => u.UserName == userName).FirstOrDefault();
-
-            var post = await _context.Posts.FindAsync(id);
-
-            Like newLike = new Like { LikedPost = post, LikedBy = user, LikedDate = DateTime.Now };
-
-            _context.Likes.Add(newLike);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction("Index", "HomeController");
-        }
-
         private bool PostExists(int id)
         {
             return _context.Posts.Any(e => e.Id == id);

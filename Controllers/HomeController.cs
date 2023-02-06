@@ -24,6 +24,8 @@ public class HomeController : Controller
         _roleManager = roleManager;
         _userManager = userManager;
     }
+
+    [Authorize]
     public async Task<IActionResult> Index()
     {
 
@@ -142,6 +144,26 @@ public class HomeController : Controller
         return View();
     }
 
+    [HttpGet, ActionName("Like")]
+    public async Task<IActionResult> Like(int id)
+    {
+        if (_db.Posts == null)
+        {
+            return Problem("Entity set 'AppDbContext.Posts'  is null.");
+        }
+
+        var userName = User.Identity.Name;
+        var user = _db.Users.Where(u => u.UserName == userName).FirstOrDefault();
+
+        var post = await _db.Posts.FindAsync(id);
+
+        Like newLike = new Like { LikedPost = post, LikedBy = user, LikedDate = DateTime.Now };
+
+        _db.Likes.Add(newLike);
+        await _db.SaveChangesAsync();
+
+        return RedirectToAction(nameof(Index));
+    }
     [HttpGet]
     [AllowAnonymous]
     public IActionResult AccessDenied()
