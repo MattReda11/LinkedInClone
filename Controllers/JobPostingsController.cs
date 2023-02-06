@@ -23,7 +23,7 @@ namespace LinkedInClone.Controllers
         }
 
         // GET: JobPostings for logged in user only
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> RecruiterJobPostings()
         {
             var model = await _context.JobPostings.Where(a => a.Recruiter.Id == HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value).ToListAsync();
             return View(model);

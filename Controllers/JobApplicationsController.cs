@@ -26,13 +26,13 @@ namespace LinkedInClone.Controllers
         }
 
         // GET: All Job Applications for logged in user only
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> UserApplications()
         {
             return View(await _context.JobApplications.Include("Job").Where(ja => ja.Applicant.Id == HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value).ToListAsync());
         }
 
         // GET: All JobPostings
-        public async Task<IActionResult> AllJobs()
+        public async Task<IActionResult> AllAvailableJobs()
         {
             return View(await _context.JobPostings.ToListAsync());
         }
