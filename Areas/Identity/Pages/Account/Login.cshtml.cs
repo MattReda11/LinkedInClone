@@ -118,7 +118,7 @@ namespace LinkedInClone.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation($"User ({Input.Email}) logged in.");
-                    return LocalRedirect(ReturnUrl);
+                    return RedirectToAction("Index","Home");
                 }
                 if (result.RequiresTwoFactor)
                 {
