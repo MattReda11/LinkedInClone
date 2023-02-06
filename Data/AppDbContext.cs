@@ -23,6 +23,8 @@ namespace LinkedInClone.Data
 
         public DbSet<ApplicationUser> AppUsers { get; set; }
 
+        public DbSet<RecruiterUser> Recruiters { get; set; }
+
         public DbSet<Message> Messages { get; set; }
 
         public DbSet<Comment> Comments { get; set; }

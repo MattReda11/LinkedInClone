@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace LinkedInClone.Models
 {
-    public class RecruiterUser : IdentityUser
+    public class RecruiterUser : ApplicationUser
     {
         [Required]
         [StringLength(100)]

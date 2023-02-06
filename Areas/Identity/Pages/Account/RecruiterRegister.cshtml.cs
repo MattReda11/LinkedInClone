@@ -16,7 +16,7 @@ namespace LinkedInClone.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IUserStore<ApplicationUser> _userStore;
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
-        private readonly ILogger<RegisterModel> _logger;
+        private readonly ILogger<RecruiterRegisterModel> _logger;
         private readonly IEmailSender _emailSender;
 
        
@@ -27,7 +27,7 @@ namespace LinkedInClone.Areas.Identity.Pages.Account
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             SignInManager<ApplicationUser> signInManager,
-            ILogger<RegisterModel> logger,
+            ILogger<RecruiterRegisterModel> logger,
             RoleManager<IdentityRole> roleManager)
         {
             _userManager = userManager;
@@ -55,6 +55,10 @@ namespace LinkedInClone.Areas.Identity.Pages.Account
        
         public class InputModel
         {
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+            public string FullName { get; set; }
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -87,9 +91,7 @@ namespace LinkedInClone.Areas.Identity.Pages.Account
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
             public string Company { get; set; }
 
-            [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
-            public string FullName { get; set; }
+            
         }
 
 
@@ -105,19 +107,21 @@ namespace LinkedInClone.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = CreateUser();
-
-                await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
-                await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
-                var result = await _userManager.CreateAsync(user, Input.Password);
-                //Console.WriteLine("res =");
+                var recruiter = CreateUser(); 
+                recruiter.Company = Input.Company;
+                recruiter.FullName = Input.FullName;
+        
+                await _userStore.SetUserNameAsync(recruiter, Input.Email, CancellationToken.None);
+                await _emailStore.SetEmailAsync(recruiter, Input.Email, CancellationToken.None);
+                var result = await _userManager.CreateAsync(recruiter, Input.Password);
+                Console.WriteLine("res =");
                 if (result.Succeeded)
                 {
                     Console.WriteLine("success");
-                    await _userManager.AddToRoleAsync(user, "Recruiter");
+                    await _userManager.AddToRoleAsync(recruiter, "Recruiter");
                     _logger.LogInformation($"User ({Input.Email}) created a new account with password with role Recruiter.");
 
-                    var userId = await _userManager.GetUserIdAsync(user);                 
+                    var userId = await _userManager.GetUserIdAsync(recruiter);                 
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
@@ -125,7 +129,7 @@ namespace LinkedInClone.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _signInManager.SignInAsync((ApplicationUser)user, isPersistent: false);
+                        await _signInManager.SignInAsync(recruiter, isPersistent: false);
                         return RedirectToPage("Login");
                     }
                 }

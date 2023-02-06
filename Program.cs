@@ -8,17 +8,19 @@ using LinkedInClone.Services;
 using LinkedInClone.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.OAuth;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("AppDbContext") ?? throw new InvalidOperationException("Connection string 'AppDbContext' not found.");
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
-
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddRoleManager<RoleManager<IdentityRole>>()
     .AddEntityFrameworkStores<AppDbContext>()
     .AddDefaultTokenProviders();
+
+    
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
 builder.Services.ConfigureApplicationCookie(options =>
@@ -56,11 +58,10 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 {
     googleOptions.ClientId = "379601028963-alml822od0odsmo04m5hl4png6ikqasp.apps.googleusercontent.com"; //builder.Configuration["Authentication:Google:ClientId"];
-    googleOptions.ClientSecret = "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";
-           //builder.Configuration["Authentication:Google:ClientSecret"];
+    googleOptions.ClientSecret = "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";    
     googleOptions.SignInScheme = IdentityConstants.ExternalScheme;
     googleOptions.SaveTokens = true;
-    //googleOptions.CallbackPath = "http://localhost:5027/Identity/Account/Login";
+   
 });
 
 var app = builder.Build();
@@ -81,7 +82,8 @@ app.UseStatusCodePages(async context =>
     var response = context.HttpContext.Response;
 
     if (response.StatusCode == (int)System.Net.HttpStatusCode.Unauthorized ||
-            response.StatusCode == (int)System.Net.HttpStatusCode.Forbidden)
+            response.StatusCode == (int)System.Net.HttpStatusCode.Forbidden ||
+            response.StatusCode == (int)System.Net.HttpStatusCode.NotFound)
         response.Redirect("/Identity/Account/Login");
 });
 app.UseHttpsRedirection();

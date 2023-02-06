@@ -22,6 +22,12 @@ namespace LinkedInClone.Models
 
         public string RoleId { get; set; }
         public virtual IdentityRole Role { get; set; }
+
+        //might have to merge RecruiterUser + AppUser, having trouble with user/signinManager
+        
+        public string Company { get; set; }
+        
+        public string FullName { get; set; }
         
     }
 }
