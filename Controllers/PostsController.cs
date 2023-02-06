@@ -50,11 +50,6 @@ namespace LinkedInClone.Controllers
             return File(downloadedData.Content, downloadedData.ContentType);
         }
 
-        public async Task<IActionResult> Index()
-        {
-            return View(await _context.Posts.Include("Author").ToListAsync());
-        }
-
         // GET: Posts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -118,7 +113,7 @@ namespace LinkedInClone.Controllers
 
                 _context.Add(post);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(MyPosts));
             }
             return View(post);
         }
@@ -167,18 +162,22 @@ namespace LinkedInClone.Controllers
             {
                 try
                 {
-                    var downloadedData = await _blobService.GetBlobAsync($"https://fsd05regex.blob.core.windows.net/blob-storage/{post.FileName}");
-
-                    if (downloadedData == null)
+                    if (post.FileName != null)
                     {
-                        post.FilePath = @$"wwwroot/Images/{post.FileName}";
-                        await _blobService.UploadFileBlobAsync(post.FilePath, post.FileName);
+                        var downloadedData = await _blobService.GetBlobAsync($"https://fsd05regex.blob.core.windows.net/blob-storage/{post.FileName}");
 
-                        _logger.LogInformation(string.Empty, $"File for post {post.Id} has been updated and uploaded to Blob.");
+                        if (downloadedData == null)
+                        {
+                            post.FilePath = @$"wwwroot/Images/{post.FileName}";
+                            await _blobService.UploadFileBlobAsync(post.FilePath, post.FileName);
+
+                            _logger.LogInformation(string.Empty, $"File for post {post.Id} has been updated and uploaded to Blob.");
+                        }
                     }
 
                     _context.Update(post);
                     await _context.SaveChangesAsync();
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -191,7 +190,7 @@ namespace LinkedInClone.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(MyPosts));
             }
             return View(post);
         }
@@ -232,7 +231,7 @@ namespace LinkedInClone.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(MyPosts));
         }
 
         [Authorize]
