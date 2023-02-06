@@ -74,7 +74,7 @@ namespace LinkedInClone.Controllers
                 _context.Add(jobPosting);
                 await _context.SaveChangesAsync();
                 _logger.LogInformation("JobPosting added successfully");
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(RecruiterJobPostings));
             }
             return View(jobPosting);
         }
@@ -127,7 +127,7 @@ namespace LinkedInClone.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(RecruiterJobPostings));
             }
             return View(jobPosting);
         }
@@ -166,7 +166,7 @@ namespace LinkedInClone.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(RecruiterJobPostings));
         }
 
         private bool JobPostingExists(int id)

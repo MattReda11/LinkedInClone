@@ -84,7 +84,7 @@ namespace LinkedInClone.Controllers
 
                 _context.Add(jobApplication);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(UserApplications));
             }
             return View(jobApplication);
         }
@@ -135,7 +135,7 @@ namespace LinkedInClone.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(UserApplications));
             }
             return View(jobApplication);
         }
@@ -174,7 +174,7 @@ namespace LinkedInClone.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(UserApplications));
         }
 
         private bool JobApplicationExists(int id)
