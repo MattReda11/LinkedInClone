@@ -51,7 +51,7 @@
                         } else if (SignInManager.IsSignedIn(User) && User.IsInRole("Recruiter")) {
                         <div class="nav-item">
                             <a class="nav-link text-dark utb utb-C" asp-area="" asp-controller="JobPostings"
-                                asp-action="Index">Jobs</a>
+                                asp-action="RecruiterJobPostings">Jobs</a>
                         </div>
                         <div class="nav-item">
                             <a id="manage" class="nav-link text-dark utb utb-C" asp-area="Identity"
