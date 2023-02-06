@@ -58,8 +58,7 @@ namespace LinkedInClone.Data
 
             //AppUser
 
-            modelBuilder.Entity<ApplicationUser>()
-            .ToTable("AppUsers")
+            modelBuilder.Entity<ApplicationUser>()            
            .HasDiscriminator<string>("Discriminator")
            .HasValue<RecruiterUser>("RecruiterUser")
            .HasValue<ApplicationUser>("ApplicationUser");
