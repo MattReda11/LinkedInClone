@@ -21,7 +21,7 @@ public class HomeController : Controller
         _db = db;
         _roleManager = roleManager;
     }
-
+    [Authorize]
     public async Task<IActionResult> Index()
     {
         return View(await _db.Posts.Include("Author").ToListAsync());

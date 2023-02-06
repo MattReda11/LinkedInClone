@@ -47,12 +47,7 @@
     </div>
     <div class="col-md-6 col-md-offset-2">
         @* <section>
-            <p>Or sign in with:</p>
-  <a>
-    <img src="/Images/OAuthGoogle.png" id="google-button" alt="Google">
-  </a>
-  <hr />
-  <p>Secondary google button</p>
+            <p>Or sign in with:</p> 
   <div class="g-signin2" data-onsuccess="onSignIn"></div>
         </section> *@
 
@@ -88,22 +83,9 @@
 </div>
 
 
-<script src="https://apis.google.com/js/platform.js" async defer></script>
+@* <script src="https://apis.google.com/js/platform.js" async defer></script>
 <meta name="google-signin-client_id" content="379601028963-alml822od0odsmo04m5hl4png6ikqasp.apps.googleusercontent.com">
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
-}
+} *@
 
-
-@* You can enable users to sign out of your app without signing out of Google by adding a sign-out button or link to your site. To create a sign-out link, attach a function that calls the GoogleAuth.signOut() method to the link's onclick event.
-
-
-<a href="#" onclick="signOut();">Sign out</a>
-<script>
-  function signOut() {
-    var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-      console.log('User signed out.');
-    });
-  }
-</script> *@

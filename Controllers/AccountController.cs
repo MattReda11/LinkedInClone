@@ -51,7 +51,7 @@ public class AccountController : Controller
         if (result.Succeeded)
         {
             _logger.LogInformation($"[DEBUG-1]User {userInfo[0]} signed in successfully using google.");
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
         else
         {
