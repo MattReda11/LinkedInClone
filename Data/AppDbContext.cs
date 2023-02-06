@@ -49,7 +49,7 @@ namespace LinkedInClone.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            //modelBuilder.Entity<ApplicationUser>().ToTable("AppUsers"); <--- this will rename/recreate default user table 
+           // modelBuilder.Entity<ApplicationUser>().ToTable("AppUsers"); //<--- this will rename/recreate default user table 
 
 
             //Fluent API 
@@ -59,6 +59,7 @@ namespace LinkedInClone.Data
             //AppUser
 
             modelBuilder.Entity<ApplicationUser>()
+            .ToTable("AppUsers")
            .HasDiscriminator<string>("Discriminator")
            .HasValue<RecruiterUser>("RecruiterUser")
            .HasValue<ApplicationUser>("ApplicationUser");

@@ -149,7 +149,7 @@ namespace LinkedInClone.Areas.Identity.Pages.Account
         {
             try
             {
-                return Activator.CreateInstance<ApplicationUser>();
+                return Activator.CreateInstance<RecruiterUser>();
             }
             catch
             {
