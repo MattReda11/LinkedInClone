@@ -4,44 +4,37 @@
     ViewData["Title"] = "Available Jobs";
 }
 
-<h1>@ViewData["Title"]</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.JobTitle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedDate)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.JobTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                @* FIXME: 
+
+
+
+
+
+ <div class="u-flex u-justify-center mb-4">
+        <h2>@ViewData["Title"]</h2>
+    </div>
+    @foreach (var item in Model) {
+    <div class="card max-w-md mx-auto">
+        <div class="card__header u-flex u-justify-space-between">
+            <div>
+                <p class="font-bold px-3"><u>@Html.DisplayFor(modelItem => item.JobTitle)</u></p>
+                <p class="px-3"><em>Company: @Html.DisplayFor(modelItem => item.Recruiter.Company)</em></p>
+            </div>
+            <div>
+                <p class="font-bold px-3">Published on: @Html.DisplayFor(modelItem => item.CreatedDate)</p>
+                <p class="px-3"><em>By: @Html.DisplayFor(modelItem => item.Recruiter.Email)</em></p>
+            </div>
+        </div>
+        <div class="content">
+            <p class="mx-4 u-text-justify">@Html.DisplayFor(modelItem => item.Description)</p>
+        </div>
+        <div class="card__action-bar u-center">
+             @* FIXME: 
                     IF User has already applied, show that instead of apply button 
                     OR
                     Show a prompt on click that says user has already applied for that particular job
                 *@
                 <a asp-action="Create" asp-route-id="@item.Id">Apply</a> 
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        </div>
+    </div>
+    }

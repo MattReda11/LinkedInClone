@@ -34,7 +34,7 @@ namespace LinkedInClone.Controllers
         // GET: All JobPostings
         public async Task<IActionResult> AllAvailableJobs()
         {
-            return View(await _context.JobPostings.ToListAsync());
+            return View(await _context.JobPostings.Include("Recruiter").ToListAsync());
         }
 
         // GET: JobApplications/Details/5
