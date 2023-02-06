@@ -24,7 +24,7 @@ public class HomeController : Controller
     [Authorize]
     public async Task<IActionResult> Index()
     {
-        return View(await _db.Posts.Include("Author").ToListAsync());
+        return View(await _db.Posts.OrderByDescending(p => p.PostedDate).Include("Author").ToListAsync());
     }
     [Authorize] //testing authorization
     public IActionResult Privacy()

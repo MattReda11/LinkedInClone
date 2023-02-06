@@ -36,13 +36,16 @@ namespace LinkedInClone.Controllers
 
             if (downloadedData.ContentType.Contains("image/"))
             {
-                var image = Image.FromStream(downloadedData.Content);
-                var resizedImage = new Bitmap(image, new Size(500, 300));
+                if (downloadedData.Content.Length > 100000)
+                {
+                    var image = Image.FromStream(downloadedData.Content);
+                    var resizedImage = new Bitmap(image, new Size(600, 400));
 
-                using var imageStream = new MemoryStream();
-                resizedImage.Save(imageStream, ImageFormat.Jpeg);
+                    using var imageStream = new MemoryStream();
+                    resizedImage.Save(imageStream, ImageFormat.Jpeg);
 
-                return File(imageStream.ToArray(), downloadedData.ContentType);
+                    return File(imageStream.ToArray(), downloadedData.ContentType);
+                }
             }
             return File(downloadedData.Content, downloadedData.ContentType);
         }
@@ -102,10 +105,15 @@ namespace LinkedInClone.Controllers
 
                 if (post.FileName != null)
                 {
-                    post.FilePath = @$"wwwroot/Images/{post.FileName}";
-                    await _blobService.UploadFileBlobAsync(post.FilePath, post.FileName);
+                    var downloadedData = await _blobService.GetBlobAsync($"https://fsd05regex.blob.core.windows.net/blob-storage/{post.FileName}");
 
-                    _logger.LogInformation(string.Empty, "File has been uploaded successfully to Blob.");
+                    if (downloadedData == null)
+                    {
+                        post.FilePath = @$"wwwroot/Images/{post.FileName}";
+                        await _blobService.UploadFileBlobAsync(post.FilePath, post.FileName);
+
+                        _logger.LogInformation(string.Empty, "File has been uploaded successfully to Blob.");
+                    }
                 }
 
                 _context.Add(post);
