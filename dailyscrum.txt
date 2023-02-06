@@ -218,3 +218,47 @@
 - UI of edit pages, details
 3. Need assistance / figure things out:
 - multiple index pages signed in vs signed out... should be stored in a partial and called conditionally? 
+------------------------------------------------------------------------------------
+2/6/2023 Kevin
+1. Done/not done since last scrum:
+- Roles implemented
+- OAuth implemented (works on localhost)
+- Registration w/ OAuth
+2. To do until next Scrum:
+- Special admin interface 
+- Admin CRUD privileges
+- Separate login portals admin/recruiter
+3. Need assistance / figure things out:
+-
+
+2/6/2023 Matthew
+1. Done/not done since last scrum:
+- CRUD for Posts
+- Image resizing
+2. To do until next Scrum:
+- Implement Comments and Likes (Authorized Users)
+- Assist with CV upload/download
+3. Need assistance / figure things out:
+-
+
+2/6/2023 Chris
+1. Done/not done since last scrum:
+- worked on adding NewsAPI, genertaing Likes
+- app-wide UI tweaks
+2. To do until next Scrum:
+- continue working on NewsAPI/Adding HTTPClient
+- adding Like and Comment box functionality
+3. Need assistance / figure things out:
+- APIs in general (how ASP.NET MVC accepts them)
+
+2/6/2023 Seena
+1. Done/not done since last scrum:
+- User/Member can view all available jobs & apply for a job
+- Recruiter can view all applicants that applied for a specific job 
+2. To do until next Scrum:
+- Home Page for Recruiter after login instead of User posts feed
+- Implement CV blobs
+3. Need assistance / figure things out:
+- Implement CV blobs
+
+--------------------------------------------
