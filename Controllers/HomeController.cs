@@ -37,13 +37,14 @@ public class HomeController : Controller
     }
     [Authorize]
     public async Task<IActionResult> MyAccount()
-    {      
+    {
+        //not the best solution, will try to optimize later
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); 
         var userName = User.FindFirstValue(ClaimTypes.Name);
         var res = _db.AppUsers.Where(u =>(u.Id == userId)).FirstOrDefault(); //u.Id == userId
         var checkRecruiter = await _userManager.IsInRoleAsync(res, "Recruiter");
         var checkAdmin = await _userManager.IsInRoleAsync(res, "Admin");
-        var role = "User"; //not the best solution, will try to optimize later
+        var role = "User"; 
         if (checkRecruiter == true){
             role=  "Recruiter";
         }else if (checkAdmin == true){
@@ -62,6 +63,15 @@ public class HomeController : Controller
         ViewBag.Message = user;
         
         return View();
+    }
+
+    [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> AdminPanel()
+    {
+        List<ApplicationUser> allUsers = await _db.AppUsers.ToListAsync();
+       // var posts = await _db.Posts.ToListAsync();
+       
+        return View(allUsers);
     }
     //Makes the current user into admin
     // [HttpPost]

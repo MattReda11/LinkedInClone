@@ -1,0 +1,30 @@
+@model List<ApplicationUser>
+@{
+ViewData["Title"] = "Admin Interface";
+}
+@{
+    var data = ViewBag.Message;
+}
+<h2>Admin Interface</h2>
+<table>
+    <th>ID</th>
+    <th>Email</th>
+    <th>Account Type</th>
+    <th>1</th>
+  
+   
+    <tbody>
+@foreach (var item in Model){
+<tr>
+    <td>@item.Id</td>
+    <td>@item.Email</td>
+    @{
+        //var accountType = @item.GetT
+    }
+    <td>@item.GetType().Name</td>
+    <td>@item.Id</td>
+   
+</tr>
+}
+</tbody>
+</table>
