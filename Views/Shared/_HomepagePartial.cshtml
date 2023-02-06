@@ -47,49 +47,49 @@
         @foreach (var item in Model)
         {
 
-        <div class="card">
-            <div class="card__container m-2">
-                <div class="content">
-                    <h6>@item.Author.UserName</h6>
-                </div>
-              
+            <div class="card">
+                <div class="card__container m-2">
+                    <div class="content">
+                        <h6>@item.Author.UserName</h6>
+                    </div>
+
                     <div class="post-card-date">
                         <p>Posted on @item.PostedDate.ToString("ddd MMMM dd, yyyy") at
                             @item.PostedDate.ToString("h:mm tt") </p>
                     </div>
 
-                <div class="post-card-content">
-                    <p>@item.Content</p>
-                </div>
-                <div>
-                    @if (item.FileName != null)
-                    {
-                    <img src='@Url.Action("GetMediaFile","Posts", new {fileName = item.FileName})' />
-                    <div class="post-card-interaction-counter">
-                        @* need some likes to work before this can work *@
-                        <p><i class="fa-regular fa-thumbs-up fa-lg"></i> (# of likes) @item.Likes</p>
-
+                    <div class="post-card-content">
+                        <p>@item.Content</p>
                     </div>
-                    <div class="card__action-bar u-center">
+                    <div>
+                        @if (item.FileName != null)
+                        {
+                            <img src='@Url.Action("GetMediaFile","Posts", new {fileName = item.FileName})' />
+                            <div class="post-card-interaction-counter">
+                                @* need some likes to work before this can work *@
+                                <p><i class="fa-regular fa-thumbs-up fa-lg"></i> (# of likes) @item.Likes</p>
 
-                        <div class="btn-group">
-                            <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
-                                data-tooltip="Like this post"><i class="fa-regular fa-thumbs-up fa-xl"></i>
-                                Like</button>
-                            <button class="outline btn-transparent text-blue-700 tooltip tooltip--right"
-                                data-tooltip="Leave a comment"><i class="fa-regular fa-comment-dots fa-xl"></i>
-                                Comment</button>
+                            </div>
+                        }
+                        else
+                        {
+                            <div>
+                            </div>
+                        }
+                        <div class="card__action-bar u-center">
+
+                            <div class="btn-group">
+                                <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
+                                    data-tooltip="Like this post"><i class="fa-regular fa-thumbs-up fa-xl"></i>
+                                    Like</button>
+                                <button class="outline btn-transparent text-blue-700 tooltip tooltip--right"
+                                    data-tooltip="Leave a comment"><i class="fa-regular fa-comment-dots fa-xl"></i>
+                                    Comment</button>
+                            </div>
                         </div>
                     </div>
-                    }
-                    else
-                    {
-                    <div>
-                    </div>
-                    }
                 </div>
             </div>
-        </div>
 
         }
     </div>
