@@ -36,19 +36,58 @@ public class HomeController : Controller
         return View();
     }
     [Authorize]
-    public IActionResult MyAccount()
+    public async Task<IActionResult> MyAccount()
     {      
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); 
         var userName = User.FindFirstValue(ClaimTypes.Name);
+        var res = _db.AppUsers.Where(u =>(u.Id == userId)).FirstOrDefault(); //u.Id == userId
+        var checkRecruiter = await _userManager.IsInRoleAsync(res, "Recruiter");
+        var checkAdmin = await _userManager.IsInRoleAsync(res, "Admin");
+        var role = "User"; //not the best solution, will try to optimize later
+        if (checkRecruiter == true){
+            role=  "Recruiter";
+        }else if (checkAdmin == true){
+            role = "Admin";
+        } 
+            
+        
+        
         ApplicationUser user = new ApplicationUser
         {
             Id = userId,
-            Email = userName
+            Email = userName,
+            FullName = role, //using fullname to store role since its a string
+            
         };
         ViewBag.Message = user;
         
         return View();
     }
+    //Makes the current user into admin
+    // [HttpPost]
+    // public async Task<RedirectToActionResult> AdminX(){
+    //     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);     
+    //     var res = _db.AppUsers.Where(u =>(u.Id == userId)).FirstOrDefault(); //u.Id == userId
+    //     try{
+    //         Console.WriteLine("adding user to role...");
+    //     await _userManager.AddToRoleAsync(res, "Admin");
+    //     }
+    //     catch(Exception ex){
+    //         Console.WriteLine(ex.Message); 
+    //     }
+    //     try
+    //     {
+    //         Console.WriteLine("Removing user from role...");
+    //         await _userManager.RemoveFromRoleAsync(res, "User");
+    //     }
+       
+
+    //      catch (Exception ex)
+    //     {
+    //         Console.WriteLine(ex.Message);
+    //     }
+    //     return RedirectToAction("Index");
+    // }
 
     // [HttpPost]
     // public async Task<ActionResult> CreateRoles()
