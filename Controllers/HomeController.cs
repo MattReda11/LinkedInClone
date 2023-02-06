@@ -24,13 +24,13 @@ public class HomeController : Controller
         _roleManager = roleManager;
         _userManager = userManager;
     }
-    [Authorize]
     public async Task<IActionResult> Index()
     {
-      
-        return View(await _db.Posts.OrderByDescending(p => p.PostedDate).Include("Author").ToListAsync());
+
+        return View(await _db.Posts.OrderByDescending(p => p.PostedDate).Include("Author").Include("Likes").ToListAsync());
     }
-    [Authorize] 
+
+    [Authorize]
     public IActionResult Privacy()
     {
         return View();
@@ -39,29 +39,32 @@ public class HomeController : Controller
     public async Task<IActionResult> MyAccount()
     {
         //not the best solution, will try to optimize later
-        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier); 
+        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         var userName = User.FindFirstValue(ClaimTypes.Name);
-        var res = _db.AppUsers.Where(u =>(u.Id == userId)).FirstOrDefault(); //u.Id == userId
+        var res = _db.AppUsers.Where(u => (u.Id == userId)).FirstOrDefault(); //u.Id == userId
         var checkRecruiter = await _userManager.IsInRoleAsync(res, "Recruiter");
         var checkAdmin = await _userManager.IsInRoleAsync(res, "Admin");
-        var role = "User"; 
-        if (checkRecruiter == true){
-            role=  "Recruiter";
-        }else if (checkAdmin == true){
+        var role = "User";
+        if (checkRecruiter == true)
+        {
+            role = "Recruiter";
+        }
+        else if (checkAdmin == true)
+        {
             role = "Admin";
-        } 
-            
-        
-        
+        }
+
+
+
         ApplicationUser user = new ApplicationUser
         {
             Id = userId,
             Email = userName,
             FullName = role, //using fullname to store role since its a string
-            
+
         };
         ViewBag.Message = user;
-        
+
         return View();
     }
 
@@ -69,8 +72,8 @@ public class HomeController : Controller
     public async Task<IActionResult> AdminPanel()
     {
         List<ApplicationUser> allUsers = await _db.AppUsers.ToListAsync();
-       // var posts = await _db.Posts.ToListAsync();
-       
+        // var posts = await _db.Posts.ToListAsync();
+
         return View(allUsers);
     }
     //Makes the current user into admin
@@ -90,7 +93,7 @@ public class HomeController : Controller
     //         Console.WriteLine("Removing user from role...");
     //         await _userManager.RemoveFromRoleAsync(res, "User");
     //     }
-       
+
 
     //      catch (Exception ex)
     //     {
