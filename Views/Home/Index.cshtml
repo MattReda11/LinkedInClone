@@ -53,10 +53,10 @@ ViewData["Title"] = "Home";
         @foreach (var item in Model)
         {
 
-        <div class="card">
+        <div class="card" runat="server">
             <div class="card__container m-2">
                 <div class="content">
-                    <h6>@item.Author.UserName</h6>
+                  <img src="https://fsd05regex.blob.core.windows.net/blob-storage/profile.png" width="5%"/><h6>@item.Author.FullName</h6>
                 </div>
 
                 <div class="post-card-date">
@@ -84,12 +84,12 @@ ViewData["Title"] = "Home";
                     </div>
                     <div class="card__action-bar u-center">
 
-                        <div class="btn-group">
+                        <div class="btn-group" runat="server">
                             <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
                                 data-tooltip="Like this post"><i class="fa-regular fa-thumbs-up fa-xl"></i>
                                 <a asp-controller="Home" asp-action="Like" asp-route-id="@item.Id">Like</a>
                             </button>
-                            <button onclick="ShowCommentBox()" id="comment-btn"
+                            <button onclick="ShowCommentBox(@item.Id)" id="comment-btn-@item.Id"
                                 class="outline btn-transparent text-blue-700 tooltip tooltip--right"
                                 data-tooltip="Leave a comment"><i id="comment-btn-icon"
                                     class="fa-regular fa-comment-dots fa-xl"></i>
@@ -101,7 +101,7 @@ ViewData["Title"] = "Home";
                     </div>
 
                     @* TODO: connect to Home or Posts controller? Tried both, couldn't get it. Issue #2 is commentbox doesn't show under posts with images (but triggers post#1 when post#2 is clicked) Wrap with id? conditionally place again in if(file!==null)?*@
-                    <div class="commentbox" id="commentbox" hidden>
+                    <div class="commentbox" id="commentbox-@item.Id" hidden>
                         <form id="comment" method="post">
 
                             <label class="font-extrathin comment-label tracking-tighter">Write your comment:</label>

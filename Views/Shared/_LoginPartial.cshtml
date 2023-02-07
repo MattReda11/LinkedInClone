@@ -59,11 +59,7 @@
                                         asp-controller="Home" asp-area="" asp-action="MyAccount" title="Manage">Hello
                                         @UserManager.GetUserName(User)!</a>
                                 </div>
-                        @*! TODO: logout modal was removed, this needs replacement *@
-                        @* <div class="nav-item">
-                            <a href="#logoutModalDialog" class="utb utb-C" data-toggle="modal"
-                                data-target="#logoutModalDialog">Log Out</a>
-                        </div> *@
+               
                         <div class="nav-item">
                             <a class="nav-link text-dark utb utb-C" asp-area="Identity" asp-page="/Account/Logout"
                                 asp-route-returnUrl="@Url.Action(" Index", "Home" , new { area="" })">Log Out
