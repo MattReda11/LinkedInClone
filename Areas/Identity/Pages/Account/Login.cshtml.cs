@@ -15,6 +15,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using LinkedInClone.Models;
+using LinkedInClone.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace LinkedInClone.Areas.Identity.Pages.Account
 {
@@ -22,11 +24,13 @@ namespace LinkedInClone.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, UserManager<ApplicationUser> userManager)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _userManager = userManager;
         }
 
         /// <summary>
@@ -101,7 +105,7 @@ namespace LinkedInClone.Areas.Identity.Pages.Account
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
-           
+
         }
 
         public async Task<IActionResult> OnPostAsync()
@@ -117,8 +121,26 @@ namespace LinkedInClone.Areas.Identity.Pages.Account
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation($"User ({Input.Email}) logged in.");
-                    return RedirectToAction("Index","Home");
+                    // Find user and check role before log in
+                    var user = await _userManager.Users.Where(u => u.Email == Input.Email).FirstOrDefaultAsync();
+                    var roleIsUser = await _userManager.IsInRoleAsync(user, "User");
+                    var roleIsRecruiter = await _userManager.IsInRoleAsync(user, "Recruiter");
+                    var roleIsAdmin = await _userManager.IsInRoleAsync(user, "Admin");
+                    if (roleIsUser)
+                    {
+                        _logger.LogInformation($"User ({Input.Email}) logged in.");
+                        return RedirectToAction("Index", "Home");
+                    }
+                    if (roleIsRecruiter)
+                    {
+                        _logger.LogInformation($"Recruiter ({Input.Email}) logged in.");
+                        return RedirectToAction("Recruiter", "Home");
+                    }
+                    if (roleIsAdmin)
+                    {
+                        _logger.LogInformation($"Admin ({Input.Email}) logged in.");
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
                 if (result.RequiresTwoFactor)
                 {
