@@ -57,7 +57,9 @@ namespace LinkedInClone.Areas.Identity.Pages.Account
         {
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 2)]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 4)]
+            [Display(Name = "Full Name")]
+            [RegularExpression(@"^[a-zA-Z]*\s{1}[a-zA-Z]*$", ErrorMessage = "Full name should be your first name and last name, separated by a single space.")]// should match if input is two words separated with 1 space (ex. John Doe)
             public string FullName { get; set; }
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
