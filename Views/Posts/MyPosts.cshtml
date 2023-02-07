@@ -10,7 +10,8 @@
         <div class="card">
             <div class="card__container m-2">
                 <div class="content">
-                    <h6>@item.Author.UserName</h6>
+                    <img src="https://fsd05regex.blob.core.windows.net/blob-storage/profile.png" width="5%" />
+                    <h6>@item.Author.FullName</h6>
                 </div>
 
                 <div class="post-card-date">
@@ -25,27 +26,83 @@
                     @if (item.FileName != null)
                     {
                         <img src='@Url.Action("GetMediaFile","Posts", new {fileName = item.FileName})' />
-                        <div class="post-card-interaction-counter">
-                            @* need some likes to work before this can work *@
-                            <p><i class="fa-regular fa-thumbs-up fa-lg"></i> (# of likes) @item.Likes</p>
-
-                        </div>
                     }
                     else
                     {
                         <div>
                         </div>
                     }
-                    <div class="card__action-bar u-center">
+                    <div class="post-card-interaction-counter">
 
-                        <div class="btn-group">
-                            <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
-                                data-tooltip="Like this post"><i class="fa-regular fa-thumbs-up fa-xl"></i>
-                                Like</button>
-                            <button class="outline btn-transparent text-blue-700 tooltip tooltip--right"
-                                data-tooltip="Leave a comment"><i class="fa-regular fa-comment-dots fa-xl"></i>
-                                Comment</button>
-                        </div>
+                        <p><i class="fa-regular fa-thumbs-up fa-lg"></i> @item.Likes.Count</p>
+
+                    </div>
+                    <div class="card__action-bar u-center">
+                        @if (item.Likes.Count == 0)
+                        {
+                            <div class="btn-group" runat="server">
+                                <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
+                                    data-tooltip="Like this post"><i class="fa-regular fa-thumbs-up fa-xl"></i>
+                                    <a asp-controller="Posts" asp-action="Like" asp-route-id="@item.Id">Like</a>
+                                </button>
+                                <button onclick="ShowCommentBox(@item.Id)" id="comment-btn-@item.Id"
+                                    class="outline btn-transparent text-blue-700 tooltip tooltip--right"
+                                    data-tooltip="Leave a comment"><i id="comment-btn-icon"
+                                        class="fa-regular fa-comment-dots fa-xl"></i>
+                                    <a id="comment-link">Comment</a>
+                                </button>
+                            </div>
+                        }
+                        else
+                        {
+                            @foreach (var like in item.Likes)
+                            {
+                                @if (like.LikedPost == item && like.LikedBy.UserName == User.Identity.Name)
+                                {
+                                    <div class="btn-group" runat="server">
+                                        <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
+                                            data-tooltip="Unlike this post"><i class="fa-regular fa-thumbs-down fa-xl"></i>
+                                            <a asp-controller="Posts" asp-action="Unlike" asp-route-id="@item.Id">Unlike</a>
+                                        </button>
+                                        <button onclick="ShowCommentBox(@item.Id)" id="comment-btn-@item.Id"
+                                            class="outline btn-transparent text-blue-700 tooltip tooltip--right"
+                                            data-tooltip="Leave a comment"><i id="comment-btn-icon"
+                                                class="fa-regular fa-comment-dots fa-xl"></i>
+                                            <a id="comment-link">Comment</a>
+                                        </button>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="btn-group" runat="server">
+                                        <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
+                                            data-tooltip="Like this post"><i class="fa-regular fa-thumbs-up fa-xl"></i>
+                                            <a asp-controller="Posts" asp-action="Like" asp-route-id="@item.Id">Like</a>
+                                        </button>
+                                        <button onclick="ShowCommentBox(@item.Id)" id="comment-btn-@item.Id"
+                                            class="outline btn-transparent text-blue-700 tooltip tooltip--right"
+                                            data-tooltip="Leave a comment"><i id="comment-btn-icon"
+                                                class="fa-regular fa-comment-dots fa-xl"></i>
+                                            <a id="comment-link">Comment</a>
+                                        </button>
+                                    </div>
+                                }
+                            }
+                        }
+                    </div>
+
+                    @* TODO: connect to Home or Posts controller? Tried both, couldn't get it. Issue #2 is commentbox
+                doesn't show under posts with images (but triggers post#1 when post#2 is clicked) Wrap with id?
+                conditionally place again in if(file!==null)?*@
+                    <div class="commentbox" id="commentbox-@item.Id" hidden>
+                        <form id="comment" method="post">
+
+                            <label class="font-extrathin comment-label tracking-tighter">Write your comment:</label>
+                            <input id="comment-input" type="text" />
+                            <input type="submit" value="Publish" class="outline btn-transparent text-black-700 mt-1" />
+                            @* <a asp-controller="Home" asp-action="Comment" asp-route-id="@item.Id">
+                        </a> *@
+                        </form>
                     </div>
                     <div class="post-card-content">
                         <p>
