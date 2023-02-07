@@ -13,11 +13,9 @@ namespace LinkedInClone.Models
         [Required]
         public JobPosting Job { get; set; }
 
-        [Required]
-        public string FilePath { get; set; }
+        public string? FilePath { get; set; }
 
-        [Required]
-        public string FileName { get; set; }
+        public string? FileName { get; set; }
 
         [Display(Name = "Creation Date"), DataType(DataType.Date)]
         public DateTime CreatedDate { get; set; } = DateTime.Now;
