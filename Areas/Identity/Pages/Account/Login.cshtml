@@ -38,15 +38,16 @@ ViewData["Title"] = "Log in";
                     </div>
 
                     <div class="form-ext-control form-ext-checkbox ml-auto">
-                            <input id="check1"class="form-ext-input" type="checkbox" asp-for="Input.RememberMe" />
-                        <label for="check1"asp-for="Input.RememberMe" class="form-ext-label">
+                        <input id="check1" class="form-ext-input" type="checkbox" asp-for="Input.RememberMe" />
+                        <label for="check1" asp-for="Input.RememberMe" class="form-ext-label">
                             @Html.DisplayNameFor(m => m.Input.RememberMe)
                         </label>
                     </div>
                 </div>
 
                 <div class="row level">
-                    <button id="login-submit" type="submit" class="ml-auto btn-animated outline animated bounceIn btn-dark btn--lg mr-1">Log in</button>
+                    <button id="login-submit" type="submit"
+                        class="ml-auto btn-animated outline animated bounceIn btn-dark btn--lg mr-1">Log in</button>
                 </div>
 
                 <div>
@@ -65,54 +66,50 @@ ViewData["Title"] = "Log in";
 
             </form>
         </section>
-
     </div>
-<div class="col-md-6 col-md-offset-2">
-    @* <section>
-        <p>Or sign in with:</p>
-        <div class="g-signin2" data-onsuccess="onSignIn"></div>
-    </section> *@
-    @* <form method="post" asp-controller="Home" asp-action="CreateRoles">
-        <input type="submit">
-    </form> *@
-    <section>
-        <h3>Use another service to log in:</h3>
-        <hr />
-        @{
-        if ((Model.ExternalLogins?.Count ?? 0) == 0)
-        {
-        <div>
-            <p>
-                There are no external authentication services configured. See this <a
-                    href="https://go.microsoft.com/fwlink/?LinkID=532715">article
-                    about setting up this ASP.NET application to support logging in via external services</a>.
-            </p>
-        </div>
-        }
-        else
-        {
-        <form id="external-account" asp-controller="Account" asp-action="ExternalLogin" method="post"
-            class="form-horizontal">
+
+    @* <div class="col-md-6 col-md-offset-2"> *@
+        @* <section>
+            <p>Or sign in with:</p>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        </section> *@
+        @* <form method="post" asp-controller="Home" asp-action="CreateRoles">
+            <input type="submit">
+        </form> *@
+        <section>
+            <h3>Use another service to log in:</h3>
+            <hr />
+            @{
+            if ((Model.ExternalLogins?.Count ?? 0) == 0)
+            {
             <div>
                 <p>
-                    @foreach (var provider in Model.ExternalLogins!)
-                    {
-                    <button class="btn btn-info" asp-controller="Account" asp-action="GoogleLogin" name="provider"
-                        value="@provider.Name"
-                        title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
-                    }
+                    There are no external authentication services configured. See this <a
+                        href="https://go.microsoft.com/fwlink/?LinkID=532715">article
+                        about setting up this ASP.NET application to support logging in via external services</a>.
                 </p>
             </div>
-        </form>
-        }
-        }
-    </section>
+            }
+            else
+            {
+            <form id="external-account" asp-controller="Account" asp-action="ExternalLogin" method="post"
+                class="form-horizontal">
+                <div>
+                    <p>
+                        @foreach (var provider in Model.ExternalLogins!)
+                        {
+                        <button class="btn btn-info" asp-controller="Account" asp-action="GoogleLogin" name="provider"
+                            value="@provider.Name"
+                            title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                        }
+                    </p>
+                </div>
+            </form>
+            }
+            }
+        </section>
+    </div>
 </div>
-</div>
-</div>
-</div>
-</div>
-
 
 @*
 <script src="https://apis.google.com/js/platform.js" async defer></script>
