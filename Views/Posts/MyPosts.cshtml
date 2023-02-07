@@ -71,8 +71,10 @@
                                             <a id="comment-link">Comment</a>
                                         </button>
                                     </div>
+                                    return;
                                 }
-                                else
+                                else if (like.LikedPost != item || like.LikedBy.UserName != User.Identity.Name &&
+                                item.Likes.IndexOf(like) == item.Likes.Count - 1)
                                 {
                                     <div class="btn-group" runat="server">
                                         <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"

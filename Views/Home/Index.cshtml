@@ -83,23 +83,59 @@ ViewData["Title"] = "Home";
 
                     </div>
                     <div class="card__action-bar u-center">
-
-                        <div class="btn-group" runat="server">
-                            <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
-                                data-tooltip="Like this post"><i class="fa-regular fa-thumbs-up fa-xl"></i>
-                                <a asp-controller="Home" asp-action="Like" asp-route-id="@item.Id">Like</a>
-                            </button>
-                            <button onclick="ShowCommentBox(@item.Id)" id="comment-btn-@item.Id"
+                        @if (item.Likes.Count == 0)
+                        {
+                            <div class="btn-group" runat="server">
+                                <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
+                                    data-tooltip="Like this post"><i class="fa-regular fa-thumbs-up fa-xl"></i>
+                                    <a asp-controller="Home" asp-action="Like" asp-route-id="@item.Id">Like</a>
+                                </button>
+                               <button onclick="ShowCommentBox(@item.Id)" id="comment-btn-@item.Id"
                                 class="outline btn-transparent text-blue-700 tooltip tooltip--right"
                                 data-tooltip="Leave a comment"><i id="comment-btn-icon"
                                     class="fa-regular fa-comment-dots fa-xl"></i>
                                 <a id="comment-link-@item.Id">Comment</a>
                             </button>
-
-
-                        </div>
+                            </div>
+                        }
+                        else
+                        {
+                            @foreach (var like in item.Likes)
+                            {
+                                @if (like.LikedPost == item && like.LikedBy.UserName == User.Identity.Name)
+                                {
+                                    <div class="btn-group" runat="server">
+                                        <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
+                                            data-tooltip="Unlike this post"><i class="fa-regular fa-thumbs-down fa-xl"></i>
+                                            <a asp-controller="Home" asp-action="Unlike" asp-route-id="@item.Id">Unlike</a>
+                                        </button>
+                                        <button onclick="ShowCommentBox(@item.Id)" id="comment-btn-@item.Id"
+                                        class="outline btn-transparent text-blue-700 tooltip tooltip--right"
+                                        data-tooltip="Leave a comment"><i id="comment-btn-icon"
+                                        class="fa-regular fa-comment-dots fa-xl"></i>
+                                <a id="comment-link-@item.Id">Comment</a>
+                            </button>
+                                    </div>
+                                    return;
+                                }
+                                else if(like.LikedPost != item || like.LikedBy.UserName != User.Identity.Name && item.Likes.IndexOf(like) == item.Likes.Count - 1)
+                                {
+                                    <div class="btn-group" runat="server">
+                                        <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
+                                            data-tooltip="Like this post"><i class="fa-regular fa-thumbs-up fa-xl"></i>
+                                            <a asp-controller="Home" asp-action="Like" asp-route-id="@item.Id">Like</a>
+                                        </button>
+                                        <button onclick="ShowCommentBox(@item.Id)" id="comment-btn-@item.Id"
+                                        class="outline btn-transparent text-blue-700 tooltip tooltip--right"
+                                        data-tooltip="Leave a comment"><i id="comment-btn-icon"
+                                        class="fa-regular fa-comment-dots fa-xl"></i>
+                                <a id="comment-link-@item.Id">Comment</a>
+                            </button>
+                                    </div>
+                                }
+                            }
+                        }
                     </div>
-
                     <div class="commentbox" id="commentbox-@item.Id" hidden>
                         <form id="comment" method="post">
 
