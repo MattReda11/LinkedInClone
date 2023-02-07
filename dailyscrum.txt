@@ -260,5 +260,45 @@
 - Implement CV blobs
 3. Need assistance / figure things out:
 - Implement CV blobs
+------------------------------------------------------------------------------------
+2/7/2023 Kevin
+1. Done/not done since last scrum:
+- Barebones MyAccount page
+-    "      Admin CRUD interface
+- Semi-implemented News API
+2. To do until next Scrum:
+- Continue Admin CRUD
+- Display response of API on homepage
+3. Need assistance / figure things out:
+-
 
---------------------------------------------
+2/7/2023 Matthew
+1. Done/not done since last scrum:
+- Implementation of Likes
+- Fixes to Blob storage
+2. To do until next Scrum:
+- Assist in Comment implementation
+- Begin Connections implementation
+3. Need assistance / figure things out:
+-
+
+2/7/2023 Chris
+1. Done/not done since last scrum:
+- work on Comment, show/hide
+- styled login page
+- app-wide UI tweaks
+2. To do until next Scrum:
+- adding Comment box functionality, bug fixing
+3. Need assistance / figure things out:
+- everything to do with Comments
+
+2/7/2023 Seena
+1. Done/not done since last scrum:
+- redirect to different home page depending on role
+- general styling on pages (recruiter home page, all available jobs)
+2. To do until next Scrum:
+- finish styling for pages (view applicants, etc.)
+- finish CV blob implementation
+- start search bar implementation
+3. Need assistance / figure things out:
+-
