@@ -74,13 +74,18 @@ namespace LinkedInClone.Controllers
             if (ModelState.IsValid)
             {
                 // TODO: Implement CV Upload to Azure Blob Storage
-                // if (jobApplication.FileName != null)
-                // {
-                //     jobApplication.FilePath = @$"wwwroot/Documents/{jobApplication.FileName}";
-                //     await _blobService.UploadFileBlobAsync(jobApplication.FilePath, jobApplication.FileName);
+                if (jobApplication.FileName != null)
+                {
+                    var downloadedData = await _blobService.GetBlobAsync($"https://fsd05regex.blob.core.windows.net/blob-storage/{jobApplication.FileName}");
 
-                //     _logger.LogInformation(string.Empty, "File has been uploaded successfully to Blob.");
-                // }
+                    if (downloadedData == null)
+                    {
+                        jobApplication.FilePath = @$"wwwroot/Documents/{jobApplication.FileName}";
+                        await _blobService.UploadFileBlobAsync(jobApplication.FilePath, jobApplication.FileName);
+
+                        _logger.LogInformation(string.Empty, "File has been uploaded successfully to Blob.");
+                    }
+                }
 
                 _context.Add(jobApplication);
                 await _context.SaveChangesAsync();

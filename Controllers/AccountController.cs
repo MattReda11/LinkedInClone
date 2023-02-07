@@ -75,7 +75,7 @@ public class AccountController : Controller
                     {
                         _logger.LogInformation($"Google login information added for user {userInfo[0]}");
                         await _signInManager.SignInAsync(user, false);
-                        return View(userInfo);
+                        return RedirectToAction("Index", "Home");
                     }
                 }
             }
@@ -85,7 +85,7 @@ public class AccountController : Controller
                 if (identResult.Succeeded)
                 {
                     await _signInManager.SignInAsync(user, false);
-                    return View(userInfo);
+                    return RedirectToAction("Index", "Home");
                 }
             }
             return AccessDenied();

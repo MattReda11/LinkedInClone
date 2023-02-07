@@ -84,6 +84,12 @@ namespace LinkedInClone.Areas.Identity.Pages.Account
             [Display(Name = "Email")]
             public string Email { get; set; }
 
+
+            [Required]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 4)]            
+            [Display(Name = "Full Name")]
+            [RegularExpression(@"^[a-zA-Z]*\s{1}[a-zA-Z]*$", ErrorMessage = "Full name should be your first name and last name, separated by a single space.")]// should match if input is two words separated with 1 space (ex. John Doe)
+            public string FullName { get; set; }
             /// <summary>
             ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
             ///     directly from your code. This API may change or be removed in future releases.
@@ -118,6 +124,7 @@ namespace LinkedInClone.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
+                user.FullName = Input.FullName;
 
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);

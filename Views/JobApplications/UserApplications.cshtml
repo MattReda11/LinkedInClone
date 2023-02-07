@@ -1,50 +1,57 @@
 @model IEnumerable<LinkedInClone.Models.JobApplication>
 
-@{
+    @{
     ViewData["Title"] = "My Applications";
-}
+    }
 
-<h1>@ViewData["Title"]</h1>
+    <h1>@ViewData["Title"]</h1>
 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Job.JobTitle)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FilePath)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FileName)
-            </th>
-            <th>
-                Submitted On
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Job.JobTitle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FilePath)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FileName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreatedDate)
-            </td>
-            <td>
-                <a asp-action="Details" asp-route-id="@item.JobApplicationId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.JobApplicationId">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Job.JobTitle)
+                </th>
+                <th>
+                    CV Uploaded
+                </th>
+                <th>
+                    Submitted On
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Job.JobTitle)
+                </td>
+                <td>
+                    @if (item.FileName != null)
+                    {
+                    @* FIXME:
+                    Currently: Hard coded "Dummy Resume.pdf"
+                    Attempting: src='.../.../blob-storage/@item.FileName&embedded=true'
+                    *@
+                    <iframe class="hidden"
+                        src='https://docs.google.com/gview?url=https://fsd05regex.blob.core.windows.net/blob-storage/Dummy Resume.pdf&embedded=true'
+                        style="width:718px; height:700px;" frameborder="0"></iframe>
+                    }
+                    else
+                    {
+                    <p>File Name seems to be null</p>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedDate)
+                </td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.JobApplicationId">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.JobApplicationId">Delete</a>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
