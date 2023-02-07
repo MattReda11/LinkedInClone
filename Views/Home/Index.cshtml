@@ -1,6 +1,6 @@
 ﻿@model dynamic
 @{
-    ViewData["Title"] = "Home";
+ViewData["Title"] = "Home";
 }
 <div class="homepage-container">
     <div class="homepage-left">
@@ -53,83 +53,96 @@
         @foreach (var item in Model)
         {
 
-            <div class="card">
-                <div class="card__container m-2">
-                    <div class="content">
-                        <h6>@item.Author.UserName</h6>
-                    </div>
+        <div class="card">
+            <div class="card__container m-2">
+                <div class="content">
+                    <h6>@item.Author.UserName</h6>
+                </div>
 
-                    <div class="post-card-date">
-                        <p>Posted on @item.PostedDate.ToString("ddd MMMM dd, yyyy") at
-                            @item.PostedDate.ToString("h:mm tt") </p>
-                    </div>
+                <div class="post-card-date">
+                    <p>Posted on @item.PostedDate.ToString("ddd MMMM dd, yyyy") at
+                        @item.PostedDate.ToString("h:mm tt") </p>
+                </div>
 
-                    <div class="post-card-content">
-                        <p>@item.Content</p>
-                    </div>
+                <div class="post-card-content">
+                    <p>@item.Content</p>
+                </div>
+                <div>
+                    @if (item.FileName != null)
+                    {
+                    <img src='@Url.Action("GetMediaFile","Posts", new {fileName = item.FileName})' />
+                    }
+                    else
+                    {
                     <div>
-                        @if (item.FileName != null)
-                        {
-                            <img src='@Url.Action("GetMediaFile","Posts", new {fileName = item.FileName})' />
-                        }
-                        else
-                        {
-                            <div>
-                            </div>
-                        }
-                        <div class="post-card-interaction-counter">
-                            @* need some likes to work before this can work *@
-                            <p><i class="fa-regular fa-thumbs-up fa-lg"></i>@item.Likes.Count</p>
-
-                        </div>
-                        <div class="card__action-bar u-center">
-
-                            <div class="btn-group">
-                                <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
-                                    data-tooltip="Like this post"><i class="fa-regular fa-thumbs-up fa-xl"></i>
-                                    <a asp-controller="Home" asp-action="Like" asp-route-id="@item.Id">Like</a>
-                                </button>
-                                <button class="outline btn-transparent text-blue-700 tooltip tooltip--right"
-                                    data-tooltip="Leave a comment"><i class="fa-regular fa-comment-dots fa-xl"></i>
-                                    Comment</button>
-                            </div>
-                        </div>
-                        @if (item.Author.UserName == User.Identity.Name)
-                        {
-                            <div class="post-card-content">
-                                <p>
-                                    <a asp-controller="Posts" asp-action="Edit" asp-route-id="@item.Id">Edit Post</a>
-                                    <a asp-controller="Posts" asp-action="Delete" asp-route-id="@item.Id">Delete Post</a>
-                                </p>
-                            </div>
-                        }
                     </div>
+                    }
+                    <div class="post-card-interaction-counter">
+
+                        <p><i class="fa-regular fa-thumbs-up fa-lg"></i> @item.Likes.Count</p>
+
+                    </div>
+                    <div class="card__action-bar u-center">
+
+                        <div class="btn-group">
+                            <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
+                                data-tooltip="Like this post"><i class="fa-regular fa-thumbs-up fa-xl"></i>
+                                <a asp-controller="Home" asp-action="Like" asp-route-id="@item.Id">Like</a>
+                            </button>
+                            <button onclick="ShowCommentBox()"
+                                id="comment-btn" class="outline btn-transparent text-blue-700 tooltip tooltip--right"
+                                data-tooltip="Leave a comment"><i id="comment-btn-icon" class="fa-regular fa-comment-dots fa-xl"></i>
+                                <a 
+                                @*! two issues: 1. comment box only shows on post #1 for some reason and 2. tried to write controller method in both Home and Post but to no avail
+                                *@
+                                @* asp-controller="Home" asp-action="Comment"  *@
+                                asp-route-id="@item.Id" id="comment-link">Comment</a>
+                            </button>
+
+
+                    </div>
+                        </div>
+                            <div class="commentbox" id="commentbox" hidden>
+                                <label class="font-extrathin comment-label tracking-tighter">Write your comment:</label>
+                                <input id="comment-input"type="text">
+                                <button class="outline btn-transparent text-blue-700">Publish</button>
+                            </div>
+                    @if (item.Author.UserName == User.Identity.Name)
+                    {
+                    <div class="post-card-content">
+                        <p>
+                            <a asp-controller="Posts" asp-action="Edit" asp-route-id="@item.Id">Edit Post</a>
+                            <a asp-controller="Posts" asp-action="Delete" asp-route-id="@item.Id">Delete Post</a>
+                        </p>
+                    </div>
+                    }
                 </div>
             </div>
+        </div>
 
         }
     </div>
-     <div class="homepage-right">
+    <div class="homepage-right">
         <h6>JobLink News</h6>
-       
+
 
 
         <div class="card">
             <div class="card__container">
-               <p>link</p>
-               <p>link</p>
-               <p>link</p>
-               <p>link</p>
-               <p>link</p>
+                <p>link</p>
+                <p>link</p>
+                <p>link</p>
+                <p>link</p>
+                <p>link</p>
+            </div>
+            <div class="divider"></div>
+            <h6>JobLink Market Trends</h6>
+            <p>stock ticker</p>
+            <p>stock ticker</p>
+            <p>stock ticker</p>
+            <p>stock ticker</p>
+            <p>stock ticker</p>
+            <p>stock ticker</p>
+
         </div>
-        <div class="divider"></div>
-        <h6>JobLink Market Trends</h6>
-               <p>stock ticker</p>
-               <p>stock ticker</p>
-               <p>stock ticker</p>
-               <p>stock ticker</p>
-               <p>stock ticker</p>
-               <p>stock ticker</p>
-           
     </div>
-</div>

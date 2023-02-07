@@ -99,3 +99,8 @@ textarea {
 
   margin: -17px auto;
 }
+
+.comment-label {
+  margin-bottom: -10px;
+  color: #258cfb;
+}
