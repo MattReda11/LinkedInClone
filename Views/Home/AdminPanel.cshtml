@@ -6,18 +6,26 @@ ViewData["Title"] = "Admin Interface";
     var data = ViewBag.Message;
 }
 <style>
-    h2{
+    h2, h4{
         text-align: center;
     }
   
 </style>
+@{
+    if (TempData["Dlt"] != null){
+         <div class="alert alert-success">@TempData["Dlt"]</div>
+    }
+}
 <h2>Admin Interface</h2>
+<h4>Manage Users</h4>
 <table class="table">
     <th>ID</th>
+    <th>Name</th>
     <th>Email</th>
     <th>Account Type</th>
     <th>Registration Date</th>
     <th>Company</th>
+    <th>Actions</th>
   
    
     <tbody>
@@ -28,6 +36,7 @@ ViewData["Title"] = "Admin Interface";
         var role = item.GetType().Name;
     }
     <td>@shorterId </td>
+    <td>@item.FullName</td>
     <td>@item.Email</td>  
     <td>@role</td>
     <td>@item.CreatedDate</td>
@@ -38,6 +47,7 @@ ViewData["Title"] = "Admin Interface";
             <td>N/A</td>
         }
     }
+    <td><a asp-controller="Account" asp-action="Read" asp-route-id="@item.Id">Delete</a></td>
    
 </tr>
 }

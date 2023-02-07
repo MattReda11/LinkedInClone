@@ -124,26 +124,35 @@ public class HomeController : Controller
     {
         return View();
     }
-
+//     [HttpPost]
+//     public async Task<RedirectToActionResult> AdminX()
+//     {
+//         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+//         var res = _db.AppUsers.Where(u => (u.Id == userId)).FirstOrDefault(); //u.Id == userId
+//         try
+//         {
+//             Console.WriteLine("adding user to role...");
+//             await _userManager.AddToRoleAsync(res, "Admin");
+//         }
+//         catch (Exception ex)
+//         {
+//             Console.WriteLine(ex.Message);
+//         }
+//         try
+//         {
+//             Console.WriteLine("Removing user from role...");
+//             await _userManager.RemoveFromRoleAsync(res, "User");
+//         }
+//         catch (Exception ex)
+//         {
+//             Console.WriteLine(ex.Message);
+//         }
+//         return RedirectToAction("Index","Home");
+// }
 }
 // Helper Methods, may reuse
 //Makes the current user into admin
-// [HttpPost]
-// public async Task<RedirectToActionResult> AdminX(){
-//     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);     
-//     var res = _db.AppUsers.Where(u =>(u.Id == userId)).FirstOrDefault(); //u.Id == userId
-//     try{
-//         Console.WriteLine("adding user to role...");
-//     await _userManager.AddToRoleAsync(res, "Admin");
-//     }
-//     catch(Exception ex){
-//         Console.WriteLine(ex.Message); 
-//     }
-//     try
-//     {
-//         Console.WriteLine("Removing user from role...");
-//         await _userManager.RemoveFromRoleAsync(res, "User");
-//     }
+
 
 
 //      catch (Exception ex)

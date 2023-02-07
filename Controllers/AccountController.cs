@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace LinkedInClone.Controllers;
-
+[Area("Account")]
 public class AccountController : Controller
 {
     private readonly ILogger<AccountController> _logger;
@@ -90,6 +90,38 @@ public class AccountController : Controller
             }
             return AccessDenied();
         }
+    }
+
+    public async Task<IActionResult> DeleteUser(string id)
+    {
+        var user = await _userManager.FindByIdAsync(id);
+        if (user == null)
+        {
+            Console.WriteLine($"User {id} not found");
+            return RedirectToAction("Home", "AdminPanel");
+        }
+        else
+        {
+            var result = await _userManager.DeleteAsync(user);
+            if (result.Succeeded)
+            {
+                TempData["Dlt"] = $"User {user.Email} deleted!";
+                return RedirectToAction("Home", "AdminPanel");
+            }
+            foreach (var item in result.Errors)
+            {
+                ModelState.AddModelError("", item.Description);
+            }
+
+        }
+        return RedirectToAction("Home", "AdminPanel");
+    }
+
+    public async Task<IActionResult> Read(string id)
+    {
+        var user = await _userManager.FindByIdAsync(id);
+        Console.WriteLine("Found user: " + user);
+        return RedirectToAction("Home", "AdminPanel");
     }
 
     public IActionResult AccessDenied()
