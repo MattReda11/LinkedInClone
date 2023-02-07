@@ -240,7 +240,56 @@ namespace LinkedInClone.Controllers
             var userName = User.Identity.Name;
             var user = _context.Users.Where(u => u.UserName == userName).FirstOrDefault();
 
-            return View(await _context.Posts.Where(p => p.Author == user).Include("Author").ToListAsync());
+            return View(await _context.Posts.Where(p => p.Author == user).Include("Author").Include("Likes").Include("Comments").ToListAsync());
+        }
+
+        [HttpGet, ActionName("Like")]
+        public async Task<IActionResult> Like(int id)
+        {
+            if (_context.Posts == null)
+            {
+                return Problem("Entity set 'AppDbContext.Posts'  is null.");
+            }
+
+            var userName = User.Identity.Name;
+            var user = _context.Users.Where(u => u.UserName == userName).FirstOrDefault();
+
+            var post = await _context.Posts.FindAsync(id);
+
+            Like newLike = new Like { LikedPost = post, LikedBy = user, LikedDate = DateTime.Now };
+
+            _context.Likes.Add(newLike);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(MyPosts));
+        }
+
+        [HttpGet, ActionName("Unlike")]
+        public async Task<IActionResult> Unlike(int id)
+        {
+            if (_context.Posts == null)
+            {
+                return Problem("Entity set 'AppDbContext.Posts'  is null.");
+            }
+
+            var userName = User.Identity.Name;
+            var user = _context.Users.Where(u => u.UserName == userName).FirstOrDefault();
+
+            var post = await _context.Posts.FindAsync(id);
+
+            var like = _context.Likes.Where(l => l.LikedBy == user && l.LikedPost == post).FirstOrDefault();
+
+            if (like != null)
+            {
+                _context.Likes.Remove(like);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(MyPosts));
+            }
+            else
+            {
+                _logger.LogInformation(string.Empty, $"Like with User Id: {user} and Post Id: {post} not found.");
+                return RedirectToAction(nameof(MyPosts));
+            }
         }
 
         private bool PostExists(int id)

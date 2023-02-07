@@ -38,7 +38,7 @@ public class HomeController : Controller
         //     Console.WriteLine($"News output: {news.Title},{news.Description}, {news.PublishedAt} ");
         // }
 
-        return View(await _db.Posts.OrderByDescending(p => p.PostedDate).Include("Author").Include("Likes").ToListAsync());
+        return View(await _db.Posts.OrderByDescending(p => p.PostedDate).Include("Author").Include("Likes").Include("Comments").ToListAsync());
     }
 
     [Authorize]
@@ -85,7 +85,7 @@ public class HomeController : Controller
 
         return View(allUsers);
     }
- 
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
