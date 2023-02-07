@@ -89,24 +89,29 @@ ViewData["Title"] = "Home";
                                 data-tooltip="Like this post"><i class="fa-regular fa-thumbs-up fa-xl"></i>
                                 <a asp-controller="Home" asp-action="Like" asp-route-id="@item.Id">Like</a>
                             </button>
-                            <button onclick="ShowCommentBox()"
-                                id="comment-btn" class="outline btn-transparent text-blue-700 tooltip tooltip--right"
-                                data-tooltip="Leave a comment"><i id="comment-btn-icon" class="fa-regular fa-comment-dots fa-xl"></i>
-                                <a 
-                                @*! two issues: 1. comment box only shows on post #1 for some reason and 2. tried to write controller method in both Home and Post but to no avail
-                                *@
-                                @* asp-controller="Home" asp-action="Comment"  *@
-                                asp-route-id="@item.Id" id="comment-link">Comment</a>
+                            <button onclick="ShowCommentBox()" id="comment-btn"
+                                class="outline btn-transparent text-blue-700 tooltip tooltip--right"
+                                data-tooltip="Leave a comment"><i id="comment-btn-icon"
+                                    class="fa-regular fa-comment-dots fa-xl"></i>
+                                <a id="comment-link">Comment</a>
                             </button>
 
 
-                    </div>
                         </div>
-                            <div class="commentbox" id="commentbox" hidden>
-                                <label class="font-extrathin comment-label tracking-tighter">Write your comment:</label>
-                                <input id="comment-input"type="text">
-                                <button class="outline btn-transparent text-blue-700">Publish</button>
-                            </div>
+                    </div>
+
+                    @* TODO: connect to Home or Posts controller? Tried both, couldn't get it. Issue #2 is commentbox doesn't show under posts with images (but triggers post#1 when post#2 is clicked) *@
+                    <div class="commentbox" id="commentbox" hidden>
+                        <form id="comment" method="post">
+
+                            <label class="font-extrathin comment-label tracking-tighter">Write your comment:</label>
+                            <input id="comment-input" type="text"/>
+                            <input type="submit" value="Publish" class="outline btn-transparent text-black-700 mt-1"/>
+                                @* <a asp-controller="Home" asp-action="Comment" asp-route-id="@item.Id">
+                                </a> *@
+                        </form>
+                    </div>
+
                     @if (item.Author.UserName == User.Identity.Name)
                     {
                     <div class="post-card-content">
