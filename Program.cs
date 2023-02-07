@@ -41,7 +41,7 @@ builder.Services.AddControllersWithViews();
 var blobConnection = builder.Configuration.GetConnectionString("BlobConnectionString");
 
 builder.Services.AddSingleton(x => new BlobServiceClient(blobConnection));
-
+builder.Services.AddSingleton<INewsAPIService, NewsAPIService>();
 builder.Services.AddScoped<IBlobService, BlobService>();
 builder.Services.AddMvc();
 builder.Services.Configure<CookiePolicyOptions>(options =>
