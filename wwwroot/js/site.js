@@ -1,8 +1,6 @@
 ﻿//  on clicking Comment button from Index, shows or hides the comment input while toggling the button text, tooltip text, icon, and color depending on hidden state. In "Cancel" state a click will also clear the input field.
 //! fixme: clear not working anymore, neither is icon
 async function ShowCommentBox(id) {
-  console.log(id);
-  //* change to get by classes OR add id to each id
   let commentboxDiv = document.getElementById("commentbox-" + id);
   let btnLink = document.getElementById("comment-link-" + id);
   let commentBtn = document.getElementById("comment-btn-" + id);
@@ -34,4 +32,11 @@ async function ShowCommentBox(id) {
     btnIcon.classList.remove("fa-solid", "fa-xmark");
     btnIcon.classList.add("fa-regular", "fa-comment-dots", "fa-xl");
   }
+}
+
+async function LogIn() {
+  console.log("something");
+  let loginBtn = document.getElementById("login-submit");
+  loginBtn.classList.add("loading", "loading-right");
+  loginBtn.innerHTML = "Logging In...";
 }
