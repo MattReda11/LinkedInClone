@@ -6,6 +6,7 @@ using LinkedInClone.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
+using LinkedInClone.Services;
 
 namespace LinkedInClone.Controllers;
 
@@ -15,19 +16,27 @@ public class HomeController : Controller
     private readonly RoleManager<IdentityRole> _roleManager;
     private readonly AppDbContext _db;
     private readonly UserManager<ApplicationUser> _userManager;
+    private readonly INewsAPIService _newsAPIService;
 
 
-    public HomeController(ILogger<HomeController> logger, AppDbContext db, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+    public HomeController(ILogger<HomeController> logger, AppDbContext db, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager, INewsAPIService newsAPIService)
     {
         _logger = logger;
         _db = db;
         _roleManager = roleManager;
         _userManager = userManager;
+        _newsAPIService = newsAPIService;
     }
 
     [Authorize]
     public async Task<IActionResult> Index()
     {
+        // List<NewsModel> newsHeadlines  = new List<NewsModel>();
+        // newsHeadlines = await _newsAPIService.GetHeadlines();
+        // foreach (NewsModel news in newsHeadlines)
+        // {
+        //     Console.WriteLine($"News output: {news.Title},{news.Description}, {news.PublishedAt} ");
+        // }
 
         return View(await _db.Posts.OrderByDescending(p => p.PostedDate).Include("Author").Include("Likes").ToListAsync());
     }
@@ -47,16 +56,14 @@ public class HomeController : Controller
         var checkRecruiter = await _userManager.IsInRoleAsync(res, "Recruiter");
         var checkAdmin = await _userManager.IsInRoleAsync(res, "Admin");
         var role = "User";
-        if (checkRecruiter == true)
+        if (checkRecruiter)
         {
             role = "Recruiter";
         }
-        else if (checkAdmin == true)
+        else if (checkAdmin)
         {
             role = "Admin";
         }
-
-
 
         ApplicationUser user = new ApplicationUser
         {
@@ -78,60 +85,7 @@ public class HomeController : Controller
 
         return View(allUsers);
     }
-    //Makes the current user into admin
-    // [HttpPost]
-    // public async Task<RedirectToActionResult> AdminX(){
-    //     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);     
-    //     var res = _db.AppUsers.Where(u =>(u.Id == userId)).FirstOrDefault(); //u.Id == userId
-    //     try{
-    //         Console.WriteLine("adding user to role...");
-    //     await _userManager.AddToRoleAsync(res, "Admin");
-    //     }
-    //     catch(Exception ex){
-    //         Console.WriteLine(ex.Message); 
-    //     }
-    //     try
-    //     {
-    //         Console.WriteLine("Removing user from role...");
-    //         await _userManager.RemoveFromRoleAsync(res, "User");
-    //     }
-
-
-    //      catch (Exception ex)
-    //     {
-    //         Console.WriteLine(ex.Message);
-    //     }
-    //     return RedirectToAction("Index");
-    // }
-
-    // [HttpPost]
-    // public async Task<ActionResult> CreateRoles()
-    // {
-    //     Console.WriteLine("Attempting to create user role...");
-    //     var regUser = new IdentityRole();
-    //     regUser.Name = "User";
-    //    await _roleManager.CreateAsync(regUser);
-    //     Console.WriteLine("user role created!");
-
-    //     Console.WriteLine("Attempting to create recruiter role...");
-    //     var recruiter = new IdentityRole();
-    //     recruiter.Name = "Recruiter";
-    //     await _roleManager.CreateAsync(recruiter);
-    //     Console.WriteLine("recruiter role created!");
-
-    //     Console.WriteLine("Attempting to create admin role...");
-    //     var admin = new IdentityRole();
-    //     admin.Name = "Admin";
-    //     await _roleManager.CreateAsync(admin);
-    //     Console.WriteLine("admin role created!");
-
-    //     Console.WriteLine("Attempting to save changes...");
-    //     int x = await _db.SaveChangesAsync();
-    //     if (x > 0){
-    //     return RedirectToAction("Index");
-    //     }else return RedirectToAction("Privacy");
-    // }
-
+ 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
@@ -172,3 +126,57 @@ public class HomeController : Controller
     }
 
 }
+// Helper Methods, may reuse
+//Makes the current user into admin
+// [HttpPost]
+// public async Task<RedirectToActionResult> AdminX(){
+//     var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);     
+//     var res = _db.AppUsers.Where(u =>(u.Id == userId)).FirstOrDefault(); //u.Id == userId
+//     try{
+//         Console.WriteLine("adding user to role...");
+//     await _userManager.AddToRoleAsync(res, "Admin");
+//     }
+//     catch(Exception ex){
+//         Console.WriteLine(ex.Message); 
+//     }
+//     try
+//     {
+//         Console.WriteLine("Removing user from role...");
+//         await _userManager.RemoveFromRoleAsync(res, "User");
+//     }
+
+
+//      catch (Exception ex)
+//     {
+//         Console.WriteLine(ex.Message);
+//     }
+//     return RedirectToAction("Index");
+// }
+
+// [HttpPost]
+// public async Task<ActionResult> CreateRoles()
+// {
+//     Console.WriteLine("Attempting to create user role...");
+//     var regUser = new IdentityRole();
+//     regUser.Name = "User";
+//    await _roleManager.CreateAsync(regUser);
+//     Console.WriteLine("user role created!");
+
+//     Console.WriteLine("Attempting to create recruiter role...");
+//     var recruiter = new IdentityRole();
+//     recruiter.Name = "Recruiter";
+//     await _roleManager.CreateAsync(recruiter);
+//     Console.WriteLine("recruiter role created!");
+
+//     Console.WriteLine("Attempting to create admin role...");
+//     var admin = new IdentityRole();
+//     admin.Name = "Admin";
+//     await _roleManager.CreateAsync(admin);
+//     Console.WriteLine("admin role created!");
+
+//     Console.WriteLine("Attempting to save changes...");
+//     int x = await _db.SaveChangesAsync();
+//     if (x > 0){
+//     return RedirectToAction("Index");
+//     }else return RedirectToAction("Privacy");
+// }
