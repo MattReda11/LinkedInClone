@@ -1,14 +1,18 @@
-@model List<ApplicationUser>
+@model AdminPanelViewModel
 @{
 ViewData["Title"] = "Admin Interface";
 }
-@{
-    var data = ViewBag.Message;
-}
+
 <style>
     h2, h4{
         text-align: center;
     }
+    .tableMenu{
+        text-align: center;
+        font-size: 22px;
+        font-weight: bold;
+    }
+
   
 </style>
 @{
@@ -18,7 +22,7 @@ ViewData["Title"] = "Admin Interface";
 }
 <h2>Admin Interface</h2>
 <h4>Manage Users</h4>
-<table class="table">
+<table class="table" id="usersTable">
     <th>ID</th>
     <th>Name</th>
     <th>Email</th>
@@ -29,7 +33,7 @@ ViewData["Title"] = "Admin Interface";
   
    
     <tbody>
-@foreach (var item in Model){
+@foreach (var item in Model.Users){
 <tr>
     @{
         var shorterId = item.Id.Substring(0,13);
@@ -47,27 +51,40 @@ ViewData["Title"] = "Admin Interface";
             <td>N/A</td>
         }
     }
-    <td><a href="#" onclick="deleteUser('@item.Id')">Delete</a></td>
+    <td><a href="#" onclick="confirmDelete('@item.Id')">Delete</a></td>
    
 </tr>
 }
 </tbody>
 </table>
+<div id="jobsTable" style="display: none;">
+    @Html.Partial("_AdminJobPostingsTable", Model.JobPostings)
+</div>
+<div id="postsTable" style="display: none;">
+    @Html.Partial("_AdminPostsTable", Model.Posts)
+</div>
+<p class="tableMenu"><a href="#" onclick="showTable('jobsTable')">View Job Postings </a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="showTable('postsTable')"> View User Posts</a></p>
 
 <script>
-    function deleteUser(id) {
-        var xhr = new XMLHttpRequest();
-        xhr.open("DELETE", "/Account/DeleteUser/" + id);
-        xhr.setRequestHeader("Content-Type", "application/json");
-        xhr.onload = function() {
-            if (xhr.status === 200) {
+   
+    function confirmDelete(id) {
+    if (confirm("Are you sure you want to delete this user?")) {
+        $.ajax({
+            type: "DELETE",
+            url: "/Account/DeleteUser/" + id,
+            success: function(data) {                
                 alert("User deleted successfully");
                 location.reload();
-            } else {
-                alert("Error deleting user");
             }
-        };
-        xhr.send();
+        });
     }
+}
+
+    function showTable(tableId) {
+    document.getElementById("usersTable").style.display = "none";
+    document.getElementById("jobsTable").style.display = "none";
+    document.getElementById("postsTable").style.display = "none";
+    document.getElementById(tableId).style.display = "block";
+}
 </script>
 

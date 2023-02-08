@@ -84,7 +84,20 @@ public class HomeController : Controller
         return View("~/Views/Account/MyAccount.cshtml");
     }
 
-      
+    public async Task<IActionResult> AdminPanel()
+    {
+        var model = new AdminPanelViewModel();
+        model.Users = await _db.AppUsers.ToListAsync();
+        model.JobPostings = await _db.JobPostings.ToListAsync();
+        model.Posts = await _db.Posts.ToListAsync();
+        return View(model);
+        // List<ApplicationUser> allUsers = await _db.AppUsers.ToListAsync();
+        // List<JobPosting> allJobs = await _db.JobPostings.ToListAsync();
+        // List<Post> allPosts = await _db.Posts.ToListAsync();
+        // ViewBag.allJobs = allJobs;
+        // ViewBag.allPosts = allPosts;
+        // return View(allUsers);
+    }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

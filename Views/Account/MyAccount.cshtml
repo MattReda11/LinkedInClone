@@ -13,7 +13,7 @@ ViewData["Title"] = "My Account";
 </p>
 @if (data.FullName == "Admin")
 {
-    <p><a asp-action="AdminPanel" asp-area="Admin" asp-controller="Admin">Access Admin Panel</a></p>
+    <p><a asp-action="AdminPanel" asp-controller="Home">Access Admin Panel</a></p>
 }
 @* <form method="post" asp-controller="Home" asp-action="AdminX">
     <input type="submit" value="Make user admin" />
