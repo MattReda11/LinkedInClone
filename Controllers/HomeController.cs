@@ -45,7 +45,7 @@ public class HomeController : Controller
             Console.WriteLine($"Error: {ex.Message}");
         }
 
-        return View(await _db.Posts.OrderByDescending(p => p.PostedDate).Include("Author").Include("Comments").Include("Likes").Include("Likes.LikedBy").ToListAsync());
+        return View(await _db.Posts.OrderByDescending(p => p.PostedDate).Include("Author").Include("Comments").Include("Comments.Author").Include("Likes").Include("Likes.LikedBy").ToListAsync());
     }
 
     [Authorize]
@@ -109,28 +109,6 @@ public class HomeController : Controller
         var user = _db.Users.Where(u => u.UserName == username).FirstOrDefault();
 
         return View(await _db.JobPostings.Where(j => j.Recruiter == user).Include("JobApplications").ToListAsync());
-    }
-
-    [HttpGet, ActionName("Comment")]
-    public async Task<IActionResult> Comment(int id)
-    {
-        if (_db.Posts == null)
-        {
-            return Problem("Entity set 'AppDbContext.Posts' is null.");
-        }
-
-        var userName = User.Identity.Name;
-        var user = _db.Users.Where(u => u.UserName == userName).FirstOrDefault();
-
-        var post = await _db.Posts.FindAsync(id);
-
-        // ! right here, can't get 'Content = content' in or sth like it
-        Comment newComment = new Comment { Post = post, Author = user, CreatedDated = DateTime.Now };
-
-        _db.Comments.Add(newComment);
-        await _db.SaveChangesAsync();
-
-        return RedirectToAction(nameof(Index));
     }
 
     [HttpGet]
