@@ -2,54 +2,11 @@
 @{
 ViewData["Title"] = "Home";
 }
-<div class="homepage-container">
-    <div class="homepage-left">
+<div class="main-container">
+    
+    <partial name="_LeftSideBarForUser" />
 
-        <h6>Explore</h6>
-
-        <div class="tree">
-            <div class="tree-item">
-                <input type="checkbox" id="tree1" class="u-none">
-                <label class="tree-item-header" for="tree1">
-                    <span class="icon">
-                        <i class="fa fa-wrapper fa-chevron-right small" aria-hidden="true"></i>
-                    </span> Posts
-                </label>
-                <div class="tree-item-body">
-                    <ul class="menu">
-                        <li class="menu-item"><a asp-controller="Posts" asp-action="Create">Add a Post</a></li>
-                        <li class="menu-item"><a asp-controller="Posts" asp-action="MyPosts">Your Posts</a></li>
-                        <li class="menu-item"><a asp-controller="Posts" asp-action="Create">Liked Posts</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="tree">
-            <div class="tree-item">
-                <input type="checkbox" id="tree3" class="u-none">
-                <label class="tree-item-header" for="tree3">
-                    <span class="icon">
-                        <i class="fa fa-wrapper fa-chevron-right small" aria-hidden="true"></i>
-                    </span> Jobs
-                </label>
-                <div class="tree-item-body">
-                    <ul class="menu">
-                        <li class="menu-item"><a asp-controller="JobApplications" asp-action="AllAvailableJobs">Apply
-                                for
-                                Jobs</a></li>
-                        <li class="menu-item"><a asp-controller="JobApplications" asp-action="UserApplications">View My
-                                Jobs</a>
-                        </li>
-                        <li class="menu-item"><a asp-controller="JobApplications" asp-action="TODO">Contact a
-                                recruiter</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="homepage-center">
+    <div class="main-center">
         @foreach (var item in Model)
         {
 
@@ -143,27 +100,6 @@ ViewData["Title"] = "Home";
         </div>
         }
     </div>
-    <div class="homepage-right">
-        <h6>JobLink News</h6>
 
-
-
-        <div class="card">
-            <div class="card__container">
-                <p>link</p>
-                <p>link</p>
-                <p>link</p>
-                <p>link</p>
-                <p>link</p>
-            </div>
-            <div class="divider"></div>
-            <h6>JobLink Market Trends</h6>
-            <p>stock ticker</p>
-            <p>stock ticker</p>
-            <p>stock ticker</p>
-            <p>stock ticker</p>
-            <p>stock ticker</p>
-            <p>stock ticker</p>
-
-        </div>
-    </div>
+    <partial name="_RightSideBarForUser" />
+    
