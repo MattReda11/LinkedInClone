@@ -28,7 +28,7 @@ public class HomeController : Controller
         _newsAPIService = newsAPIService;
     }
 
-    [Authorize]
+    [Authorize(Roles = "User")]
     public async Task<IActionResult> Index()
     {
         // List<NewsModel> newsHeadlines  = new List<NewsModel>();
