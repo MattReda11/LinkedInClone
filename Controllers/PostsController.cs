@@ -240,7 +240,7 @@ namespace LinkedInClone.Controllers
             var userName = User.Identity.Name;
             var user = _context.Users.Where(u => u.UserName == userName).FirstOrDefault();
 
-            return View(await _context.Posts.Where(p => p.Author == user).Include("Author").Include("Likes").Include("Comments").ToListAsync());
+            return View(await _context.Posts.Where(p => p.Author == user).Include("Author").Include("Comments").Include("Likes").Include("Likes.LikedBy").ToListAsync());
         }
 
         [HttpGet, ActionName("Like")]
@@ -252,7 +252,7 @@ namespace LinkedInClone.Controllers
             }
 
             var userName = User.Identity.Name;
-            var user = _context.Users.Where(u => u.UserName == userName).FirstOrDefault();
+            ApplicationUser user = _context.Users.Where(u => u.UserName == userName).FirstOrDefault();
 
             var post = await _context.Posts.FindAsync(id);
 
@@ -273,7 +273,7 @@ namespace LinkedInClone.Controllers
             }
 
             var userName = User.Identity.Name;
-            var user = _context.Users.Where(u => u.UserName == userName).FirstOrDefault();
+            ApplicationUser user = _context.Users.Where(u => u.UserName == userName).FirstOrDefault();
 
             var post = await _context.Posts.FindAsync(id);
 

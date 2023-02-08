@@ -45,7 +45,7 @@ public class HomeController : Controller
             Console.WriteLine($"Error: {ex.Message}");
         }
 
-        return View(await _db.Posts.OrderByDescending(p => p.PostedDate).Include("Author").Include("Likes").Include("Comments").ToListAsync());
+        return View(await _db.Posts.OrderByDescending(p => p.PostedDate).Include("Author").Include("Comments").Include("Likes").Include("Likes.LikedBy").ToListAsync());
     }
 
     [Authorize]
@@ -110,7 +110,7 @@ public class HomeController : Controller
         }
 
         var userName = User.Identity.Name;
-        var user = _db.Users.Where(u => u.UserName == userName).FirstOrDefault();
+        ApplicationUser user = _db.Users.Where(u => u.UserName == userName).FirstOrDefault();
 
         var post = await _db.Posts.FindAsync(id);
 
@@ -131,7 +131,7 @@ public class HomeController : Controller
         }
 
         var userName = User.Identity.Name;
-        var user = _db.Users.Where(u => u.UserName == userName).FirstOrDefault();
+        ApplicationUser user = _db.Users.Where(u => u.UserName == userName).FirstOrDefault();
 
         var post = await _db.Posts.FindAsync(id);
 

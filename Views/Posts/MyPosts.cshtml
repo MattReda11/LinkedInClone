@@ -37,9 +37,9 @@
                         <p><i class="fa-regular fa-thumbs-up fa-lg"></i> @item.Likes.Count</p>
 
                     </div>
-                    <div class="card__action-bar u-center">
-                        @if (item.Likes.Count == 0)
-                        {
+                    @if (item.Likes.Count == 0)
+                    {
+                        <div class="card__action-bar u-center">
                             <div class="btn-group" runat="server">
                                 <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
                                     data-tooltip="Like this post"><i class="fa-regular fa-thumbs-up fa-xl"></i>
@@ -52,13 +52,31 @@
                                     <a id="comment-link">Comment</a>
                                 </button>
                             </div>
-                        }
-                        else
+                        </div>
+                        <div class="commentbox" id="commentbox-@item.Id" hidden>
+                            <form id="comment" method="post">
+
+                                <label class="font-extrathin comment-label tracking-tighter">Write your comment:</label>
+                                <input id="comment-input" type="text" />
+                                <input type="submit" value="Publish" class="outline btn-transparent text-black-700 mt-1" />
+                                @* <a asp-controller="Home" asp-action="Comment" asp-route-id="@item.Id">
+                        </a> *@
+                            </form>
+                        </div>
+                        <div class="post-card-content">
+                            <p>
+                                <a asp-controller="Posts" asp-action="Edit" asp-route-id="@item.Id">Edit Post</a>
+                                <a asp-controller="Posts" asp-action="Delete" asp-route-id="@item.Id">Delete Post</a>
+                            </p>
+                        </div>
+                    }
+                    else
+                    {
+                        @foreach (var like in item.Likes)
                         {
-                            @foreach (var like in item.Likes)
+                            @if (like.LikedPost == item && like.LikedBy.UserName == User.Identity.Name)
                             {
-                                @if (like.LikedPost == item && like.LikedBy.UserName == User.Identity.Name)
-                                {
+                                <div class="card__action-bar u-center">
                                     <div class="btn-group" runat="server">
                                         <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
                                             data-tooltip="Unlike this post"><i class="fa-regular fa-thumbs-down fa-xl"></i>
@@ -71,10 +89,29 @@
                                             <a id="comment-link">Comment</a>
                                         </button>
                                     </div>
-                                }
-                                else if (like.LikedPost != item || like.LikedBy.UserName != User.Identity.Name &&
-                                item.Likes.IndexOf(like) == item.Likes.Count - 1)
-                                {
+                                </div>
+                                <div class="commentbox" id="commentbox-@item.Id" hidden>
+                                    <form id="comment" method="post">
+
+                                        <label class="font-extrathin comment-label tracking-tighter">Write your comment:</label>
+                                        <input id="comment-input" type="text" />
+                                        <input type="submit" value="Publish" class="outline btn-transparent text-black-700 mt-1" />
+                                        @* <a asp-controller="Home" asp-action="Comment" asp-route-id="@item.Id">
+                        </a> *@
+                                    </form>
+                                </div>
+                                <div class="post-card-content">
+                                    <p>
+                                        <a asp-controller="Posts" asp-action="Edit" asp-route-id="@item.Id">Edit Post</a>
+                                        <a asp-controller="Posts" asp-action="Delete" asp-route-id="@item.Id">Delete Post</a>
+                                    </p>
+                                </div>
+                                return;
+                            }
+                            else if (like.LikedPost != item || like.LikedBy.UserName != User.Identity.Name &&
+                            item.Likes.IndexOf(like) == item.Likes.Count - 1)
+                            {
+                                <div class="card__action-bar u-center">
                                     <div class="btn-group" runat="server">
                                         <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
                                             data-tooltip="Like this post"><i class="fa-regular fa-thumbs-up fa-xl"></i>
@@ -87,33 +124,29 @@
                                             <a id="comment-link">Comment</a>
                                         </button>
                                     </div>
-                                }
+                                </div>
+                                <div class="commentbox" id="commentbox-@item.Id" hidden>
+                                    <form id="comment" method="post">
+
+                                        <label class="font-extrathin comment-label tracking-tighter">Write your comment:</label>
+                                        <input id="comment-input" type="text" />
+                                        <input type="submit" value="Publish" class="outline btn-transparent text-black-700 mt-1" />
+                                        @* <a asp-controller="Home" asp-action="Comment" asp-route-id="@item.Id">
+                        </a> *@
+                                    </form>
+                                </div>
+                                <div class="post-card-content">
+                                    <p>
+                                        <a asp-controller="Posts" asp-action="Edit" asp-route-id="@item.Id">Edit Post</a>
+                                        <a asp-controller="Posts" asp-action="Delete" asp-route-id="@item.Id">Delete Post</a>
+                                    </p>
+                                </div>
                             }
                         }
-                    </div>
-
-                    @* TODO: connect to Home or Posts controller? Tried both, couldn't get it. Issue #2 is commentbox
-                doesn't show under posts with images (but triggers post#1 when post#2 is clicked) Wrap with id?
-                conditionally place again in if(file!==null)?*@
-                    <div class="commentbox" id="commentbox-@item.Id" hidden>
-                        <form id="comment" method="post">
-
-                            <label class="font-extrathin comment-label tracking-tighter">Write your comment:</label>
-                            <input id="comment-input" type="text" />
-                            <input type="submit" value="Publish" class="outline btn-transparent text-black-700 mt-1" />
-                            @* <a asp-controller="Home" asp-action="Comment" asp-route-id="@item.Id">
-                        </a> *@
-                        </form>
-                    </div>
-                    <div class="post-card-content">
-                        <p>
-                            <a asp-controller="Posts" asp-action="Edit" asp-route-id="@item.Id">Edit Post</a>
-                            <a asp-controller="Posts" asp-action="Delete" asp-route-id="@item.Id">Delete Post</a>
-                        </p>
-                    </div>
+                    }
                 </div>
+
             </div>
         </div>
-
     }
 </div>
