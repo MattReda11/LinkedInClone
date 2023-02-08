@@ -302,3 +302,43 @@
 - start search bar implementation
 3. Need assistance / figure things out:
 -
+------------------------------------------------------------------------------------
+2/8/2023 Kevin
+1. Done/not done since last scrum:
+- Admin User CRUD
+- Registration field validation
+2. To do until next Scrum:
+- Admin CRUD on Posts
+- Maybe keep trying at API
+3. Need assistance / figure things out:
+-
+
+2/8/2023 Matthew
+1. Done/not done since last scrum:
+- Unlike feature, Like Management
+- My Posts page completed
+2. To do until next Scrum:
+- Assist in Comment implementation
+- Begin Connections implementation
+3. Need assistance / figure things out:
+-
+
+2/8/2023 Chris
+1. Done/not done since last scrum:
+- continuing work on Comments, show/hide
+- app-wide UI tweaks
+2. To do until next Scrum:
+- adding Comment box functionality, bug fixing
+- finish app-wide styles for good
+3. Need assistance / figure things out:
+- everything to do with Comments
+
+2/8/2023 Seena
+1. Done/not done since last scrum:
+- a bit of work on CV blob
+2. To do until next Scrum:
+- finish styling for pages (view applicants, etc.)
+- finish CV blob implementation
+- start search bar implementation
+3. Need assistance / figure things out:
+-
