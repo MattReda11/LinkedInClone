@@ -127,10 +127,11 @@ ViewData["Title"] = "Home";
                                         </button>
                                         <button onclick="ShowCommentBox(@item.Id)" id="comment-btn-@item.Id"
                                         class="outline btn-transparent text-blue-700 tooltip tooltip--right"
-                                        data-tooltip="Leave a comment"><i id="comment-btn-icon"
-                                        class="fa-regular fa-comment-dots fa-xl"></i>
-                                <a id="comment-link-@item.Id">Comment</a>
-                            </button>
+                                        data-tooltip="Leave a comment">
+                                            <i id="comment-btn-icon"
+                                            class="fa-regular fa-comment-dots fa-xl"></i>
+                                            <a id="comment-link-@item.Id">Comment</a>
+                                        </button>
                                     </div>
                                 }
                             }
@@ -162,7 +163,6 @@ ViewData["Title"] = "Home";
                 </div>
             </div>
         </div>
-
         }
     </div>
     <div class="homepage-right">
