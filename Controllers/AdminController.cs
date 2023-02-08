@@ -28,33 +28,7 @@ public class AdminController : Controller
     }
 
     
-    public async Task<IActionResult> AdminPanel()
-    {
-        Console.WriteLine("here");
-        // List<object> myList = new List<object>();
-        // if (userChoice == null)//will be null on first request, manually assign users as I want users to be displayed first
-        // {
-        //     userChoice = "Users";
-        // }
-        // switch (userChoice)
-        // {
-        //     case "Users":
-        //         List<ApplicationUser> allUsers = await _db.AppUsers.ToListAsync();
-        //         return View(allUsers);
-        //     case "Posts":
-        //         //List<Posts>
-        //         break;
-        //     case "JobApplications":
-        //         //List<JobApplication>
-        //         break;
-        //     default:
-        //         Console.WriteLine("This should never occur");
-        //         break;
-
-        // }
-        List<ApplicationUser> allUsers = await _db.AppUsers.ToListAsync();
-        return View("~/Views/Admin/AdminPanel.cshtml", allUsers);
-    }
+    
   
     [HttpDelete("/Account/DeleteUser/{id}")]
     public async Task<IActionResult> DeleteUser(string id)

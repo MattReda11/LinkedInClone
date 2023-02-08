@@ -73,7 +73,13 @@ namespace LinkedInClone.Controllers
 
             if (ModelState.IsValid)
             {
-                // TODO: Implement CV Upload to Azure Blob Storage
+                if (jobApplication.FileName == null)
+                {
+                    TempData["generalInfo"] = $"Sorry {User.Identity.Name}, you can't apply without uploading your CV!";
+                    return View();
+                }
+
+
                 if (jobApplication.FileName != null)
                 {
                     var downloadedData = await _blobService.GetBlobAsync($"https://fsd05regex.blob.core.windows.net/blob-storage/{jobApplication.FileName}");
@@ -88,7 +94,9 @@ namespace LinkedInClone.Controllers
                 }
 
                 // find number of applications for chosen job 
-                int numOfApplications = await _context.JobApplications.Where(ja => ja.Job.Id == jobApplication.Job.Id).CountAsync();
+                int numOfApplications = await _context.JobApplications
+                    .Where(ja => (ja.Job.Id == jobApplication.Job.Id && ja.Applicant.Id == HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value))
+                    .CountAsync();
 
                 // redirect to all available jobs if user has already applied for chosen job (without saving to DB)
                 if (numOfApplications > 0)

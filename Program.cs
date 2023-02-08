@@ -81,10 +81,10 @@ app.UseStatusCodePages(async context =>
 {
     var response = context.HttpContext.Response;
 
-    if (response.StatusCode == (int)System.Net.HttpStatusCode.Unauthorized ||
-            response.StatusCode == (int)System.Net.HttpStatusCode.Forbidden ||
-            response.StatusCode == (int)System.Net.HttpStatusCode.NotFound)
-        response.Redirect("/Identity/Account/Login");
+    // if (response.StatusCode == (int)System.Net.HttpStatusCode.Unauthorized ||
+    //         response.StatusCode == (int)System.Net.HttpStatusCode.Forbidden ||
+    //         response.StatusCode == (int)System.Net.HttpStatusCode.NotFound)
+    //     response.Redirect("/Identity/Account/Login");
 });
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -93,12 +93,15 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-// app.UseEndpoints(endpoints =>
-//     {
-//         endpoints.MapRazorPages();
-//     });
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "admin",
+        pattern: "{controller=Admin}/{action=AdminPanel}/{id?}");
+
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+});
 
 app.Run();

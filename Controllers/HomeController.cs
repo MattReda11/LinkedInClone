@@ -45,7 +45,7 @@ public class HomeController : Controller
             Console.WriteLine($"Error: {ex.Message}");
         }
 
-        return View(await _db.Posts.OrderByDescending(p => p.PostedDate).Include("Author").Include("Likes").Include("Comments").ToListAsync());
+        return View(await _db.Posts.OrderByDescending(p => p.PostedDate).Include("Author").Include("Comments").Include("Likes").Include("Likes.LikedBy").ToListAsync());
     }
 
     [Authorize]
@@ -86,6 +86,21 @@ public class HomeController : Controller
 
 
 
+    public async Task<IActionResult> AdminPanel()
+    {
+        var model = new AdminPanelViewModel();
+        model.Users = await _db.AppUsers.ToListAsync();
+        model.JobPostings = await _db.JobPostings.ToListAsync();
+        model.Posts = await _db.Posts.ToListAsync();
+        return View(model);
+        // List<ApplicationUser> allUsers = await _db.AppUsers.ToListAsync();
+        // List<JobPosting> allJobs = await _db.JobPostings.ToListAsync();
+        // List<Post> allPosts = await _db.Posts.ToListAsync();
+        // ViewBag.allJobs = allJobs;
+        // ViewBag.allPosts = allPosts;
+        // return View(allUsers);
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
@@ -110,7 +125,7 @@ public class HomeController : Controller
         }
 
         var userName = User.Identity.Name;
-        var user = _db.Users.Where(u => u.UserName == userName).FirstOrDefault();
+        ApplicationUser user = _db.Users.Where(u => u.UserName == userName).FirstOrDefault();
 
         var post = await _db.Posts.FindAsync(id);
 
@@ -131,7 +146,7 @@ public class HomeController : Controller
         }
 
         var userName = User.Identity.Name;
-        var user = _db.Users.Where(u => u.UserName == userName).FirstOrDefault();
+        ApplicationUser user = _db.Users.Where(u => u.UserName == userName).FirstOrDefault();
 
         var post = await _db.Posts.FindAsync(id);
 
