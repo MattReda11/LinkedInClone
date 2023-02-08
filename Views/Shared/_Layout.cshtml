@@ -16,12 +16,7 @@
 
 <body>
     <partial name="_LoginPartial" />
-    @if(TempData["generalInfo"] != null)
-    {
-    <div id="generalInfoMessage" class="toast toast--info">
-        <p class="u-center">@TempData["generalInfo"]</p>
-    </div>
-    }
+ 
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -29,6 +24,13 @@
     </div>
 
     <footer class="border-top custom-footer container">
+           @if(TempData["generalInfo"] != null)
+    {
+    <div id="generalInfoMessage" class="toast toast--info w-auto">
+        <button class="btn-close"></button>
+        <p class="u-center">@TempData["generalInfo"]</p>
+    </div>
+    }
         <b>© @DateTime.Now.Year - JobLink</b>
     </footer>
 
