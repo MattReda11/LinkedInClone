@@ -98,6 +98,7 @@ public class AccountController : Controller
         var user = await _userManager.FindByIdAsync(id);
         if (user == null)
         {
+            Console.WriteLine($"User with ID:{id} does not exist!");
             return NotFound();
         }
 

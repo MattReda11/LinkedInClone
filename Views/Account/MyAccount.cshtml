@@ -11,6 +11,10 @@ ViewData["Title"] = "My Account";
     <div>Email: @data.Email</div>
     <div>Role: @data.FullName</div> @* not actually fullname, storing role in there *@
 </p>
+@if (data.FullName == "Admin")
+{
+    <p><a asp-action="AdminPanel" asp-area="Admin" asp-controller="Admin">Access Admin Panel</a></p>
+}
 @* <form method="post" asp-controller="Home" asp-action="AdminX">
     <input type="submit" value="Make user admin" />
 </form> *@
