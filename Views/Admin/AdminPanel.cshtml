@@ -1,0 +1,19 @@
+@model List<ApplicationUser>
+@{
+ViewData["Title"] = "Admin Interface";
+}
+
+<style>
+    h2, h4{
+        text-align: center;
+    }
+  
+</style>
+@{
+    if (TempData["Dlt"] != null){
+         <div class="alert alert-success">@TempData["Dlt"]</div>
+    }
+}
+<h2>Admin Interface</h2>
+
+

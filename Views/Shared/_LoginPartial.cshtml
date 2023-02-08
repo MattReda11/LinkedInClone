@@ -72,13 +72,11 @@
                             <a class="nav-link text-dark utb utb-C" asp-area="" asp-controller="Home"
                                 asp-action="Index">Home</a>
                         </div>
-                        <div class="nav-item">
-                            <a class="nav-link text-dark utb utb-C" asp-area="" asp-controller="Home"
-                                asp-action="AdminPanel">Admin Panel</a>
-                        </div>
+                      
                    <div class="nav-item">
-                                  <a>Hello Admin!</a> 
-                                        
+                                    <a id="manage" data-tooltip="Tooltip 1" class="nav-link text-dark utb utb-C"
+                                        asp-controller="Home" asp-area="" asp-action="MyAccount" title="Manage">Hello
+                                        @UserManager.GetUserName(User)!</a>
                                 </div>
                          
                           <div class="nav-item">

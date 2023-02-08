@@ -28,15 +28,22 @@ public class HomeController : Controller
         _newsAPIService = newsAPIService;
     }
 
-    [Authorize(Roles = "User")]
+    [Authorize(Roles = "User, Admin")]
     public async Task<IActionResult> Index()
     {
-        // List<NewsModel> newsHeadlines  = new List<NewsModel>();
-        // newsHeadlines = await _newsAPIService.GetHeadlines();
-        // foreach (NewsModel news in newsHeadlines)
-        // {
-        //     Console.WriteLine($"News output: {news.Title},{news.Description}, {news.PublishedAt} ");
-        // }
+        try
+        {
+            List<NewsModel> newsHeadlines = new List<NewsModel>();
+            newsHeadlines = await _newsAPIService.GetHeadlines();
+            foreach (NewsModel news in newsHeadlines)
+            {
+                Console.WriteLine($"News output: {news.Title},{news.Description}, {news.PublishedAt} ");
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
 
         return View(await _db.Posts.OrderByDescending(p => p.PostedDate).Include("Author").Include("Likes").Include("Comments").ToListAsync());
     }
@@ -74,17 +81,10 @@ public class HomeController : Controller
         };
         ViewBag.Message = user;
 
-        return View();
+        return View("~/Views/Account/MyAccount.cshtml");
     }
 
-    [Authorize(Roles = "Admin")]
-    public async Task<IActionResult> AdminPanel()
-    {
-        List<ApplicationUser> allUsers = await _db.AppUsers.ToListAsync();
-        // var posts = await _db.Posts.ToListAsync();
-
-        return View(allUsers);
-    }
+      
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
