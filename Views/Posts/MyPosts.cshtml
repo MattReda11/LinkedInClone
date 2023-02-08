@@ -3,15 +3,16 @@
     ViewData["Title"] = "My Posts";
 }
 
-<div class="homepage-center">
+<div class="universal-container">
+    <h1 class="header-brand">My Posts</h1>
     @foreach (var item in Model)
     {
 
-        <div class="card">
+        <div class="card max-w-60p">
             <div class="card__container m-2">
-                <div class="content">
+                <div>
                     <img src="https://fsd05regex.blob.core.windows.net/blob-storage/profile.png" width="5%" />
-                    <h6>@item.Author.FullName</h6>
+                    <h6 >@item.Author.FullName</h6>
                 </div>
 
                 <div class="post-card-date">
@@ -63,11 +64,11 @@
                         </a> *@
                             </form>
                         </div>
-                        <div class="post-card-content">
-                            <p>
-                                <a asp-controller="Posts" asp-action="Edit" asp-route-id="@item.Id">Edit Post</a>
-                                <a asp-controller="Posts" asp-action="Delete" asp-route-id="@item.Id">Delete Post</a>
-                            </p>
+                        
+                        <div>
+                                <a asp-controller="Posts" asp-action="Edit" asp-route-id="@item.Id" class="u u-RL">Edit Post</a>
+                             
+                                <a asp-controller="Posts" asp-action="Delete" asp-route-id="@item.Id" class="u u-RL">Delete Post</a>
                         </div>
                     }
                     else
@@ -101,10 +102,9 @@
                                     </form>
                                 </div>
                                 <div class="post-card-content">
-                                    <p>
-                                        <a asp-controller="Posts" asp-action="Edit" asp-route-id="@item.Id">Edit Post</a>
-                                        <a asp-controller="Posts" asp-action="Delete" asp-route-id="@item.Id">Delete Post</a>
-                                    </p>
+                                        <a asp-controller="Posts" asp-action="Edit" asp-route-id="@item.Id" class="u u-RL">Edit Post</a>
+                                        <div></div>
+                                        <a asp-controller="Posts" asp-action="Delete" asp-route-id="@item.Id"class="u u-RL">Delete Post</a>
                                 </div>
                                 return;
                             }
@@ -137,8 +137,8 @@
                                 </div>
                                 <div class="post-card-content">
                                     <p>
-                                        <a asp-controller="Posts" asp-action="Edit" asp-route-id="@item.Id">Edit Post</a>
-                                        <a asp-controller="Posts" asp-action="Delete" asp-route-id="@item.Id">Delete Post</a>
+                                        @* <a asp-controller="Posts" asp-action="Edit" asp-route-id="@item.Id"class="u u-RL">Edit Post</a>
+                                        <a asp-controller="Posts" asp-action="Delete" asp-route-id="@item.Id"class="u u-RL">Delete Post</a> *@
                                     </p>
                                 </div>
                             }
