@@ -1,20 +1,29 @@
 @model dynamic
 @{
-ViewData["Title"] = "My Account";
+    ViewData["Title"] = "My Account";
 }
 @{
     var data = ViewBag.Message;
 }
+<style>
+    .myAccount{
+        text-align:center;
+    }
+    </style>
+<div class="myAccount">
 <h2>User Details</h2>
 <p>
     <div>Id: @data.Id --- will delete later just for visualizing</div>
     <div>Email: @data.Email</div>
-    <div>Role: @data.FullName</div> @* not actually fullname, storing role in there *@
+    <div>Role: @data.RoleId</div>
+    <div>Name: @data.FullName</div> 
 </p>
-@if (data.FullName == "Admin")
-{
-    <p><a asp-action="AdminPanel" asp-controller="Home">Access Admin Panel</a></p>
-}
-@* <form method="post" asp-controller="Home" asp-action="AdminX">
+    @if (data.FullName == "Admin")
+    {
+        <p><a asp-action="AdminPanel" asp-controller="Home">Access Admin Panel</a></p>
+    }
+    @* Makes current user admin
+     <form method="post" asp-controller="Home" asp-action="AdminX">
     <input type="submit" value="Make user admin" />
 </form> *@
+</div>

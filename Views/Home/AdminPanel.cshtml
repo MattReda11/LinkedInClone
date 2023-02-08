@@ -23,6 +23,7 @@ ViewData["Title"] = "Admin Interface";
 <h2>Admin Interface</h2>
 <h4>Manage Users</h4>
 <table class="table" id="usersTable">
+    
     <th>ID</th>
     <th>Name</th>
     <th>Email</th>
@@ -63,7 +64,7 @@ ViewData["Title"] = "Admin Interface";
 <div id="postsTable" style="display: none;">
     @Html.Partial("_AdminPostsTable", Model.Posts)
 </div>
-<p class="tableMenu"><a href="#" onclick="showTable('jobsTable')">View Job Postings </a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="showTable('postsTable')"> View User Posts</a></p>
+<p class="tableMenu"><a href="#" onclick="showTable('jobsTable')">View Job Postings </a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="showTable('postsTable')"> View User Posts</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" onclick="showTable('usersTable')"> View Users</a></p>
 
 <script>
    

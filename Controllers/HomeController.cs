@@ -76,7 +76,8 @@ public class HomeController : Controller
         {
             Id = userId,
             Email = userName,
-            FullName = role, //using fullname to store role since its a string
+            FullName = res.FullName,
+            RoleId = role,
 
         };
         ViewBag.Message = user;
@@ -90,13 +91,7 @@ public class HomeController : Controller
         model.Users = await _db.AppUsers.ToListAsync();
         model.JobPostings = await _db.JobPostings.ToListAsync();
         model.Posts = await _db.Posts.ToListAsync();
-        return View(model);
-        // List<ApplicationUser> allUsers = await _db.AppUsers.ToListAsync();
-        // List<JobPosting> allJobs = await _db.JobPostings.ToListAsync();
-        // List<Post> allPosts = await _db.Posts.ToListAsync();
-        // ViewBag.allJobs = allJobs;
-        // ViewBag.allPosts = allPosts;
-        // return View(allUsers);
+        return View(model);  
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -169,37 +164,35 @@ public class HomeController : Controller
     {
         return View();
     }
-    //     [HttpPost]
-    //     public async Task<RedirectToActionResult> AdminX()
-    //     {
-    //         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-    //         var res = _db.AppUsers.Where(u => (u.Id == userId)).FirstOrDefault(); //u.Id == userId
-    //         try
-    //         {
-    //             Console.WriteLine("adding user to role...");
-    //             await _userManager.AddToRoleAsync(res, "Admin");
-    //         }
-    //         catch (Exception ex)
-    //         {
-    //             Console.WriteLine(ex.Message);
-    //         }
-    //         try
-    //         {
-    //             Console.WriteLine("Removing user from role...");
-    //             await _userManager.RemoveFromRoleAsync(res, "User");
-    //         }
-    //         catch (Exception ex)
-    //         {
-    //             Console.WriteLine(ex.Message);
-    //         }
-    //         return RedirectToAction("Index","Home");
-    // }
+   
 }
 // Helper Methods, may reuse
 //Makes the current user into admin
-
-
-
+//     [HttpPost]
+//     public async Task<RedirectToActionResult> AdminX()
+//     {
+//         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+//         var res = _db.AppUsers.Where(u => (u.Id == userId)).FirstOrDefault(); //u.Id == userId
+//         try
+//         {
+//             Console.WriteLine("adding user to role...");
+//             await _userManager.AddToRoleAsync(res, "Admin");
+//         }
+//         catch (Exception ex)
+//         {
+//             Console.WriteLine(ex.Message);
+//         }
+//         try
+//         {
+//             Console.WriteLine("Removing user from role...");
+//             await _userManager.RemoveFromRoleAsync(res, "User");
+//         }
+//         catch (Exception ex)
+//         {
+//             Console.WriteLine(ex.Message);
+//         }
+//         return RedirectToAction("Index","Home");
+// }
 //      catch (Exception ex)
 //     {
 //         Console.WriteLine(ex.Message);
