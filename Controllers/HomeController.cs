@@ -93,7 +93,7 @@ public class HomeController : Controller
         model.Users = await _db.AppUsers.ToListAsync();
         model.JobPostings = await _db.JobPostings.ToListAsync();
         model.Posts = await _db.Posts.ToListAsync();
-        return View(model);  
+        return View(model);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -109,55 +109,6 @@ public class HomeController : Controller
         var user = _db.Users.Where(u => u.UserName == username).FirstOrDefault();
 
         return View(await _db.JobPostings.Where(j => j.Recruiter == user).Include("JobApplications").ToListAsync());
-    }
-
-    [HttpGet, ActionName("Like")]
-    public async Task<IActionResult> Like(int id)
-    {
-        if (_db.Posts == null)
-        {
-            return Problem("Entity set 'AppDbContext.Posts'  is null.");
-        }
-
-        var userName = User.Identity.Name;
-        ApplicationUser user = _db.Users.Where(u => u.UserName == userName).FirstOrDefault();
-
-        var post = await _db.Posts.FindAsync(id);
-
-        Like newLike = new Like { LikedPost = post, LikedBy = user, LikedDate = DateTime.Now };
-
-        _db.Likes.Add(newLike);
-        await _db.SaveChangesAsync();
-
-        return RedirectToAction(nameof(Index));
-    }
-
-    [HttpGet, ActionName("Unlike")]
-    public async Task<IActionResult> Unlike(int id)
-    {
-        if (_db.Posts == null)
-        {
-            return Problem("Entity set 'AppDbContext.Posts'  is null.");
-        }
-
-        var userName = User.Identity.Name;
-        ApplicationUser user = _db.Users.Where(u => u.UserName == userName).FirstOrDefault();
-
-        var post = await _db.Posts.FindAsync(id);
-
-        var like = _db.Likes.Where(l => l.LikedBy == user && l.LikedPost == post).FirstOrDefault();
-
-        if (like != null)
-        {
-            _db.Likes.Remove(like);
-            await _db.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
-        else
-        {
-            _logger.LogInformation(string.Empty, $"Like with User Id: {user} and Post Id: {post} not found.");
-            return RedirectToAction(nameof(Index));
-        }
     }
 
     [HttpGet, ActionName("Comment")]
@@ -188,7 +139,7 @@ public class HomeController : Controller
     {
         return View();
     }
-   
+
 }
 // Helper Methods, may reuse
 //Makes the current user into admin

@@ -7,8 +7,6 @@
 
         @foreach (var item in Model)
         {
-
-        <div class="commentbox" id="commentbox-@item.Id" hidden>
             <form id="comment" method="post">
 
                 <label class="font-extrathin comment-label tracking-tighter">Write your comment:</label>
@@ -22,14 +20,5 @@
                 <p>@item.Comment.Author.UserName said, [on date]</p>
                 <p>@item.Comment.Content</p> *@
             </div>
-        </div>
-        @if (item.Author.UserName == User.Identity.Name)
-        {
-        <div class="post-card-content">
-            <p>
-                <a asp-controller="Posts" asp-action="Edit" asp-route-id="@item.Id">Edit Post</a>
-                <a asp-controller="Posts" asp-action="Delete" asp-route-id="@item.Id">Delete Post</a>
-            </p>
-        </div>
-        }
+            return;
         }

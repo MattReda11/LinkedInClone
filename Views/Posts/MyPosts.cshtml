@@ -5,148 +5,100 @@
 
 <div class="universal-container">
     <h1 class="header-brand">My Posts</h1>
-    @foreach (var item in Model)
-    {
-
-        <div class="card max-w-60p">
-            <div class="card__container m-2">
-                <div>
-                    <img src="https://fsd05regex.blob.core.windows.net/blob-storage/profile.png" width="5%" />
-                    <h6 >@item.Author.FullName</h6>
-                </div>
-
-                <div class="post-card-date">
-                    <p>Posted on @item.PostedDate.ToString("ddd MMMM dd, yyyy") at
-                        @item.PostedDate.ToString("h:mm tt") </p>
-                </div>
-
-                <div class="post-card-content">
-                    <p>@item.Content</p>
-                </div>
-                <div>
-                    @if (item.FileName != null)
-                    {
-                        <img src='@Url.Action("GetMediaFile","Posts", new {fileName = item.FileName})' />
-                    }
-                    else
-                    {
-                        <div>
-                        </div>
-                    }
-                    <div class="post-card-interaction-counter">
-
-                        <p><i class="fa-regular fa-thumbs-up fa-lg"></i> @item.Likes.Count</p>
-
+    <div class="main-center">
+        @foreach (var item in Model)
+        {
+            <div class="card" runat="server">
+                <div class="card__container m-2">
+                    <div class="content">
+                        <img src="https://fsd05regex.blob.core.windows.net/blob-storage/profile.png" width="5%" />
+                        <h6>@item.Author.FullName</h6>
                     </div>
-                    @if (item.Likes.Count == 0)
-                    {
-                        <div class="card__action-bar u-center">
-                            <div class="btn-group" runat="server">
-                                <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
-                                    data-tooltip="Like this post"><i class="fa-regular fa-thumbs-up fa-xl"></i>
-                                    <a asp-controller="Posts" asp-action="Like" asp-route-id="@item.Id">Like</a>
-                                </button>
-                                <button onclick="ShowCommentBox(@item.Id)" id="comment-btn-@item.Id"
-                                    class="outline btn-transparent text-blue-700 tooltip tooltip--right"
-                                    data-tooltip="Leave a comment"><i id="comment-btn-icon"
-                                        class="fa-regular fa-comment-dots fa-xl"></i>
-                                    <a id="comment-link">Comment</a>
-                                </button>
+
+                    <div class="post-card-date">
+                        <p>Posted on @item.PostedDate.ToString("ddd MMMM dd, yyyy") at
+                            @item.PostedDate.ToString("h:mm tt") </p>
+                    </div>
+
+                    <div class="post-card-content">
+                        <p>@item.Content</p>
+                    </div>
+                    <div>
+                        @if (item.FileName != null)
+                        {
+                            <img src='@Url.Action("GetMediaFile","Posts", new {fileName = item.FileName})' />
+                        }
+                        else
+                        {
+                            <div>
                             </div>
+                        }
+                        <div class="post-card-interaction-counter">
+
+                            <p><i class="fa-regular fa-thumbs-up fa-lg"></i> @item.Likes.Count</p>
+
+                        </div>
+                        <div class="card__action-bar u-center">
+                            @if (item.Likes.Count == 0)
+                            {
+                                <div class="btn-group" runat="server">
+                                    <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
+                                        data-tooltip="Like this post"><i class="fa-regular fa-thumbs-up fa-xl"></i>
+                                        <a asp-controller="Posts" asp-action="Like" asp-route-id="@item.Id">Like</a>
+                                    </button>
+                                    <button onclick="ShowCommentBox(@item.Id)" id="comment-btn-@item.Id"
+                                        class="outline btn-transparent text-blue-700 tooltip tooltip--right"
+                                        data-tooltip="Leave a comment"><i id="comment-btn-icon"
+                                            class="fa-regular fa-comment-dots fa-xl"></i>
+                                        <a id="comment-link-@item.Id">Comment</a>
+                                    </button>
+                                </div>
+                            }
+                            else
+                            {
+                                @foreach (var like in item.Likes)
+                                {
+                                    @if (like.LikedPost == item && like.LikedBy.UserName == User.Identity.Name)
+                                    {
+                                        <div class="btn-group" runat="server">
+                                            <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
+                                                data-tooltip="Unlike this post"><i class="fa-regular fa-thumbs-down fa-xl"></i>
+                                                <a asp-controller="Posts" asp-action="Unlike" asp-route-id="@item.Id">Unlike</a>
+                                            </button>
+                                            <button onclick="ShowCommentBox(@item.Id)" id="comment-btn-@item.Id"
+                                                class="outline btn-transparent text-blue-700 tooltip tooltip--right"
+                                                data-tooltip="Leave a comment"><i id="comment-btn-icon"
+                                                    class="fa-regular fa-comment-dots fa-xl"></i>
+                                                <a id="comment-link-@item.Id">Comment</a>
+                                            </button>
+                                        </div>
+
+                                    }
+                                    else if (like.LikedPost != item || like.LikedBy.UserName != User.Identity.Name &&
+                                    item.Likes.IndexOf(like) == item.Likes.Count - 1)
+                                    {
+                                        <div class="btn-group" runat="server">
+                                            <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
+                                                data-tooltip="Like this post"><i class="fa-regular fa-thumbs-up fa-xl"></i>
+                                                <a asp-controller="Posts" asp-action="Like" asp-route-id="@item.Id">Like</a>
+                                            </button>
+                                            <button onclick="ShowCommentBox(@item.Id)" id="comment-btn-@item.Id"
+                                                class="outline btn-transparent text-blue-700 tooltip tooltip--right"
+                                                data-tooltip="Leave a comment">
+                                                <i id="comment-btn-icon" class="fa-regular fa-comment-dots fa-xl"></i>
+                                                <a id="comment-link-@item.Id">Comment</a>
+                                            </button>
+                                        </div>
+                                    }
+                                }
+                            }
                         </div>
                         <div class="commentbox" id="commentbox-@item.Id" hidden>
-                            <form id="comment" method="post">
-
-                                <label class="font-extrathin comment-label tracking-tighter">Write your comment:</label>
-                                <input id="comment-input" type="text" />
-                                <input type="submit" value="Publish" class="outline btn-transparent text-black-700 mt-1" />
-                                @* <a asp-controller="Home" asp-action="Comment" asp-route-id="@item.Id">
-                        </a> *@
-                            </form>
+                            <partial name="_CommentBoxPartial" />
                         </div>
-                        
-                        <div>
-                                <a asp-controller="Posts" asp-action="Edit" asp-route-id="@item.Id" class="u u-RL">Edit Post</a>
-                             
-                                <a asp-controller="Posts" asp-action="Delete" asp-route-id="@item.Id" class="u u-RL">Delete Post</a>
-                        </div>
-                    }
-                    else
-                    {
-                        @foreach (var like in item.Likes)
-                        {
-                            @if (like.LikedPost == item && like.LikedBy.UserName == User.Identity.Name)
-                            {
-                                <div class="card__action-bar u-center">
-                                    <div class="btn-group" runat="server">
-                                        <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
-                                            data-tooltip="Unlike this post"><i class="fa-regular fa-thumbs-down fa-xl"></i>
-                                            <a asp-controller="Posts" asp-action="Unlike" asp-route-id="@item.Id">Unlike</a>
-                                        </button>
-                                        <button onclick="ShowCommentBox(@item.Id)" id="comment-btn-@item.Id"
-                                            class="outline btn-transparent text-blue-700 tooltip tooltip--right"
-                                            data-tooltip="Leave a comment"><i id="comment-btn-icon"
-                                                class="fa-regular fa-comment-dots fa-xl"></i>
-                                            <a id="comment-link">Comment</a>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="commentbox" id="commentbox-@item.Id" hidden>
-                                    <form id="comment" method="post">
-
-                                        <label class="font-extrathin comment-label tracking-tighter">Write your comment:</label>
-                                        <input id="comment-input" type="text" />
-                                        <input type="submit" value="Publish" class="outline btn-transparent text-black-700 mt-1" />
-                                        @* <a asp-controller="Home" asp-action="Comment" asp-route-id="@item.Id">
-                        </a> *@
-                                    </form>
-                                </div>
-                                <div class="post-card-content">
-                                        <a asp-controller="Posts" asp-action="Edit" asp-route-id="@item.Id" class="u u-RL">Edit Post</a>
-                                        <div></div>
-                                        <a asp-controller="Posts" asp-action="Delete" asp-route-id="@item.Id"class="u u-RL">Delete Post</a>
-                                </div>
-                                return;
-                            }
-                            else if (like.LikedPost != item || like.LikedBy.UserName != User.Identity.Name &&
-                            item.Likes.IndexOf(like) == item.Likes.Count - 1)
-                            {
-                                <div class="card__action-bar u-center">
-                                    <div class="btn-group" runat="server">
-                                        <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
-                                            data-tooltip="Like this post"><i class="fa-regular fa-thumbs-up fa-xl"></i>
-                                            <a asp-controller="Posts" asp-action="Like" asp-route-id="@item.Id">Like</a>
-                                        </button>
-                                        <button onclick="ShowCommentBox(@item.Id)" id="comment-btn-@item.Id"
-                                            class="outline btn-transparent text-blue-700 tooltip tooltip--right"
-                                            data-tooltip="Leave a comment"><i id="comment-btn-icon"
-                                                class="fa-regular fa-comment-dots fa-xl"></i>
-                                            <a id="comment-link">Comment</a>
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="commentbox" id="commentbox-@item.Id" hidden>
-                                    <form id="comment" method="post">
-
-                                        <label class="font-extrathin comment-label tracking-tighter">Write your comment:</label>
-                                        <input id="comment-input" type="text" />
-                                        <input type="submit" value="Publish" class="outline btn-transparent text-black-700 mt-1" />
-                                        @* <a asp-controller="Home" asp-action="Comment" asp-route-id="@item.Id">
-                        </a> *@
-                                    </form>
-                                </div>
-                                <div class="post-card-content">
-                                    <p>
-                                        @* <a asp-controller="Posts" asp-action="Edit" asp-route-id="@item.Id"class="u u-RL">Edit Post</a>
-                                        <a asp-controller="Posts" asp-action="Delete" asp-route-id="@item.Id"class="u u-RL">Delete Post</a> *@
-                                    </p>
-                                </div>
-                            }
-                        }
-                    }
+                    </div>
                 </div>
-
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>

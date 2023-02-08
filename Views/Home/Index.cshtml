@@ -45,7 +45,7 @@ ViewData["Title"] = "Home";
                             <div class="btn-group" runat="server">
                                 <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
                                     data-tooltip="Like this post"><i class="fa-regular fa-thumbs-up fa-xl"></i>
-                                    <a asp-controller="Home" asp-action="Like" asp-route-id="@item.Id">Like</a>
+                                    <a asp-controller="Posts" asp-action="Like" asp-route-id="@item.Id">Like</a>
                                 </button>
                                <button onclick="ShowCommentBox(@item.Id)" id="comment-btn-@item.Id"
                                 class="outline btn-transparent text-blue-700 tooltip tooltip--right"
@@ -64,7 +64,7 @@ ViewData["Title"] = "Home";
                                     <div class="btn-group" runat="server">
                                         <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
                                             data-tooltip="Unlike this post"><i class="fa-regular fa-thumbs-down fa-xl"></i>
-                                            <a asp-controller="Home" asp-action="Unlike" asp-route-id="@item.Id">Unlike</a>
+                                            <a asp-controller="Posts" asp-action="Unlike" asp-route-id="@item.Id">Unlike</a>
                                         </button>
                                         <button onclick="ShowCommentBox(@item.Id)" id="comment-btn-@item.Id"
                                         class="outline btn-transparent text-blue-700 tooltip tooltip--right"
@@ -80,7 +80,7 @@ ViewData["Title"] = "Home";
                                     <div class="btn-group" runat="server">
                                         <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
                                             data-tooltip="Like this post"><i class="fa-regular fa-thumbs-up fa-xl"></i>
-                                            <a asp-controller="Home" asp-action="Like" asp-route-id="@item.Id">Like</a>
+                                            <a asp-controller="Posts" asp-action="Like" asp-route-id="@item.Id">Like</a>
                                         </button>
                                         <button onclick="ShowCommentBox(@item.Id)" id="comment-btn-@item.Id"
                                         class="outline btn-transparent text-blue-700 tooltip tooltip--right"
@@ -94,7 +94,18 @@ ViewData["Title"] = "Home";
                             }
                         }
                     </div>
-                <partial name="_CommentBoxPartial" />
+                    <div class="commentbox" id="commentbox-@item.Id" hidden>
+                        <partial name="_CommentBoxPartial" />
+                    </div>
+                    @if (item.Author.UserName == User.Identity.Name)
+                    {
+                        <div class="post-card-content">
+                            <p>
+                                <a asp-controller="Posts" asp-action="Edit" asp-route-id="@item.Id">Edit Post</a>
+                                <a asp-controller="Posts" asp-action="Delete" asp-route-id="@item.Id">Delete Post</a>
+                            </p>
+                        </div>
+                    }
                 </div>
             </div>
         </div>

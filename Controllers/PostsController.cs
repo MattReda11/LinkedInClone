@@ -113,7 +113,7 @@ namespace LinkedInClone.Controllers
 
                 _context.Add(post);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(MyPosts));
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
             return View(post);
         }
@@ -190,7 +190,7 @@ namespace LinkedInClone.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(MyPosts));
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
             return View(post);
         }
@@ -231,7 +231,7 @@ namespace LinkedInClone.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(MyPosts));
+            return RedirectToAction("Index", "Home", new { area = "" });
         }
 
         [Authorize]
@@ -261,7 +261,7 @@ namespace LinkedInClone.Controllers
             _context.Likes.Add(newLike);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(MyPosts));
+            return RedirectToAction("Index", "Home", new { area = "" });
         }
 
         [HttpGet, ActionName("Unlike")]
@@ -283,7 +283,7 @@ namespace LinkedInClone.Controllers
             {
                 _context.Likes.Remove(like);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(MyPosts));
+                return RedirectToAction("Index", "Home", new { area = "" });
             }
             else
             {
