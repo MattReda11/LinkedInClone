@@ -16,22 +16,30 @@
 
 <body>
     <partial name="_LoginPartial" />
-
-    <div class="container">        
+    @if(TempData["generalInfo"] != null)
+    {
+    <div id="generalInfoMessage" class="toast toast--info">
+        <p>@TempData["generalInfo"]</p>
+    </div>
+    }
+    <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
     <footer class="border-top custom-footer container">
-            <b>© @DateTime.Now.Year - JobLink</b>
+        <b>© @DateTime.Now.Year - JobLink</b>
     </footer>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://kit.fontawesome.com/5a30c849af.js" crossorigin="anonymous"></script>
-    
+    <script>
+        setTimeout(function(){$('#generalInfoMessage').fadeOut('fast');}, 3000);
+    </script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 

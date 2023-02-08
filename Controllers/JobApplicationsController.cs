@@ -87,6 +87,16 @@ namespace LinkedInClone.Controllers
                     }
                 }
 
+                // find number of applications for chosen job 
+                int numOfApplications = await _context.JobApplications.Where(ja => ja.Job.Id == jobApplication.Job.Id).CountAsync();
+
+                // redirect to all available jobs if user has already applied for chosen job (without saving to DB)
+                if (numOfApplications > 0)
+                {
+                    TempData["generalInfo"] = $"Sorry {User.Identity.Name}! You've already applied for this job";
+                    return RedirectToAction(nameof(AllAvailableJobs));
+                }
+
                 _context.Add(jobApplication);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(UserApplications));
