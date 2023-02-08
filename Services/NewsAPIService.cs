@@ -28,7 +28,7 @@ namespace LinkedInClone.Services
         {            
             
             string API_KEY = "fcf0c85067c3433ca27e2dd8079fd0b1"; //just trying to get it  working atm, will store more securely later
-            var url = string.Format("/v2/top-headlines?country=us&category=business&apiKey=fcf0c85067c3433ca27e2dd8079fd0b1");
+            var url = string.Format("https://newsapi.org/v2/top-headlines?country=us&apiKey={0}", API_KEY);
             var result = new List<NewsModel>();
             var response = await client.GetAsync(url);
             string debug = $"{response.Headers}, {response.ToString()}";
@@ -36,8 +36,8 @@ namespace LinkedInClone.Services
             {
                 var stringResponse = await response.Content.ReadAsStringAsync();                
                 //Console.WriteLine(stringResponse.Substring(0, 1000));
-                result = JsonSerializer.Deserialize<List<NewsModel>>(stringResponse,
-                     new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
+                // result = JsonSerializer.Deserialize<List<NewsModel>>(stringResponse,
+                //      new JsonSerializerOptions() { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
 
             }
             else

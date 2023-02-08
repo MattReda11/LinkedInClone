@@ -47,9 +47,27 @@ ViewData["Title"] = "Admin Interface";
             <td>N/A</td>
         }
     }
-    <td><a asp-controller="Account" asp-action="Read" asp-route-id="@item.Id">Delete</a></td>
+    <td><a href="#" onclick="deleteUser('@item.Id')">Delete</a></td>
    
 </tr>
 }
 </tbody>
 </table>
+
+<script>
+    function deleteUser(id) {
+        var xhr = new XMLHttpRequest();
+        xhr.open("DELETE", "/Account/DeleteUser/" + id);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                alert("User deleted successfully");
+                location.reload();
+            } else {
+                alert("Error deleting user");
+            }
+        };
+        xhr.send();
+    }
+</script>
+
