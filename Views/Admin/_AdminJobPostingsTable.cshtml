@@ -1,4 +1,4 @@
-@model List<JobApplication>
+@model List<JobPosting>
 <h4>Manage Job Applications</h4>
 <table class="table">
     <th>ID</th>
@@ -10,9 +10,9 @@
 @foreach (var item in Model){
 <tr>
 
-    <td>@item.JobApplicationId </td>
+    <td>@item.Id </td>
     <td>@item.CreatedDate</td>
-    <td><a href="#" onclick="confirmDelete('@item.JobApplicationId')">Delete</a></td>
+    <td><a href="#" onclick="confirmDelete('@item.Id')">Delete</a></td>
    
 </tr>
 }

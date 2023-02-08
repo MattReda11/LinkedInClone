@@ -28,7 +28,7 @@ public class HomeController : Controller
         _newsAPIService = newsAPIService;
     }
 
-    [Authorize(Roles = "User")]
+    [Authorize(Roles = "User, Admin")]
     public async Task<IActionResult> Index()
     {
         try
