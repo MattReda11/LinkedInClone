@@ -1,6 +1,6 @@
 @model dynamic
 @{
-ViewData["Title"] = "Home";
+    ViewData["Title"] = "Home";
 }
 
 <div class="homepage-container">
@@ -18,14 +18,16 @@ ViewData["Title"] = "Home";
                 </label>
                 <div class="tree-item-body">
                     <ul class="menu">
-                        <li class="menu-item"><a asp-controller="JobPostings" asp-action="RecruiterJobPostings">My Postings</a></li>
+                        <li class="menu-item"><a asp-controller="JobPostings" asp-action="RecruiterJobPostings">My
+                                Postings</a></li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-
-    <div class="homepage-center">
+    @if (Model.Count == 0)
+    {
+        <div class="homepage-center">
             <div class="card">
                 <div class="card__container m-2">
                     <div class="content">
@@ -33,16 +35,44 @@ ViewData["Title"] = "Home";
                     </div>
 
                     <div class="">
-                       <p>Current active job listings: </p>
+                        <p>Current active job listings: 0</p>
                     </div>
 
                     <div class="post-card-content">
-                        <p>Total number of applicants: </p>
+                        <p>Total number of applicants: 0</p>
                     </div>
-                 
+
                 </div>
             </div>
-    </div>
+        </div>
+    }
+    else
+    {
+        @foreach (var item in Model)
+        {
+            if (Model.IndexOf(item) == Model.Count - 1)
+            {
+                <div class="homepage-center">
+                    <div class="card">
+                        <div class="card__container m-2">
+                            <div class="content">
+                                <h6>Notifications</h6>
+                            </div>
+
+                            <div class="">
+                                <p>Current active job listings: @Model.Count</p>
+                            </div>
+
+                            <div class="post-card-content">
+                                <p>Total number of applicants: @item.JobApplications.Count</p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    }
     <div class="homepage-right">
         <h6>Live News Feed</h6>
         <p>maybe links like</p>

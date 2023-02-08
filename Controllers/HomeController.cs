@@ -95,7 +95,10 @@ public class HomeController : Controller
     [Authorize(Roles = "Recruiter")]
     public async Task<IActionResult> Recruiter()
     {
-        return View();
+        var username = User.Identity.Name;
+        var user = _db.Users.Where(u => u.UserName == username).FirstOrDefault();
+
+        return View(await _db.JobPostings.Where(j => j.Recruiter == user).Include("JobApplications").ToListAsync());
     }
 
     [HttpGet, ActionName("Like")]
