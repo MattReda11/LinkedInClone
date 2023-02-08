@@ -1,0 +1,32 @@
+@using Microsoft.AspNetCore.Identity
+@using LinkedInClone.Models;
+@inject SignInManager<ApplicationUser> SignInManager
+    @inject UserManager<ApplicationUser> UserManager
+
+
+        @foreach (var item in Model)
+        {
+
+        <div class="commentbox" id="commentbox-@item.Id" hidden>
+            <form id="comment" method="post">
+
+                <label class="font-extrathin comment-label tracking-tighter">Write your comment:</label>
+                <input id="comment-input-@item.Id" type="text" />
+                <input type="submit" value="Publish" class="outline btn-transparent text-black-700 mt-1" />
+                @* <a asp-controller="Home" asp-action="Comment" asp-route-id="@item.Id">
+                </a> *@
+            </form>
+            <div class="all-comments">
+                <p>here are comments</p>
+            </div>
+        </div>
+        @if (item.Author.UserName == User.Identity.Name)
+        {
+        <div class="post-card-content">
+            <p>
+                <a asp-controller="Posts" asp-action="Edit" asp-route-id="@item.Id">Edit Post</a>
+                <a asp-controller="Posts" asp-action="Delete" asp-route-id="@item.Id">Delete Post</a>
+            </p>
+        </div>
+        }
+        }
