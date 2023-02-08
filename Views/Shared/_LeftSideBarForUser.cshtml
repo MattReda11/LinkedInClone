@@ -1,0 +1,45 @@
+<div class="main-left">
+
+    <h6>Explore</h6>
+
+    <div class="tree">
+        <div class="tree-item">
+            <input type="checkbox" id="tree1" class="u-none">
+            <label class="tree-item-header" for="tree1">
+                <span class="icon">
+                    <i class="fa fa-wrapper fa-chevron-right small" aria-hidden="true"></i>
+                </span> Posts
+            </label>
+            <div class="tree-item-body">
+                <ul class="menu">
+                    <li class="menu-item"><a asp-controller="Posts" asp-action="Create">Add a Post</a></li>
+                    <li class="menu-item"><a asp-controller="Posts" asp-action="MyPosts">Your Posts</a></li>
+                    <li class="menu-item"><a asp-controller="Posts" asp-action="Create">Liked Posts</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="tree">
+        <div class="tree-item">
+            <input type="checkbox" id="tree3" class="u-none">
+            <label class="tree-item-header" for="tree3">
+                <span class="icon">
+                    <i class="fa fa-wrapper fa-chevron-right small" aria-hidden="true"></i>
+                </span> Jobs
+            </label>
+            <div class="tree-item-body">
+                <ul class="menu">
+                    <li class="menu-item"><a asp-controller="JobApplications" asp-action="AllAvailableJobs">Apply
+                            for
+                            Jobs</a></li>
+                    <li class="menu-item"><a asp-controller="JobApplications" asp-action="UserApplications">View My
+                            Jobs</a>
+                    </li>
+                    <li class="menu-item"><a asp-controller="JobApplications" asp-action="TODO">Contact a
+                            recruiter</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

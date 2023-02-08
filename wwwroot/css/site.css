@@ -61,7 +61,7 @@ textarea {
 }
 
 /* HOMEPAGE */
-.homepage-container {
+.main-container {
   display: flex;
   flex-flow: row wrap;
   justify-content: flex-start;
@@ -70,16 +70,16 @@ textarea {
   margin: 15px;
 }
 
-.homepage-left {
+.main-left {
   width: 20%;
   padding: 2px 12px 2px 12px;
 }
 
-.homepage-center {
+.main-center {
   width: 60%;
 }
 
-.homepage-right {
+.main-right {
   width: 20%;
   padding: 2px 12px 2px 12px;
 }
