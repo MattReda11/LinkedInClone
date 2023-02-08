@@ -4,46 +4,66 @@
 ViewData["Title"] = "Create";
 }
 
-@* FIXME: Add actual job title *@
-<h1>Job Title</h1>
+@* TODO: Implement CV Upload to Azure Blob Storage
+FIXME: Add actual job title *@
 
-<hr />
-<div class="row">
-    <div class="col-md-4">
+<div class="universal-container">
+    <div class="row level">
         <form asp-action="Create">
-            <div asp-validation-summary="All" class="text-danger"></div>
-            @* <div class="form-group">
-                <label asp-for="FilePath" class="control-label"></label>
-                <input asp-for="FilePath" class="form-control" />
-                <span asp-validation-for="FilePath" class="text-danger"></span>
+
+            <h1 class="header-brand">
+                Apply for this job
+            </h1>
+            <h6 class="header-brand">[job title]</h6>
+
+            <div class="divider"></div>
+            <div class="divider"></div>
+
+            <div class="row level">
+
+                <div class="col-xs-3 level-item mt-30">
+                    <label asp-for="FileName" class="m-0">CV/Resume</label>
+                </div>
+
+                <div class="col-xs-9 level-item input-control">
+                    <input asp-for="FileName" type="file" class="input-contains-icon"
+                        accept=".txt, .doc, .docx, .pdf" />
+                    <span class="icon">
+                        <i style="padding-left:9px;font-size:30px;color:rgb(250, 158, 158);"
+                            class="fa-solid fa-file-import"></i></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="FileName" class="control-label"></label>
-                <input asp-for="FileName" class="form-control" />
-                <span asp-validation-for="FileName" class="text-danger"></span>
-            </div> *@
-            @* TODO: Implement CV Upload to Azure Blob Storage *@
-            <div class="col-xs-3 level-item mt-30">
-                <label asp-for="FileName" class="m-0">CV/Resume</label>
+
+            <div class="row level">
+                <input type="submit" value="Apply"
+                    class="ml-auto btn-animated outline animated bounceIn btn-info btn--lg mr-1" />
             </div>
-            <div class="col-xs-9 level-item input-control">
-                <input asp-for="FileName" type="file" class="input-contains-icon" accept=".txt, .doc, .docx, .pdf" />
-                <span class="icon">
-                    <i style="padding-left:9px;font-size:30px;color:rgb(250, 158, 158);"
-                        class="fa-solid fa-file-import"></i></span>
-            </div> 
-           
-            <div class="form-group">
-                <input type="submit" value="Apply" class="btn btn-primary" />
-            </div>
+
+            <div class="divider"></div>
+            <div asp-validation-summary="All" class="text-danger font-semibold"></div>
+            <div class="divider"></div>
         </form>
+    </div>
+
+    <div>
+        <a asp-controller="Home" asp-action="Index" class="ml-1 u u-RL">Back to List</a>
     </div>
 </div>
 
-<div>
-    <a asp-action="AllAvailableJobs">Back to List</a>
-</div>
+
 
 @section Scripts {
 @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+
+@* <div asp-validation-summary="All" class="text-danger"></div> *@
+@* <div class="form-group">
+    <label asp-for="FilePath" class="control-label"></label>
+    <input asp-for="FilePath" class="form-control" />
+    <span asp-validation-for="FilePath" class="text-danger"></span>
+</div>
+<div class="form-group">
+    <label asp-for="FileName" class="control-label"></label>
+    <input asp-for="FileName" class="form-control" />
+    <span asp-validation-for="FileName" class="text-danger"></span>
+</div> *@
