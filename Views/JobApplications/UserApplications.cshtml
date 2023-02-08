@@ -35,9 +35,16 @@
                     Currently: Hard coded "Dummy Resume.pdf"
                     Attempting: src='.../.../blob-storage/@item.FileName&embedded=true'
                     *@
-                    <iframe class="hidden"
-                        src='https://docs.google.com/gview?url=https://fsd05regex.blob.core.windows.net/blob-storage/Dummy Resume.pdf&embedded=true'
-                        style="width:718px; height:700px;" frameborder="0"></iframe>
+                    <div class="modal" id="cv">
+                        <a href="#anchor-to-background" class="modal-overlay close-btn" aria-label="Close"></a>
+                        <iframe class="u-z-0" 
+                            src='https://docs.google.com/gview?url=https://fsd05regex.blob.core.windows.net/blob-storage/Dummy Resume.pdf&embedded=true'
+                            style="width:718px; height:700px;" frameborder="0">
+                        </iframe>
+                    </div>
+
+                    <a href="#cv">View CV</a>
+
                     }
                     else
                     {
@@ -48,7 +55,6 @@
                     @Html.DisplayFor(modelItem => item.CreatedDate)
                 </td>
                 <td>
-                    <a asp-action="Details" asp-route-id="@item.JobApplicationId">Details</a> |
                     <a asp-action="Delete" asp-route-id="@item.JobApplicationId">Delete</a>
                 </td>
             </tr>
