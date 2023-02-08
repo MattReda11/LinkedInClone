@@ -84,7 +84,7 @@ public class HomeController : Controller
         return View("~/Views/Account/MyAccount.cshtml");
     }
 
-      
+
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
@@ -148,6 +148,28 @@ public class HomeController : Controller
             _logger.LogInformation(string.Empty, $"Like with User Id: {user} and Post Id: {post} not found.");
             return RedirectToAction(nameof(Index));
         }
+    }
+
+    [HttpGet, ActionName("Comment")]
+    public async Task<IActionResult> Comment(int id)
+    {
+        if (_db.Posts == null)
+        {
+            return Problem("Entity set 'AppDbContext.Posts' is null.");
+        }
+
+        var userName = User.Identity.Name;
+        var user = _db.Users.Where(u => u.UserName == userName).FirstOrDefault();
+
+        var post = await _db.Posts.FindAsync(id);
+
+        // ! right here, can't get 'Content = content' in or sth like it
+        Comment newComment = new Comment { Post = post, Author = user, CreatedDated = DateTime.Now };
+
+        _db.Comments.Add(newComment);
+        await _db.SaveChangesAsync();
+
+        return RedirectToAction(nameof(Index));
     }
 
     [HttpGet]
