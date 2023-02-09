@@ -1,0 +1,57 @@
+@model IEnumerable<LinkedInClone.Models.ApplicationUser>
+
+    @{
+    ViewData["Title"] = "Friend Search Results";
+    }
+    <div class="main-container">
+        <partial name="_LeftSideBarForUser" />
+
+        <div class="main-center">
+
+            <form asp-action="SearchResults" method="post">
+                <input name="searchKeyword">
+                <button type="submit">Search</button>
+            </form>
+
+            <h1 class="u-flex u-justify-center mb-4">@ViewData["Title"]</h1>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.FullName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Email)
+                        </th>
+                        <th>
+                            Member Since
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model) {
+                    <tr>
+                        @* <td>
+                            @Html.DisplayFor(modelItem => item.AccountOwner.Id)
+                        </td> *@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedDate)
+                        </td>
+                        <td>
+                            <a asp-controller="Connections" asp-action="Create" asp-route-id="@item.Id">Add friend</a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <partial name="_RightSideBarForUser" />
+    </div>

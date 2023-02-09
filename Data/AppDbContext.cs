@@ -42,6 +42,13 @@ namespace LinkedInClone.Data
         //  UserManager<IdentityUser> _userManager;
         // RoleManager<IdentityRole> _roleManager;
 
+        // created user defined function in SQL database that will use SOUNDEX functionality
+        [DbFunction(Name = "udfSoundex")]
+        public static string SoundsLike(string keyword)
+        {
+            throw new NotImplementedException();
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 
@@ -49,7 +56,7 @@ namespace LinkedInClone.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-           // modelBuilder.Entity<ApplicationUser>().ToTable("AppUsers"); //<--- this will rename/recreate default user table 
+            // modelBuilder.Entity<ApplicationUser>().ToTable("AppUsers"); //<--- this will rename/recreate default user table 
 
 
             //Fluent API 
@@ -58,11 +65,11 @@ namespace LinkedInClone.Data
 
             //AppUser
 
-            modelBuilder.Entity<ApplicationUser>()            
+            modelBuilder.Entity<ApplicationUser>()
            .HasDiscriminator<string>("Discriminator")
            .HasValue<RecruiterUser>("RecruiterUser")
            .HasValue<ApplicationUser>("ApplicationUser");
-           
+
             modelBuilder.Entity<ApplicationUser>()
                .HasMany(u => u.SentConnections)
                 .WithOne(c => c.AccountOwner)
@@ -94,7 +101,7 @@ namespace LinkedInClone.Data
 
         }
 
-      
+
 
 
 

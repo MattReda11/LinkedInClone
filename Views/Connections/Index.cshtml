@@ -1,0 +1,60 @@
+@model IEnumerable<LinkedInClone.Models.Connection>
+
+    @{
+    ViewData["Title"] = "My Network";
+    }
+    <div class="main-container">
+        <partial name="_LeftSideBarForUser" />
+
+        <div class="main-center">
+
+            <form asp-action="SearchResults" method="post">
+                <input name="searchKeyword">
+                <button type="submit">Search</button>
+            </form>
+
+            <h1 class="u-flex u-justify-center mb-4">@ViewData["Title"]</h1>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        @* <th>
+                            @Html.DisplayNameFor(model => model.AccountOwner)
+                        </th> *@
+                        <th>
+                            @Html.DisplayNameFor(model => model.Friend)
+                        </th>
+                        <th>
+                            Added On
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model) {
+                    <tr>
+                        @* <td>
+                            @Html.DisplayFor(modelItem => item.AccountOwner.Id)
+                        </td> *@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Friend.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CreatedDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Accepted)
+                        </td>
+                        <td>
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <partial name="_RightSideBarForUser" />
+    </div>
