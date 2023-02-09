@@ -342,3 +342,48 @@
 - start search bar implementation
 3. Need assistance / figure things out:
 -
+------------------------------------------------------------------------------------
+2/9/2023 Kevin
+1. Done/not done since last scrum:
+- Admin Interface Posts + JobPostings Table
+- Solved Bad Request on API
+- Basic styling + more fields on MyAccount
+2. To do until next Scrum:
+- Admin CRUD on Posts + JobPostings
+- Solve Deserializing errors
+- Add a form on MyAccount
+3. Need assistance / figure things out:
+-
+
+2/9/2023 Matthew
+1. Done/not done since last scrum:
+- Small bug fixes with like/unlike
+- Moved all post actions to PostsController
+- Continued work on Comments
+2. To do until next Scrum:
+- Assist in Comment implementation
+- Assist in Connections
+- Research Messages
+3. Need assistance / figure things out:
+-
+
+2/9/2023 Chris
+1. Done/not done since last scrum:
+- continuing work on Comments, subcomments
+- app-wide UI tweaks
+2. To do until next Scrum:
+- adding Comment box functionality, bug fixing
+- finish app-wide styles for good
+3. Need assistance / figure things out:
+- 
+
+2/9/2023 Seena
+1. Done/not done since last scrum:
+- finished CV blob implementation
+- left and right side bar partials
+- user can't apply twice to same job
+- barebones of flash messages (toast)
+2. To do until next Scrum:
+- Users can Connect with other people (Trello has breakdown)
+3. Need assistance / figure things out:
+-
