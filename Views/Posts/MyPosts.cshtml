@@ -35,7 +35,20 @@
                         }
                         <div class="post-card-interaction-counter">
 
-                            <p><i class="fa-regular fa-thumbs-up fa-lg"></i> @item.Likes.Count</p>
+                            @* <div id="likes" class="modal">
+                        @foreach (var like in item.Likes)
+                        {
+                        <iframe class="u-z-0" style="width:718px; height:700px;" frameborder="0">
+                        <h4>Users who liked this Post:</h4>
+                        <div>
+                        <img src="https://fsd05regex.blob.core.windows.net/blob-storage/profile.png"
+                        width="10px" />
+                        <h6>@like.LikedBy.FullName</h6>
+                        </div>
+                        </iframe>
+                        }
+                        </div> *@
+                            <p><i class="fa-regular fa-thumbs-up fa-lg"></i><a href="#likes">@item.Likes.Count</a></p>
 
                         </div>
                         <div class="card__action-bar u-center">

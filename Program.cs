@@ -9,6 +9,7 @@ using LinkedInClone.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using LinkedInClone.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("AppDbContext") ?? throw new InvalidOperationException("Connection string 'AppDbContext' not found.");
@@ -53,7 +54,7 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
         cookieContext.CookieOptions.Secure = true;
 });
 
-
+builder.Services.AddSignalR();
 
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 {
@@ -102,6 +103,8 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
+
+    endpoints.MapHub<ChatHub>("/Message");
 });
 
 app.Run();

@@ -32,7 +32,7 @@ public class HomeController : Controller
     public async Task<IActionResult> Index()
     {
         try
-        {        
+        {
             List<NewsModel> newsHeadlines = new List<NewsModel>();
             newsHeadlines = await _newsAPIService.GetHeadlines();
             foreach (NewsModel news in newsHeadlines)
@@ -43,7 +43,7 @@ public class HomeController : Controller
         catch (Exception ex)
         {
             Console.WriteLine($"Error: {ex.Message}");
-        }       
+        }
         return View(await _db.Posts.OrderByDescending(p => p.PostedDate).Include("Author").Include("Comments").Include("Likes").Include("Likes.LikedBy").ToListAsync());
     }
 
@@ -113,6 +113,12 @@ public class HomeController : Controller
     [HttpGet]
     [AllowAnonymous]
     public IActionResult AccessDenied()
+    {
+        return View();
+    }
+
+    [HttpGet, ActionName("Message")]
+    public IActionResult Message()
     {
         return View();
     }
