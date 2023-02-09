@@ -14,7 +14,7 @@ button.accept-policy {
   line-height: inherit;
 }
 
-/* .custom-footer {
+.custom-footer {
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -23,4 +23,4 @@ button.accept-policy {
   text-align: center;
   font-family: Montserrat;
   z-index: 0;
-} */
+}
