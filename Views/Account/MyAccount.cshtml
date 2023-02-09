@@ -25,6 +25,7 @@
 <div class="myAccount">
 <h2>User Details</h2>
 <p>(doesnt need to stay this color)</p>
+
 <p>
     <div class="FieldNameBolded">User ID: <span> @data.Id</span></div>
     <div class="FieldNameBolded">Email:<span> @data.Email</span></div>
@@ -32,12 +33,71 @@
     <div class="FieldNameBolded">Name:<span> @data.FullName</span></div> 
 </p>
 
+
+
+
 <form method="post">
-    <input type="submit" value="Update Account Information" />
+    <a href="#basic-modal"><input type="button" value="Update Account Information">  </a>
 </form>
+<div class="modal modal-animated--zoom-in" id="basic-modal">
+    <a href="#searchModalDialog" class="modal-overlay close-btn" aria-label="Close"></a>
+    <div class="modal-content" role="document">
+        <div class="modal-header"><a href="#components" class="u-pull-right" aria-label="Close"><span class="icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11 fa-wrapper" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path></svg></span></a>
+            <div class="modal-title">Edit Account Info</div>
+        </div>
+        <div class="modal-body">
+            <!-- FullName -->
+            <div class="row level">
+    <div class="col-xs-3 level-item">
+        <p class="m-0">Name:</p>
+    </div>
+    <div class="col-xs-9 level-item"><input type="name" placeholder="@data.FullName"></div>
+</div>
+
+<!-- Email -->
+<div class="row level">
+    <div class="col-xs-3 level-item">
+        <p class="m-0">Email:</p>
+    </div>
+    <div class="col-xs-9 level-item">
+       
+        <input type="email" id="EmailInput"  placeholder="@data.Email" />
+    </div>
+</div>
+       <!-- Password -->
+<div class="row level">
+    <div class="col-xs-3 level-item">
+        <p class="m-0">Password:</p>
+    </div>
+    <div class="col-xs-9 level-item"><input type="password" value="password"></div>
+</div>
+
+<!-- Confirm Password -->
+<div class="row level">
+    <div class="col-xs-3 level-item">
+        <p class="m-0">Confirm Password:</p>
+    </div>
+    <div class="col-xs-9 level-item"><input type="password" value="password"></div>
+</div>
+
+                   <div class="modal-footer">
+            <div class="form-section u-text-right">
+                <a href="#components">
+                    <button class="btn u-inline-block">Cancel</button>
+                </a>
+                <a href="#components">
+                    <button class="btn-info  u-inline-block">Confirm</button>
+                </a>
+            </div>
+        </div>
+        </div>
+
+    </div>
+</div>
+
     @if (data.RoleId == "Admin")
     {
-        <p><a asp-action="AdminPanel" asp-controller="Home">Access Admin Panel</a></p>
+                <p><a asp-action="AdminPanel" asp-controller="Home">Access Admin Panel</a></p>
     }
     @* Makes current user admin
      <form method="post" asp-controller="Home" asp-action="AdminX">

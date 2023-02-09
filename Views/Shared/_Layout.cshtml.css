@@ -14,12 +14,13 @@ button.accept-policy {
   line-height: inherit;
 }
 
-.custom-footer {
-  position: relative;
+/* .custom-footer {
+  position: absolute;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
   background-color: rgb(232, 232, 232);
   text-align: center;
   font-family: Montserrat;
-}
+  z-index: 0;
+} */
