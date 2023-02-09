@@ -13,8 +13,11 @@
 @foreach (var item in Model){
 <tr>
 @{
+     @* var length = item.Description.Length / 2;
+        if (length % 2 != 0) length = length+1;
+        var shortDesc = item.Description.Substring(0,length); *@
     var shortId = item.Recruiter.Id.Substring(0,13);
-    var shortDesc = item.Description.Substring(0,50);
+    
 }
     <td>@item.Id </td>
     <td>@shortId </td>

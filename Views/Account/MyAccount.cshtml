@@ -7,17 +7,34 @@
 }
 <style>
     .myAccount{
-        text-align:center;
+        margin-left: 40%;
+        text-align: center;
+        background-color: lightblue; 
+        display: inline-block;
+        padding:2rem;
+        border-radius: 15%;
+        opacity:0.9;
     }
+   .FieldNameBolded{
+    font-weight: bold;
+   }
+   span{
+    font-weight: normal;
+   }
     </style>
 <div class="myAccount">
 <h2>User Details</h2>
+<p>(doesnt need to stay this color)</p>
 <p>
-    <div>Id: @data.Id --- will delete later just for visualizing</div>
-    <div>Email: @data.Email</div>
-    <div>Role: @data.RoleId</div>
-    <div>Name: @data.FullName</div> 
+    <div class="FieldNameBolded">User ID: <span> @data.Id</span></div>
+    <div class="FieldNameBolded">Email:<span> @data.Email</span></div>
+    <div class="FieldNameBolded">Role: <span>@data.RoleId</span></div>
+    <div class="FieldNameBolded">Name:<span> @data.FullName</span></div> 
 </p>
+
+<form method="post">
+    <input type="submit" value="Update Account Information" />
+</form>
     @if (data.RoleId == "Admin")
     {
         <p><a asp-action="AdminPanel" asp-controller="Home">Access Admin Panel</a></p>
