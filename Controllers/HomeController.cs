@@ -32,20 +32,19 @@ public class HomeController : Controller
     public async Task<IActionResult> Index()
     {
         try
-        {
+        {        
             List<NewsModel> newsHeadlines = new List<NewsModel>();
             newsHeadlines = await _newsAPIService.GetHeadlines();
             foreach (NewsModel news in newsHeadlines)
             {
-                Console.WriteLine($"News output: {news.Title},{news.Description}, {news.PublishedAt} ");
+                Console.WriteLine($"News output: {news.title},{news.description}, {news.publishedAt} ");
             }
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error: {ex.Message}");
-        }
-
-        return View(await _db.Posts.OrderByDescending(p => p.PostedDate).Include("Author").Include("Comments").Include("Comments.Author").Include("Likes").Include("Likes.LikedBy").ToListAsync());
+        }       
+        return View(await _db.Posts.OrderByDescending(p => p.PostedDate).Include("Author").Include("Comments").Include("Likes").Include("Likes.LikedBy").ToListAsync());
     }
 
     [Authorize]

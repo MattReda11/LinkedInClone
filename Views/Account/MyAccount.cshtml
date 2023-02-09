@@ -18,7 +18,7 @@
     <div>Role: @data.RoleId</div>
     <div>Name: @data.FullName</div> 
 </p>
-    @if (data.FullName == "Admin")
+    @if (data.RoleId == "Admin")
     {
         <p><a asp-action="AdminPanel" asp-controller="Home">Access Admin Panel</a></p>
     }
