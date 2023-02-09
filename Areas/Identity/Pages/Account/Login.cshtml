@@ -92,13 +92,13 @@ ViewData["Title"] = "Log in";
             }
             else
             {
-            <form id="external-account" asp-controller="Account" asp-action="ExternalLogin" method="post"
+                    <form id="external-account" asp-controller="Account"  asp-action="GoogleLogin" method="post"
                 class="form-horizontal">
                 <div>
                     <p>
                         @foreach (var provider in Model.ExternalLogins!)
                         {
-                        <button class="btn btn-info" asp-controller="Account" asp-action="GoogleLogin" name="provider"
+                     <button type="submit" class="btn btn-info" asp-controller="Account" asp-action="GoogleLogin" name="provider"
                             value="@provider.Name"
                             title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
                         }

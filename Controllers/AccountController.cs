@@ -29,21 +29,26 @@ public class AccountController : Controller
 
 
     [AllowAnonymous]
+    [Route("/Account/GoogleLogin")]
     public IActionResult GoogleLogin()
     {
+        Debug.WriteLine("0");
         string redirectUrl = Url.Action("GoogleResponse", "Account");
         var properties = _signInManager.ConfigureExternalAuthenticationProperties("Google", redirectUrl);
         return new ChallengeResult("Google", properties);
     }
 
+
     [AllowAnonymous]
+    [Route("/Account/GoogleResponse")]
     public async Task<IActionResult> GoogleResponse()
     {
+        Debug.WriteLine("1");
         ExternalLoginInfo info = await _signInManager.GetExternalLoginInfoAsync();
 
         if (info == null)
             return View("ExternalLoginFailed");
-
+Debug.WriteLine("2");
         var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, false);
 
         string[] userInfo = { info.Principal.FindFirst(ClaimTypes.Name).Value, info.Principal.FindFirst(ClaimTypes.Email).Value };
