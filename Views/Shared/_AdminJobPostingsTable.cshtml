@@ -2,6 +2,9 @@
 <h4>Manage Job Postings</h4>
 <table class="table" id="jobsTable">
     <th>ID</th>
+    <th>Recruiter ID</th>
+    <th>Job Title</th>
+    <th>Description</th>
    <th>Created Date</th>
     <th>Actions</th>
   
@@ -9,8 +12,14 @@
     <tbody>
 @foreach (var item in Model){
 <tr>
-
+@{
+    var shortId = item.Recruiter.Id.Substring(0,13);
+    var shortDesc = item.Description.Substring(0,50);
+}
     <td>@item.Id </td>
+    <td>@shortId </td>
+    <td>@item.JobTitle </td>
+    <td>@item.Description </td>
     <td>@item.CreatedDate</td>
     <td><a href="#" onclick="confirmDelete('@item.Id')">Delete</a></td>
    

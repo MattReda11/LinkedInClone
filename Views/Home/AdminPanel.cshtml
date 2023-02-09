@@ -21,43 +21,9 @@ ViewData["Title"] = "Admin Interface";
     }
 }
 <h2>Admin Interface</h2>
-<h4>Manage Users</h4>
-<table class="table" id="usersTable">
-    
-    <th>ID</th>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Account Type</th>
-    <th>Registration Date</th>
-    <th>Company</th>
-    <th>Actions</th>
-  
-   
-    <tbody>
-@foreach (var item in Model.Users){
-<tr>
-    @{
-        var shorterId = item.Id.Substring(0,13);
-        var role = item.GetType().Name;
-    }
-    <td>@shorterId </td>
-    <td>@item.FullName</td>
-    <td>@item.Email</td>  
-    <td>@role</td>
-    <td>@item.CreatedDate</td>
-    @{
-        if (role == "RecruiterUser"){
-<td>@item.Company</td>
-        }else {
-            <td>N/A</td>
-        }
-    }
-    <td><a href="#" onclick="confirmDelete('@item.Id')">Delete</a></td>
-   
-</tr>
-}
-</tbody>
-</table>
+<div id="usersTable" style="display: none;">
+    @Html.Partial("_AdminUsersTable", Model.Users)
+</div>
 <div id="jobsTable" style="display: none;">
     @Html.Partial("_AdminJobPostingsTable", Model.JobPostings)
 </div>

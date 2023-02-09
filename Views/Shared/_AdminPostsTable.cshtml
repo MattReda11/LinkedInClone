@@ -2,16 +2,27 @@
 <h4>Manage User Posts</h4>
 <table class="table" id="postsTable">
     <th>ID</th>
+   
+   <th>Author ID</th>
+   <th>Content</th>
    <th>Created Date</th>
+   <th>File Name</th>
     <th>Actions</th>
   
    
     <tbody>
 @foreach (var item in Model){
 <tr>
-
+  @{
+        var shorterId = item.Author.Id.Substring(0,13);
+        var shortContent = item.Content.Substring(0,25);
+        
+    }
     <td>@item.Id </td>
+    <td>@shorterId</td>
+    <td>@shortContent</td>
     <td>@item.PostedDate</td>
+    <td>@item.FileName</td>    
     <td><a href="#" onclick="confirmDelete('@item.Id')">Delete</a></td>
    
 </tr>
