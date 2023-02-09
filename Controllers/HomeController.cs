@@ -33,11 +33,14 @@ public class HomeController : Controller
     {
         try
         {
-            List<NewsModel> newsHeadlines = new List<NewsModel>();
-            newsHeadlines = await _newsAPIService.GetHeadlines();
-            foreach (NewsModel news in newsHeadlines)
+            NewsResponse apiResponse = await _newsAPIService.GetHeadlines();
+            var articles = apiResponse.articles;
+            int count = 0;
+            foreach (NewsModel news in articles)
             {
-                Console.WriteLine($"News output: {news.title},{news.description}, {news.publishedAt} ");
+                Console.WriteLine($"News output #{count}: {news.title},{news.description}, {news.publishedAt} ");
+                count++;
+                if (count >= 5) break;
             }
         }
         catch (Exception ex)

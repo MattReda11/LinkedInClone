@@ -22,5 +22,5 @@ button.accept-policy {
   background-color: rgb(232, 232, 232);
   text-align: center;
   font-family: Montserrat;
-  z-index: 0;
+  z-index: -1;
 }

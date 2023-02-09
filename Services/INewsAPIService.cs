@@ -7,6 +7,6 @@ namespace LinkedInClone.Services
 {
     public interface INewsAPIService
     {
-        Task<List<NewsModel>> GetHeadlines();
+        Task<NewsResponse> GetHeadlines();
     }
 }

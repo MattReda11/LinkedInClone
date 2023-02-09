@@ -23,7 +23,7 @@ namespace LinkedInClone.Services
             client.DefaultRequestHeaders.Add("User-Agent", "JobLink (ASP.NET LinkedIn Clone)");
         }
 
-        public async Task<List<NewsModel>> GetHeadlines()
+        public async Task<NewsResponse> GetHeadlines()
         {
 
             string API_KEY = "fcf0c85067c3433ca27e2dd8079fd0b1"; //just trying to get it  working atm, will store more securely later
@@ -37,9 +37,10 @@ namespace LinkedInClone.Services
                     var stringResponse = await response.Content.ReadAsStringAsync();
                   //  Console.WriteLine(stringResponse.Substring(0, 1000));
                     try{
-                     var articles = JsonConvert.DeserializeObject<NewsModel[]>("[" + stringResponse + "]");
-                     var result = articles.ToList();
-                     return result;
+                        var newsResponse = JsonConvert.DeserializeObject<NewsResponse>(stringResponse);
+                        return newsResponse;
+                    //  var articles = JsonConvert.DeserializeObject<NewsModel[]>("[" + stringResponse + "]");
+                    //  var result = articles.ToList();                    
                      }
                     catch (Exception ex)
                     {
