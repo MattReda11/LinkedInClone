@@ -34,13 +34,39 @@ ViewData["Title"] = "Admin Interface";
 
 <script>
    
-    function confirmDelete(id) {
+    function confirmDeleteUser(id) {
     if (confirm("Are you sure you want to delete this user?")) {
         $.ajax({
             type: "DELETE",
-            url: "/Account/DeleteUser/" + id,
+            url: "/Admin/DeleteUser/" + id,
             success: function(data) {                
                 alert("User deleted successfully");
+                location.reload();
+            }
+        });
+    }
+}
+
+   function confirmDeletePost(id) {
+    if (confirm("Are you sure you want to delete this post?")) {
+        $.ajax({
+            type: "DELETE",
+            url: "/Admin/DeletePost/" + id,
+            success: function(data) {                
+                alert("Post deleted successfully");
+                location.reload();
+            }
+        });
+    }
+}
+
+   function confirmDeleteJobPosting(id) {
+    if (confirm("Are you sure you want to delete this job posting?")) {
+        $.ajax({
+            type: "DELETE",
+            url: "/Admin/DeleteJobPosting/" + id,
+            success: function(data) {                
+                alert("JobPosting deleted successfully");
                 location.reload();
             }
         });

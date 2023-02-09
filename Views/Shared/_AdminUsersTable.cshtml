@@ -29,14 +29,14 @@
             <td>N/A</td>
         }
     }
-    <td><a href="#" onclick="confirmDelete('@item.Id')">Delete</a></td>
+    <td><a href="#" onclick="confirmDeleteUser('@item.Id')">Delete</a></td>
    
 </tr>
 }
 </tbody>
 </table>
 
-<script>
+@* <script>
     function deleteUser(id) {
         var xhr = new XMLHttpRequest();
         xhr.open("DELETE", "/Account/DeleteUser/" + id);
@@ -64,4 +64,4 @@
         });
     }
 }
-</script>
+</script> *@

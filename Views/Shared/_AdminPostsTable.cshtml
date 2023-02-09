@@ -14,8 +14,10 @@
 @foreach (var item in Model){
 <tr>
   @{
+        var length = item.Content.Length / 2;
+        if (length % 2 != 0) length = length+1;
         var shorterId = item.Author.Id.Substring(0,13);
-        var shortContent = item.Content.Substring(0,25);
+        var shortContent = item.Content.Substring(0,length);
         
     }
     <td>@item.Id </td>
@@ -23,14 +25,14 @@
     <td>@shortContent</td>
     <td>@item.PostedDate</td>
     <td>@item.FileName</td>    
-    <td><a href="#" onclick="confirmDelete('@item.Id')">Delete</a></td>
+    <td><a href="#" onclick="confirmDeletePost('@item.Id')">Delete</a></td>
    
 </tr>
 }
 </tbody>
 </table>
 
-<script>
+@* <script>
     function deleteUser(id) {
         var xhr = new XMLHttpRequest();
         xhr.open("DELETE", "/Account/DeleteUser/" + id);
@@ -58,4 +60,4 @@
         });
     }
 }
-</script>
+</script> *@

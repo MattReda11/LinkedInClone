@@ -30,7 +30,7 @@ public class AdminController : Controller
     
     
   
-    [HttpDelete("/Account/DeleteUser/{id}")]
+    [HttpDelete("/Admin/DeleteUser/{id}")]
     public async Task<IActionResult> DeleteUser(string id)
     {
         var user = await _userManager.FindByIdAsync(id);
@@ -48,6 +48,39 @@ public class AdminController : Controller
         }
 
         return BadRequest();
+    }
+
+    [HttpDelete("/Admin/DeletePost/{id}")]
+    public async Task<IActionResult> DeletePost(int id)
+    {
+        
+        var post = await _db.Posts.FindAsync(id);  //await _userManager.FindByIdAsync(id);
+        if (post == null)
+        {
+            Console.WriteLine($"Post with ID:{id} does not exist!");
+            return NotFound();
+        }
+        _db.Posts.Remove(post);
+        await _db.SaveChangesAsync();
+
+        Console.WriteLine($"Post with ID:{id} has been deleted");
+        return RedirectToAction("AdminPanel", "Home");
+    }
+
+    [HttpDelete("/Admin/DeleteJobPosting/{id}")]
+    public async Task<IActionResult> DeleteJobPosting(int id)
+    {
+        var jobPost = await _db.JobPostings.FindAsync(id);
+        if (jobPost == null)
+        {
+            Console.WriteLine($"Job Post with ID:{id} does not exist!");
+            return NotFound();
+        }
+        _db.JobPostings.Remove(jobPost);
+        await _db.SaveChangesAsync();
+
+        Console.WriteLine($"Job Post with ID:{id} has been deleted");
+        return RedirectToAction("AdminPanel", "Home");      
     }
 
     public IActionResult AccessDenied()
