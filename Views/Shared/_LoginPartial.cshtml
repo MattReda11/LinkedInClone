@@ -31,8 +31,8 @@
                                     Network</a>
                             </div>
                             <div class="nav-item">
-                                <a class="nav-link text-dark utb utb-C" asp-area="" asp-controller="Home"
-                                asp-action="Message">Messages</a>
+                                <a class="nav-link text-dark utb utb-C" asp-area="" asp-controller="Messages"
+                                asp-action="Conversations">Messages</a>
                             </div>
                             <div class="nav-item">
                                 <a id="manage" data-tooltip="Tooltip 1" class="nav-link text-dark utb utb-C"
@@ -62,7 +62,10 @@
                         asp-area="" asp-action="MyAccount" title="Manage">Hello
                             @UserManager.GetUserName(User)!</a>
                     </div>
-
+                    <div class="nav-item">
+                        <a class="nav-link text-dark utb utb-C" asp-area="" asp-controller="Messages"
+                        asp-action="Conversations">Messages</a>
+                    </div>
                     <div class="nav-item">
                         <a class="nav-link text-dark utb utb-C" asp-area="Identity" asp-page="/Account/Logout"
                         asp-route-returnUrl="@Url.Action(" Index", "Home" , new { area="" })">Log Out

@@ -49,14 +49,46 @@ public class HomeController : Controller
         {
             Console.WriteLine($"Error: {ex.Message}");
         }
-        return View(await _db.Posts.OrderByDescending(p => p.PostedDate).Include("Author").Include("Comments").Include("Likes").Include("Likes.LikedBy").ToListAsync());
+        List<Post> Posts = new List<Post>();
+
+        var username = User.Identity.Name;
+        var user = _db.Users.Where(u => u.UserName == username).FirstOrDefault();
+
+        var connections = _db.Connections.Where(c => c.Accepted == true && c.AccountOwner == user || c.Friend == user).Include("AccountOwner").Include("Friend").ToList();
+
+        var userPosts = _db.Posts.Where(p => p.Author == user).Include("Author").Include("Comments").Include("Comments.Author").Include("Likes").Include("Likes.LikedBy").ToList();
+
+        foreach (var userPost in userPosts)
+        {
+            Posts.Add(userPost);
+        }
+
+        foreach (var con in connections)
+        {
+            if (con.Friend == user)
+            {
+                var post = await _db.Posts.Where(p => p.Author == con.AccountOwner).Include("Author").Include("Comments").Include("Comments.Author").Include("Likes").Include("Likes.LikedBy").FirstOrDefaultAsync();
+
+
+                if (post != null)
+                {
+                    Posts.Add(post);
+                }
+            }
+            else if (con.AccountOwner == user)
+            {
+                var post = await _db.Posts.Where(p => p.Author == con.Friend).Include("Author").Include("Comments").Include("Comments.Author").Include("Likes").Include("Likes.LikedBy").FirstOrDefaultAsync();
+
+
+                if (post != null)
+                {
+                    Posts.Add(post);
+                }
+            }
+        }
+        return View(Posts.OrderByDescending(p => p.PostedDate));
     }
 
-    [Authorize]
-    public IActionResult Privacy()
-    {
-        return View();
-    }
     [Authorize]
     public async Task<IActionResult> MyAccount()
     {
