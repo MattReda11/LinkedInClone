@@ -34,9 +34,27 @@ async function ShowCommentBox(id) {
   }
 }
 
+let regBtn = document.getElementById("registerSubmit");
+let loginBtn = document.getElementById("login-submit");
+
 async function LogIn() {
-  console.log("something");
-  let loginBtn = document.getElementById("login-submit");
   loginBtn.classList.add("loading", "loading-right");
   loginBtn.innerHTML = "Logging In...";
+  setTimeout(resetLogin, 3000);
+}
+
+async function Register() {
+  regBtn.classList.add("loading", "loading-right");
+  regBtn.innerHTML = "Registering your account";
+  setTimeout(resetReg, 3000);
+}
+
+async function resetReg() {
+  regBtn.innerHTML = "Register";
+  regBtn.classList.remove("loading", "loading-right");
+}
+
+async function resetLogin() {
+  loginBtn.innerHTML = "Log In";
+  loginBtn.classList.remove("loading", "loading-right");
 }
