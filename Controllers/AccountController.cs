@@ -48,7 +48,7 @@ public class AccountController : Controller
 
         if (info == null)
             return View("ExternalLoginFailed");
-Debug.WriteLine("2");
+        Debug.WriteLine("2");
         var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, false);
 
         string[] userInfo = { info.Principal.FindFirst(ClaimTypes.Name).Value, info.Principal.FindFirst(ClaimTypes.Email).Value };

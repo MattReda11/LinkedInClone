@@ -100,7 +100,7 @@ namespace LinkedInClone.Controllers
             _context.Update(connection);
             await _context.SaveChangesAsync();
 
-            TempData["generalInfo"] = $"Connection {id} has been Accepted!";
+            TempData["generalInfo"] = $"Connection Accepted!";
             return RedirectToAction(nameof(Index));
         }
 
@@ -116,7 +116,7 @@ namespace LinkedInClone.Controllers
             _context.Connections.Remove(connection);
             await _context.SaveChangesAsync();
 
-            TempData["generalInfo"] = $"Connection {id} has been Denied!";
+            TempData["generalInfo"] = $"Connection has been Denied!";
             return RedirectToAction(nameof(Index));
         }
 
@@ -144,7 +144,7 @@ namespace LinkedInClone.Controllers
         {
             if (_context.Connections == null)
             {
-                return Problem("Entity set 'AppDbContext.Connections'  is null.");
+                return Problem("Entity set 'AppDbContext.Connections' is null.");
             }
             var connection = await _context.Connections.FindAsync(id);
             if (connection != null)
