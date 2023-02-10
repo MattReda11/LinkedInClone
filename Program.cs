@@ -58,7 +58,7 @@ builder.Services.AddSignalR();
 
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 {
-    googleOptions.ClientId = "379601028963-alml822od0odsmo04m5hl4png6ikqasp.apps.googleusercontent.com"; //builder.Configuration["Authentication:Google:ClientId"];
+     googleOptions.ClientId = "379601028963-alml822od0odsmo04m5hl4png6ikqasp.apps.googleusercontent.com"; //builder.Configuration["Authentication:Google:ClientId"];
     googleOptions.ClientSecret = "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";
     googleOptions.SignInScheme = IdentityConstants.ExternalScheme;
     googleOptions.SaveTokens = true;

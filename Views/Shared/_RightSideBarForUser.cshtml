@@ -1,3 +1,6 @@
+@{
+    var articles = ViewBag.Articles as List<NewsModel>;
+}
 <div class="main-right">
         <h6>JobLink News</h6>
 
@@ -5,11 +8,15 @@
 
         <div class="card">
             <div class="card__container">
-                <p>link</p>
-                <p>link</p>
-                <p>link</p>
-                <p>link</p>
-                <p>link</p>
+                @{
+                    int count = 0;
+                   foreach (var article in articles){
+                        <p><a href="@article.url" target="_blank">@article.title</a></p>
+                        count++;
+                        if (count >= 5) break;
+                   }
+                }
+             
             </div>
             <div class="divider"></div>
             <h6>JobLink Market Trends</h6>

@@ -35,9 +35,11 @@ public class HomeController : Controller
         {
             NewsResponse apiResponse = await _newsAPIService.GetHeadlines();
             var articles = apiResponse.articles;
+            ViewBag.Articles = articles;
             int count = 0;
             foreach (NewsModel news in articles)
             {
+                //just to see if its working
                 Console.WriteLine($"News output #{count}: {news.title},{news.description}, {news.publishedAt} ");
                 count++;
                 if (count >= 5) break;
