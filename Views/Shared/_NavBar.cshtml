@@ -1,8 +1,9 @@
 @using Microsoft.AspNetCore.Identity
-@using LinkedInClone.Models;
+@using LinkedInClone.Models
+@using LinkedInClone.Data
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
-
+@inject AppDbContext _db
 
 <header>
     <div class="header-container">
@@ -18,6 +19,8 @@
 
                 @if (SignInManager.IsSignedIn(User) && User.IsInRole("User"))
                 {
+                    var username = User.Identity.Name;
+                    var user = _db.Users.Where(u => u.UserName == username).FirstOrDefault();
                     <partial name="_SearchBar" />
                     <div class="nav-right">
                         <div class="nav-item active">
@@ -37,7 +40,7 @@
                             <div class="nav-item">
                                 <a id="manage" data-tooltip="Tooltip 1" class="nav-link text-dark utb utb-C"
                                 asp-controller="Home" asp-area="" asp-action="MyAccount" title="Manage">Hello
-                                    @UserManager.GetUserName(User)!</a>
+                                    @user.FullName!</a>
                             </div>
                             <div class="nav-item">
                                 <a class="nav-link text-dark utb utb-C" asp-area="Identity" asp-page="/Account/Logout"
@@ -51,6 +54,8 @@
                 }
                 else if (SignInManager.IsSignedIn(User) && User.IsInRole("Recruiter"))
                 {
+                    var username = User.Identity.Name;
+                    var user = _db.Users.Where(u => u.UserName == username).FirstOrDefault();
                     <partial name="_SearchBar" />
                     <div class="nav-item">
                         <a class="nav-link text-dark utb utb-C" asp-area="" asp-controller="Home"
@@ -59,8 +64,7 @@
 
                     <div class="nav-item">
                         <a id="manage" data-tooltip="Tooltip 1" class="nav-link text-dark utb utb-C" asp-controller="Home"
-                        asp-area="" asp-action="MyAccount" title="Manage">Hello
-                            @UserManager.GetUserName(User)!</a>
+                        asp-area="" asp-action="MyAccount" title="Manage">Hello @user.FullName!!</a>
                     </div>
                     <div class="nav-item">
                         <a class="nav-link text-dark utb utb-C" asp-area="" asp-controller="Messages"
@@ -75,6 +79,8 @@
                 }
                 else if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
                 {
+                    var username = User.Identity.Name;
+                    var user = _db.Users.Where(u => u.UserName == username).FirstOrDefault();
                     @* TODO: Add Admin tabs and associated controller/views *@
                     <div class="nav-item">
                         <a class="nav-link text-dark utb utb-C" asp-area="" asp-controller="Home"
@@ -83,8 +89,7 @@
 
                     <div class="nav-item">
                         <a id="manage" data-tooltip="Tooltip 1" class="nav-link text-dark utb utb-C" asp-controller="Home"
-                        asp-area="" asp-action="MyAccount" title="Manage">Hello
-                            @UserManager.GetUserName(User)!</a>
+                        asp-area="" asp-action="MyAccount" title="Manage">Hello @user.FullName!!</a>
                     </div>
 
                     <div class="nav-item">

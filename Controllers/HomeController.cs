@@ -67,20 +67,20 @@ public class HomeController : Controller
         {
             if (con.Friend == user)
             {
-                var post = await _db.Posts.Where(p => p.Author == con.AccountOwner).Include("Author").Include("Comments").Include("Comments.Author").Include("Likes").Include("Likes.LikedBy").FirstOrDefaultAsync();
+                var posts = await _db.Posts.Where(p => p.Author == con.AccountOwner).Include("Author").Include("Comments").Include("Comments.Author").Include("Likes").Include("Likes.LikedBy").ToListAsync();
 
 
-                if (post != null)
+                foreach (var post in posts)
                 {
                     Posts.Add(post);
                 }
             }
             else if (con.AccountOwner == user)
             {
-                var post = await _db.Posts.Where(p => p.Author == con.Friend).Include("Author").Include("Comments").Include("Comments.Author").Include("Likes").Include("Likes.LikedBy").FirstOrDefaultAsync();
+                var posts = await _db.Posts.Where(p => p.Author == con.Friend).Include("Author").Include("Comments").Include("Comments.Author").Include("Likes").Include("Likes.LikedBy").ToListAsync();
 
 
-                if (post != null)
+                foreach (var post in posts)
                 {
                     Posts.Add(post);
                 }
