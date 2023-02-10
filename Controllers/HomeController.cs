@@ -97,6 +97,7 @@ public class HomeController : Controller
         model.Users = await _db.AppUsers.ToListAsync();
         model.JobPostings = await _db.JobPostings.ToListAsync();
         model.Posts = await _db.Posts.ToListAsync();
+        model.Comments = await _db.Comments.ToListAsync();
         return View(model);
     }
 
