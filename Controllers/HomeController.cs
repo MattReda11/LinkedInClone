@@ -56,6 +56,13 @@ public class HomeController : Controller
 
         var connections = _db.Connections.Where(c => c.Accepted == true && c.AccountOwner == user || c.Friend == user).Include("AccountOwner").Include("Friend").ToList();
 
+        var userPosts = _db.Posts.Where(p => p.Author == user).Include("Author").Include("Comments").Include("Comments.Author").Include("Likes").Include("Likes.LikedBy").ToList();
+
+        foreach (var userPost in userPosts)
+        {
+            Posts.Add(userPost);
+        }
+
         foreach (var con in connections)
         {
             if (con.Friend == user)
@@ -82,11 +89,6 @@ public class HomeController : Controller
         return View(Posts.OrderByDescending(p => p.PostedDate));
     }
 
-    [Authorize]
-    public IActionResult Privacy()
-    {
-        return View();
-    }
     [Authorize]
     public async Task<IActionResult> MyAccount()
     {
