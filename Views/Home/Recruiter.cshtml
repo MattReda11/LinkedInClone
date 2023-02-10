@@ -3,8 +3,8 @@
     ViewData["Title"] = "Home";
 }
 
-<div class="homepage-container">
-    <div class="homepage-left">
+<div class="main-container">
+    <div class="main-left">
 
         <h6>Explore</h6>
 
@@ -27,7 +27,7 @@
     </div>
     @if (Model.Count == 0)
     {
-        <div class="homepage-center">
+        <div class="main-center">
             <div class="card">
                 <div class="card__container m-2">
                     <div class="content">
@@ -48,8 +48,10 @@
     }
     else
     {
+        var count = 0;
         @foreach (var item in Model)
         {
+            count = count + @item.JobApplications.Count;
             if (Model.IndexOf(item) == Model.Count - 1)
             {
                 <div class="homepage-center">
@@ -64,7 +66,7 @@
                             </div>
 
                             <div class="post-card-content">
-                                <p>Total number of applicants: @item.JobApplications.Count</p>
+                                <p>Total number of applicants: @count</p>
                             </div>
 
                         </div>
@@ -73,7 +75,7 @@
             }
         }
     }
-    <div class="homepage-right">
+    <div class="main-right">
         <h6>Live News Feed</h6>
         <p>maybe links like</p>
         <a href="https://youtu.be/dQw4w9WgXcQ">Our Partners</a>

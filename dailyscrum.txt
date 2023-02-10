@@ -387,3 +387,48 @@
 - Users can Connect with other people (Trello has breakdown)
 3. Need assistance / figure things out:
 -
+------------------------------------------------------------------------------------
+2/10/2023 Kevin
+1. Done/not done since last scrum:
+- Admin CRUD on Posts + JobPostings
+- Solved Deserializing errors for API
+& Plugged in API to index Side Bar
+- Added a Modal to Edit Info on MyAccount
+2. To do until next Scrum:
+- Admin CRUD on Comments (just delete)
+- Update User Info on MyAccount working
+- Modify API Service to include Stocks
+ and then display on homepage
+- Start looking into hosting
+3. Need assistance / figure things out:
+-
+
+2/10/2023 Matthew
+1. Done/not done since last scrum:
+- Comments Implemented
+- Assist in Connections CRUD
+- Simple SignalR chatting
+2. To do until next Scrum:
+- Continue research on Messaging
+- Assist in styling
+3. Need assistance / figure things out:
+-
+
+2/10/2023 Chris
+1. Done/not done since last scrum:
+- Worked on Comments
+2. To do until next Scrum:
+- Look into messaging
+- add styling where needed
+3. Need assistance / figure things out:
+- 
+
+2/10/2023 Seena
+1. Done/not done since last scrum:
+- Search bar done
+- Assisted in Connections CRUD
+2. To do until next Scrum:
+- Fix Search Bar (Not showing logged in user)
+- Fix Styling for My Network + Recruiter Homepage
+3. Need assistance / figure things out:
+-
