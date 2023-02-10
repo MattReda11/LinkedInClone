@@ -45,7 +45,7 @@ async function LogIn() {
 
 async function Register() {
   regBtn.classList.add("loading", "loading-right");
-  regBtn.innerHTML = "Registering your account";
+  regBtn.innerHTML = "Registering your account...";
   setTimeout(resetReg, 3000);
 }
 
