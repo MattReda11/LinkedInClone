@@ -75,7 +75,7 @@ ViewData["Title"] = "Home";
                                     </div>
                                     
                                 }
-                                else if(like.LikedPost != item || like.LikedBy.UserName != User.Identity.Name && item.Likes.IndexOf(like) == item.Likes.Count - 1)
+                                else if(like.LikedBy.UserName != User.Identity.Name && item.Likes.IndexOf(like) == item.Likes.Count - 1)
                                 {
                                     <div class="btn-group" runat="server">
                                         <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
