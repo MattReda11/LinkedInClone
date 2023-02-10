@@ -1,21 +1,22 @@
 @model IEnumerable<LinkedInClone.Models.JobPosting>
 
-    @{
+@{
     ViewData["Title"] = "Available Jobs";
-    }
+}
 
 
 
 
 
-    <div class="main-container">
-        <partial name="_LeftSideBarForUser" />
+<div class="main-container">
+    <partial name="_LeftSideBarForUser" />
 
-        <div class="main-center">
-            <div class="u-flex u-justify-center mb-4">
-                <h2>@ViewData["Title"]</h2>
-            </div>
-            @foreach (var item in Model) {
+    <div class="main-center">
+        <div class="u-flex u-justify-center mb-4">
+            <h2>@ViewData["Title"]</h2>
+        </div>
+        @foreach (var item in Model)
+        {
             <div class="card max-w-md mx-auto">
                 <div class="card__header u-flex u-justify-space-between">
                     <div>
@@ -32,14 +33,14 @@
                 </div>
                 <div class="card__action-bar u-center">
                     @* FIXME:
-                    IF User has already applied, show that instead of apply button
-                    OR
-                    Show a prompt on click that says user has already applied for that particular job
-                    *@
+                IF User has already applied, show that instead of apply button
+                OR
+                Show a prompt on click that says user has already applied for that particular job
+                *@
                     <a asp-action="Create" asp-route-id="@item.Id">Apply</a>
                 </div>
             </div>
-            }
-        </div>
-        <partial name="_RightSideBarForUser" />
+        }
     </div>
+    <partial name="_RightSideBarForUser" />
+</div>
