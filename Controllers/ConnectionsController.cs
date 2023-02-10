@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LinkedInClone.Data;
 using LinkedInClone.Models;
+using LinkedInClone.Services;
 
 namespace LinkedInClone.Controllers
 {
@@ -14,9 +15,12 @@ namespace LinkedInClone.Controllers
     {
         private readonly AppDbContext _context;
 
-        public ConnectionsController(AppDbContext context)
+        private readonly INewsAPIService _newsAPIService;
+
+        public ConnectionsController(AppDbContext context, INewsAPIService newsAPIService)
         {
             _context = context;
+            _newsAPIService = newsAPIService;
         }
 
         public async Task<IActionResult> SearchResults(string searchKeyWord)
@@ -29,6 +33,12 @@ namespace LinkedInClone.Controllers
         // GET: Connections
         public async Task<IActionResult> Index()
         {
+            //articles
+            NewsResponse apiResponse = await _newsAPIService.GetHeadlines();
+            var articles = apiResponse.articles;
+            ViewBag.Articles = articles;
+
+            //connections
             var username = User.Identity.Name;
             var owner = _context.AppUsers.Where(appUser => appUser.UserName == username).FirstOrDefault();
             return View(await _context.Connections.Include("Friend").Include("AccountOwner").ToListAsync());

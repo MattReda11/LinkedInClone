@@ -11,13 +11,16 @@
         <div class="card">
             <div class="card__container">
                 @{
+                    if (articles == null) {
+
+                    }
                     int count = 0;
                    foreach (var article in articles){
                         <p class="NewsLink"><a href="@article.url" target="_blank">@article.title</a></p>
                         count++;
                         if (count >= 4) break;
                    }
-                 
+                    
                 }
              
               </div>
