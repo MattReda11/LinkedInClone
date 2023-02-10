@@ -1,20 +1,18 @@
 @{
 var articles = ViewBag.Articles as List<NewsModel>;
     }
-    <style>
-        .NewsLink {}
-    </style>
+
     <div class="main-right">
         <div class="card p-4">
             <div class="card__container">
-                <h6>JobLink News</h6>
+                <h6 class=" tooltip tooltip--bottom" data-tooltip="Access external news source">JobLink News</h6>
                 @{
                 if (articles == null) {
 
                 }
                 int count = 0;
                 foreach (var article in articles){
-                <p class="NewsLink u-text-justify"><a href="@article.url" target="_blank">@article.title</a></p>
+                <p class="u-text-justify"><a href="@article.url" target="_blank">@article.title</a></p>
                 count++;
                 if (count >= 4) break;
                 }

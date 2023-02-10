@@ -6,74 +6,78 @@ ViewData["Title"] = "Register";
 
 <div class="universal-container">
     <div class="row level">
-       
 
-            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-                <h1 class="header-brand">Recruiter @ViewData["Title"]</h1>
-                <h5>As a recruiter, you will have special access to recruiter features such as posting jobs & receiving applications</h5>
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
 
+            <h1 class="header-brand">Recruiter @ViewData["Title"]</h1>
+            <h5>As a recruiter, you will have special access to recruiter features such as posting jobs & receiving
+                applications</h5>
+
+            <div class="divider"></div>
+            <div class="divider"></div>
+
+            <div class="row level">
+
+                <div class="col-xs-3 level-item">
+                    <label asp-for="Input.FullName" class="m-0"></label>
+                </div>
+
+                <div class="col-xs-9 level-item mb-1">
+                    <input asp-for="Input.FullName" autocomplete="username" aria-required="true" placeholder="Elon Tusk"
+                        type="text" />
+                </div>
+
+                <div class="col-xs-3 level-item">
+                    <label asp-for="Input.Company" class="m-0"></label>
+                </div>
+
+                <div class="col-xs-9 level-item mb-1">
+                    <input asp-for="Input.Company" autocomplete="username" aria-required="true"
+                        placeholder="Cyberdyne Industries" type="text" />
+                </div>
+
+                <div class="col-xs-3 level-item">
+                    <label asp-for="Input.Email" class="m-0"></label>
+                </div>
+
+                <div class="col-xs-9 level-item mb-1">
+                    <input asp-for="Input.Email" autocomplete="username" aria-required="true"
+                        placeholder="name@example.com" type="email" />
+                </div>
+
+                <div class="col-xs-3 level-item">
+                    <label asp-for="Input.Password" class="m-0"></label>
+                </div>
+
+                <div class="col-xs-9 level-item mb-1">
+                    <input asp-for="Input.Password" class="form-control" autocomplete="new-password"
+                        aria-required="true" placeholder="password" type="password" />
+                </div>
+
+                <div class="col-xs-3 level-item">
+                    <label asp-for="Input.ConfirmPassword" class="m-0">Confirm Password</label>
+                </div>
+
+                <div class="col-xs-9 level-item mb-1">
+                    <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="confirm-password"
+                        aria-required="true" placeholder="re-type password" />
+                </div>
+
+            </div>
+
+            <div class="row level">
+                <button id="registerSubmit" type="submit" onclick="Register()"
+                    class="ml-auto btn-animated outline animated bounceIn btn-dark btn--lg mr-1">Register</button>
+            </div>
+
+            <div>
                 <div class="divider"></div>
+                <div asp-validation-summary="All" class="text-danger font-semibold"></div>
                 <div class="divider"></div>
+            </div>
 
-                <div class="row level">
+        </form>
 
-                    <div class="col-xs-3 level-item">
-                        <label asp-for="Input.FullName" class="m-0"></label>
-                    </div>
-
-                    <div class="col-xs-9 level-item mb-1">
-                        <input asp-for="Input.FullName" autocomplete="username" aria-required="true"
-                            placeholder="Elon Tusk" type="text" />
-                    </div>
-                        <div class="col-xs-3 level-item">
-                        <label asp-for="Input.Company" class="m-0"></label>
-                    </div>
-                    <div class="col-xs-9 level-item mb-1">
-                        <input asp-for="Input.Company" autocomplete="username" aria-required="true" placeholder="Cyberdyne Industries" type="text" />
-                    </div>
-
-                    <div class="col-xs-3 level-item">
-                        <label asp-for="Input.Email" class="m-0"></label>
-                    </div>
-
-                    <div class="col-xs-9 level-item mb-1">
-                        <input asp-for="Input.Email" autocomplete="username" aria-required="true"
-                            placeholder="name@example.com" type="email" />
-                    </div>
-
-                    <div class="col-xs-3 level-item">
-                        <label asp-for="Input.Password" class="m-0"></label>
-                    </div>
-
-                    <div class="col-xs-9 level-item mb-1">
-                        <input asp-for="Input.Password" class="form-control" autocomplete="new-password"
-                            aria-required="true" placeholder="password" type="password" />
-                    </div>
-
-                    <div class="col-xs-3 level-item">
-                        <label asp-for="Input.ConfirmPassword" class="m-0">Confirm Password</label>
-                    </div>
-
-                    <div class="col-xs-9 level-item mb-1">
-                        <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="confirm-password"
-                            aria-required="true" placeholder="re-type password" />
-                    </div>
-
-                </div>
-
-                <div class="row level">
-                    <button id="registerSubmit" type="submit" onclick="Register()"
-                        class="ml-auto btn-animated outline animated bounceIn btn-dark btn--lg mr-1">Register</button>
-                </div>
-
-                <div>
-                    <div class="divider"></div>
-                    <div asp-validation-summary="All" class="text-danger font-semibold"></div>
-                    <div class="divider"></div>
-                </div>
-
-            </form>
-       
     </div>
 
 
@@ -82,7 +86,8 @@ ViewData["Title"] = "Register";
             <h4>Not a recruiter?</h4>
             <p>Click <a class="utb utb-C" asp-page="Register">here</a> to register a regular account</p>
         </section>
-</div>
-@section Scripts {
-<partial name="_ValidationScriptsPartial" />
-}
+    </div>
+
+    @section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    }

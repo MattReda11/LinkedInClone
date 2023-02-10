@@ -64,7 +64,7 @@ textarea {
 /* HOMEPAGE */
 .main-container {
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   justify-content: flex-start;
   max-width: 100%;
   min-width: 70%;
@@ -93,17 +93,16 @@ textarea {
   color: #258cfb;
 }
 
+.comment-card-date {
+  color: #258cfb;
+  padding-top: -22px;
+}
+
 .post-card-content {
   margin-bottom: -4px;
 }
 
 .post-card-interaction-counter {
   font-size: small;
-
   margin: -17px auto;
-}
-
-.comment-label {
-  margin-bottom: -10px;
-  color: #258cfb;
 }

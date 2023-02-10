@@ -3,9 +3,11 @@
     ViewData["Title"] = "My Posts";
 }
 
-<div class="universal-container">
-    <h1 class="header-brand">My Posts</h1>
+
+<div class="main-container universal-container">
+     <partial name="_LeftSideBarForUser" />
     <div class="main-center">
+    <h1 class="header-brand">My Posts</h1>
         @foreach (var item in Model)
         {
 
@@ -136,4 +138,4 @@
             </div>
         }
     </div>
-</div>
+    </div>
