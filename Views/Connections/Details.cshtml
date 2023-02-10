@@ -13,15 +13,30 @@
         <dt class="col-sm-2">
             Username:
         </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Friend.UserName)
-        </dd>
-        <dt class="col-sm-2">
-            Full Name:
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Friend.FullName)
-        </dd>
+        @if (Model.AccountOwner.UserName == User.Identity.Name)
+        {
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Friend.UserName)
+            </dd>
+            <dt class="col-sm-2">
+                Full Name:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Friend.FullName)
+            </dd>
+        }
+        else if (Model.Friend.UserName == User.Identity.Name)
+        {
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.AccountOwner.UserName)
+            </dd>
+            <dt class="col-sm-2">
+                Full Name:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.AccountOwner.FullName)
+            </dd>
+        }
     </dl>
 </div>
 <div>
