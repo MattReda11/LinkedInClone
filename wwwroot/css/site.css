@@ -23,6 +23,7 @@ html {
 
 body {
   margin-bottom: 60px;
+  background-color: rgb(252, 252, 243);
 }
 
 .nav-items {
@@ -71,8 +72,9 @@ textarea {
 }
 
 .main-left {
-  width: 20%;
+  width: 17%;
   padding: 2px 12px 2px 12px;
+  margin-right: 2rem;
 }
 
 .main-center {
@@ -80,8 +82,9 @@ textarea {
 }
 
 .main-right {
-  width: 20%;
+  width: 19%;
   padding: 2px 12px 2px 12px;
+  margin-left: 2rem;
 }
 
 .post-card-date {

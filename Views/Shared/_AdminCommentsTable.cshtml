@@ -1,0 +1,34 @@
+@model List<Comment>
+<h4>Manage Comments on Posts</h4>
+<table class="table small" id="commentsTable">
+    <th>ID</th>
+   
+   <th>Author ID</th>
+   <th>Content</th>
+   <th>Created Date</th>
+   
+    <th>Actions</th>
+  
+   
+    <tbody>
+@foreach (var item in Model){
+<tr>
+  @{
+        var length = item.Content.Length / 2;
+        if (length % 2 != 0) length = length+1;
+        var shorterId = item.Author.Id.Substring(0,13);
+        var shortContent = item.Content.Substring(0,length);
+        
+    }
+    <td>@item.Id </td>
+    <td>@shorterId</td>
+    <td>@item.Content</td>
+    <td>@item.CreatedDated</td>
+   
+    <td><a href="#" onclick="confirmDeleteComment('@item.Id')">Delete</a></td>
+   
+</tr>
+}
+</tbody>
+</table>
+

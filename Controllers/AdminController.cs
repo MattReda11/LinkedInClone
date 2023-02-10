@@ -83,6 +83,23 @@ public class AdminController : Controller
         return RedirectToAction("AdminPanel", "Home");      
     }
 
+
+    [HttpDelete("/Admin/DeleteComment/{id}")]
+    public async Task<IActionResult> DeleteComment(int id)
+    {
+        var comment = await _db.Comments.FindAsync(id);
+        if (comment == null)
+        {
+            Console.WriteLine($"Comment with ID:{id} does not exist!");
+            return NotFound();
+        }
+        _db.Comments.Remove(comment);
+        await _db.SaveChangesAsync();
+
+        Console.WriteLine($"Comment with ID:{id} has been deleted");
+        return RedirectToAction("AdminPanel", "Home");
+    }
+
     public IActionResult AccessDenied()
     {
         return View();

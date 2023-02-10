@@ -11,6 +11,6 @@ namespace LinkedInClone.Models
         public List<ApplicationUser> Users { get; set; }
         public List<JobPosting> JobPostings { get; set; }
         public List<Post> Posts { get; set; }
-        //public List<Comment> Comments { get; set; }
+        public List<Comment> Comments { get; set; }
     }
 }

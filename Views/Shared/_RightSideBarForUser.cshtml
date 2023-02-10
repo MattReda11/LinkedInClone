@@ -1,29 +1,27 @@
 @{
-    var articles = ViewBag.Articles as List<NewsModel>;
-}
-<style>
-    .NewsLink{
-      
+var articles = ViewBag.Articles as List<NewsModel>;
     }
-</style>
-<div class="main-right">
-        <h6>JobLink News</h6>
-        <div class="card">
+    <style>
+        .NewsLink {}
+    </style>
+    <div class="main-right">
+        <div class="card p-4">
             <div class="card__container">
+                <h6>JobLink News</h6>
                 @{
-                    if (articles == null) {
+                if (articles == null) {
 
-                    }
-                    int count = 0;
-                   foreach (var article in articles){
-                        <p class="NewsLink"><a href="@article.url" target="_blank">@article.title</a></p>
-                        count++;
-                        if (count >= 4) break;
-                   }
-                    
                 }
-             
-              </div>
+                int count = 0;
+                foreach (var article in articles){
+                <p class="NewsLink u-text-justify"><a href="@article.url" target="_blank">@article.title</a></p>
+                count++;
+                if (count >= 4) break;
+                }
+
+                }
+
+            </div>
             <div class="divider"></div>
             <h6>JobLink Market Trends</h6>
             <p>stock ticker</p>
@@ -34,4 +32,4 @@
             <p>stock ticker</p>
 
         </div>
-</div>
+    </div>
