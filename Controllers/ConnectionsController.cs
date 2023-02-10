@@ -7,24 +7,18 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using LinkedInClone.Data;
 using LinkedInClone.Models;
-using Microsoft.AspNetCore.Identity;
 
 namespace LinkedInClone.Controllers
 {
     public class ConnectionsController : Controller
     {
         private readonly AppDbContext _context;
-        private readonly ILogger _logger;
-        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ConnectionsController(AppDbContext context, ILogger<JobPosting> logger, UserManager<ApplicationUser> userManager)
+        public ConnectionsController(AppDbContext context)
         {
             _context = context;
-            _logger = logger;
-            _userManager = userManager;
         }
 
-        // GET: Searched Users 
         public async Task<IActionResult> SearchResults(string searchKeyWord)
         {
             // SoundsLike static function used here
@@ -35,8 +29,9 @@ namespace LinkedInClone.Controllers
         // GET: Connections
         public async Task<IActionResult> Index()
         {
-            var appDbContext = _context.Connections.Include(c => c.AccountOwner).Include(c => c.Friend);
-            return View(await appDbContext.ToListAsync());
+            var username = User.Identity.Name;
+            var owner = _context.AppUsers.Where(appUser => appUser.UserName == username).FirstOrDefault();
+            return View(await _context.Connections.Include("Friend").Include("AccountOwner").ToListAsync());
         }
 
         // GET: Connections/Details/5
@@ -47,10 +42,7 @@ namespace LinkedInClone.Controllers
                 return NotFound();
             }
 
-            var connection = await _context.Connections
-                .Include(c => c.AccountOwner)
-                .Include(c => c.Friend)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var connection = await _context.Connections.Include("AccountOwner").Include("Friend").FirstOrDefaultAsync(m => m.Id == id);
             if (connection == null)
             {
                 return NotFound();
@@ -60,33 +52,32 @@ namespace LinkedInClone.Controllers
         }
 
         // GET: Connections/Create
-        public IActionResult Create()
+        public IActionResult AddConnection(string id)
         {
-            ViewData["SenderId"] = new SelectList(_context.Users, "FullName", "FullName");
-            ViewData["ReceiverId"] = new SelectList(_context.Users, "FullName", "FullName");
-            return View();
-        }
+            var friend = _context.AppUsers.Find(id);
+            var username = User.Identity.Name;
+            var owner = _context.AppUsers.Where(appUser => appUser.UserName == username).FirstOrDefault();
 
-        // POST: Connections/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,CreatedDate,Accepted,SenderId,ReceiverId")] Connection connection)
-        {
-            if (ModelState.IsValid)
+            var connection = new Connection { AccountOwner = owner, Friend = friend };
+
+            var checkConnection1 = _context.Connections.Where(c => c.AccountOwner == owner && c.Friend == friend).FirstOrDefault();
+            var checkConnection2 = _context.Connections.Where(c => c.AccountOwner == friend && c.Friend == owner).FirstOrDefault();
+
+            if (checkConnection1 != null || checkConnection2 != null)
             {
-                _context.Add(connection);
-                await _context.SaveChangesAsync();
+                TempData["generalInfo"] = $"Connection already exists!";
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["SenderId"] = new SelectList(_context.AppUsers, "Id", "Id", connection.SenderId);
-            ViewData["ReceiverId"] = new SelectList(_context.AppUsers, "Id", "Id", connection.ReceiverId);
-            return View(connection);
+
+            _context.Connections.Add(connection);
+            _context.SaveChanges();
+
+            TempData["generalInfo"] = $"Connection to {friend.FullName} has been Requested!";
+            return RedirectToAction(nameof(Index));
         }
 
-        // GET: Connections/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // GET: Connections/Accept/5
+        public async Task<IActionResult> Accept(int? id)
         {
             if (id == null || _context.Connections == null)
             {
@@ -94,50 +85,29 @@ namespace LinkedInClone.Controllers
             }
 
             var connection = await _context.Connections.FindAsync(id);
-            if (connection == null)
-            {
-                return NotFound();
-            }
-            ViewData["SenderId"] = new SelectList(_context.AppUsers, "Id", "Id", connection.SenderId);
-            ViewData["ReceiverId"] = new SelectList(_context.AppUsers, "Id", "Id", connection.ReceiverId);
-            return View(connection);
+            connection.Accepted = true;
+
+            _context.Update(connection);
+            await _context.SaveChangesAsync();
+
+            TempData["generalInfo"] = $"Connection {id} has been Accepted!";
+            return RedirectToAction(nameof(Index));
         }
 
-        // POST: Connections/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,CreatedDate,Accepted,SenderId,ReceiverId")] Connection connection)
+        public async Task<IActionResult> Deny(int? id)
         {
-            if (id != connection.Id)
+            if (id == null || _context.Connections == null)
             {
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(connection);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ConnectionExists(connection.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["SenderId"] = new SelectList(_context.AppUsers, "Id", "Id", connection.SenderId);
-            ViewData["ReceiverId"] = new SelectList(_context.AppUsers, "Id", "Id", connection.ReceiverId);
-            return View(connection);
+            var connection = await _context.Connections.FindAsync(id);
+
+            _context.Connections.Remove(connection);
+            await _context.SaveChangesAsync();
+
+            TempData["generalInfo"] = $"Connection {id} has been Denied!";
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Connections/Delete/5
@@ -148,10 +118,7 @@ namespace LinkedInClone.Controllers
                 return NotFound();
             }
 
-            var connection = await _context.Connections
-                .Include(c => c.AccountOwner)
-                .Include(c => c.Friend)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var connection = await _context.Connections.Include("AccountOwner").Include("Friend").FirstOrDefaultAsync(m => m.Id == id);
             if (connection == null)
             {
                 return NotFound();
