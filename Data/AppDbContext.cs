@@ -70,30 +70,30 @@ namespace LinkedInClone.Data
            .HasValue<RecruiterUser>("RecruiterUser")
            .HasValue<ApplicationUser>("ApplicationUser");
 
-            modelBuilder.Entity<ApplicationUser>()
-               .HasMany(u => u.SentConnections)
-                .WithOne(c => c.AccountOwner)
-                .HasForeignKey(c => c.SenderId);
+            // modelBuilder.Entity<ApplicationUser>()
+            //    .HasMany(u => u.SentConnections)
+            //     .WithOne(c => c.AccountOwner)
+            //     .HasForeignKey(c => c.SenderId);
 
 
-            modelBuilder.Entity<ApplicationUser>()
-                .HasMany(u => u.ReceivedConnections)
-                .WithOne(c => c.Friend)
-                .HasForeignKey(c => c.ReceiverId);
+            // modelBuilder.Entity<ApplicationUser>()
+            //     .HasMany(u => u.ReceivedConnections)
+            //     .WithOne(c => c.Friend)
+            //     .HasForeignKey(c => c.ReceiverId);
 
-            //Connection
+            // //Connection
 
-            modelBuilder.Entity<Connection>()
-                           .HasOne(c => c.Friend)
-                           .WithMany(u => u.ReceivedConnections)
-                           .HasForeignKey(c => c.ReceiverId)
-                           .OnDelete(DeleteBehavior.Restrict);
+            // modelBuilder.Entity<Connection>()
+            //                .HasOne(c => c.Friend)
+            //                .WithMany(u => u.ReceivedConnections)
+            //                .HasForeignKey(c => c.ReceiverId)
+            //                .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Connection>()
-                           .HasOne(c => c.AccountOwner)
-                           .WithMany(u => u.SentConnections)
-                           .HasForeignKey(c => c.SenderId)
-                           .OnDelete(DeleteBehavior.Restrict);
+            // modelBuilder.Entity<Connection>()
+            //                .HasOne(c => c.AccountOwner)
+            //                .WithMany(u => u.SentConnections)
+            //                .HasForeignKey(c => c.SenderId)
+            //                .OnDelete(DeleteBehavior.Restrict);
 
 
             // Other entity

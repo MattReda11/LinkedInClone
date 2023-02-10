@@ -16,7 +16,14 @@
 
 <body>
     <partial name="_LoginPartial" />
- 
+
+    @if (TempData["generalInfo"] != null)
+    {
+        <div id="generalInfoMessage" class="toast toast--info w-auto">
+            <button class="btn-close"></button>
+            <p class="u-center">@TempData["generalInfo"]</p>
+        </div>
+    }
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -24,13 +31,6 @@
     </div>
 
     <footer class="border-top custom-footer container">
-           @if(TempData["generalInfo"] != null)
-    {
-    <div id="generalInfoMessage" class="toast toast--info w-auto">
-        <button class="btn-close"></button>
-        <p class="u-center">@TempData["generalInfo"]</p>
-    </div>
-    }
         <b>© @DateTime.Now.Year - JobLink</b>
     </footer>
 
@@ -39,7 +39,7 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://kit.fontawesome.com/5a30c849af.js" crossorigin="anonymous"></script>
     <script>
-        setTimeout(function(){$('#generalInfoMessage').fadeOut('fast');}, 3000);
+        setTimeout(function () { $('#generalInfoMessage').fadeOut('fast'); }, 3000);
     </script>
 
     @await RenderSectionAsync("Scripts", required: false)

@@ -10,13 +10,6 @@ namespace LinkedInClone.Models
     // connections are when users 'add each other'
     public class Connection
     {
-
-        public Connection()
-        {
-            SenderId = AccountOwner.Id;
-            ReceiverId = Friend.Id;
-        }
-
         [Key]
         public int Id { get; set; }
 
@@ -30,10 +23,6 @@ namespace LinkedInClone.Models
         public DateTime CreatedDate { get; set; } = DateTime.Now;
 
         public bool Accepted { get; set; } = false;
-        [Required]
-        public string SenderId { get; set; }
-        [Required]
-        public string ReceiverId { get; set; }
 
     }
 }

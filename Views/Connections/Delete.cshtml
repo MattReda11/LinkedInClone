@@ -6,37 +6,37 @@
 
 <h1>Delete</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Are you sure you want to remove this Friend?</h3>
 <div>
     <h4>Connection</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.AccountOwner)
+        @if (Model.AccountOwner.UserName == User.Identity.Name)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Friend)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Friend.FullName)
+            </dd>
+        }
+        else if (Model.Friend.UserName == User.Identity.Name)
+        {
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Friend)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.AccountOwner.FullName)
+            </dd>
+        }
+        <dt class="col-sm-2">
+            Friend's Since
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.AccountOwner.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Friend)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Friend.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedDate)
-        </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.CreatedDate)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Accepted)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Accepted)
-        </dd>
     </dl>
-    
+
     <form asp-action="Delete">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
