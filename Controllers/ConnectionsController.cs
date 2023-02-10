@@ -62,8 +62,8 @@ namespace LinkedInClone.Controllers
         // GET: Connections/Create
         public IActionResult Create()
         {
-            ViewData["SenderId"] = new SelectList(_context.AppUsers, "Id", "Id");
-            ViewData["ReceiverId"] = new SelectList(_context.AppUsers, "Id", "Id");
+            ViewData["SenderId"] = new SelectList(_context.Users, "FullName", "FullName");
+            ViewData["ReceiverId"] = new SelectList(_context.Users, "FullName", "FullName");
             return View();
         }
 

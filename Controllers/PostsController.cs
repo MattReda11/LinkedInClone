@@ -292,6 +292,27 @@ namespace LinkedInClone.Controllers
             }
         }
 
+        [HttpPost]
+        public ActionResult Comment(string CommentText, int id)
+        {
+            if (_context.Posts == null)
+            {
+                return Problem("Entity set 'AppDbContext.Posts'  is null.");
+            }
+
+            var username = User.Identity.Name;
+            var user = _context.Users.Where(u => u.UserName == username).FirstOrDefault();
+
+            var post = _context.Posts.Find(id);
+
+            var comment = new Comment { Content = CommentText, Post = post, Author = user, CreatedDated = DateTime.Now };
+
+            _context.Comments.Add(comment);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Home", new { area = "" });
+        }
+
         private bool PostExists(int id)
         {
             return _context.Posts.Any(e => e.Id == id);

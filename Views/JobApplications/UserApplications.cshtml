@@ -1,34 +1,35 @@
 @model IEnumerable<LinkedInClone.Models.JobApplication>
 
-    @{
+@{
     ViewData["Title"] = "My Applications";
-    }
+}
 
-    <div class="main-container">
-        <partial name="_LeftSideBarForUser" />
-        <div class="main-center">
-
-
-            <h1>@ViewData["Title"]</h1>
+<div class="main-container">
+    <partial name="_LeftSideBarForUser" />
+    <div class="main-center">
 
 
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Job.JobTitle)
-                        </th>
-                        <th>
-                            CV Uploaded
-                        </th>
-                        <th>
-                            Submitted On
-                        </th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model) {
+        <h1>@ViewData["Title"]</h1>
+
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Job.JobTitle)
+                    </th>
+                    <th>
+                        CV Uploaded
+                    </th>
+                    <th>
+                        Submitted On
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
                     <tr>
                         <td>
                             @Html.DisplayFor(modelItem => item.Job.JobTitle)
@@ -36,24 +37,24 @@
                         <td>
                             @if (item.FileName != null)
                             {
-                            @* FIXME:
-                            Currently: Hard coded "Dummy Resume.pdf"
-                            Attempting: src='.../.../blob-storage/@item.FileName&embedded=true'
-                            *@
-                            <div class="modal" id="cv">
-                                <a href="#anchor-to-background" class="modal-overlay close-btn" aria-label="Close"></a>
-                                <iframe class="u-z-0"
-                                    src='https://docs.google.com/gview?url=https://fsd05regex.blob.core.windows.net/blob-storage/Dummy Resume.pdf&embedded=true'
-                                    style="width:718px; height:700px;" frameborder="0">
-                                </iframe>
-                            </div>
+                                @* FIXME:
+                        Currently: Hard coded "Dummy Resume.pdf"
+                        Attempting: src='.../.../blob-storage/@item.FileName&embedded=true'
+                        *@
+                                <div class="modal" id="cv">
+                                    <a href="#anchor-to-background" class="modal-overlay close-btn" aria-label="Close"></a>
+                                    <iframe class="u-z-0"
+                                        src='https://docs.google.com/gview?url=https://fsd05regex.blob.core.windows.net/blob-storage/@item.FileName&embedded=true'
+                                        style="width:718px; height:700px;" frameborder="0">
+                                    </iframe>
+                                </div>
 
-                            <a href="#cv">View CV</a>
+                                <a href="#cv">View CV</a>
 
                             }
                             else
                             {
-                            <p>File Name seems to be null</p>
+                                <p>File Name seems to be null</p>
                             }
                         </td>
                         <td>
@@ -63,9 +64,9 @@
                             <a asp-action="Delete" asp-route-id="@item.JobApplicationId">Delete</a>
                         </td>
                     </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-        <partial name="_RightSideBarForUser" />
+                }
+            </tbody>
+        </table>
     </div>
+    <partial name="_RightSideBarForUser" />
+</div>

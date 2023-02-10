@@ -16,6 +16,7 @@ namespace LinkedInClone.Models
             SenderId = AccountOwner.Id;
             ReceiverId = Friend.Id;
         }
+
         [Key]
         public int Id { get; set; }
 
@@ -33,6 +34,6 @@ namespace LinkedInClone.Models
         public string SenderId { get; set; }
         [Required]
         public string ReceiverId { get; set; }
-       
+
     }
 }

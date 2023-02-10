@@ -95,7 +95,34 @@ ViewData["Title"] = "Home";
                         }
                     </div>
                     <div class="commentbox" id="commentbox-@item.Id" hidden>
-                        <partial name="_CommentBoxPartial" />
+                        @using (Html.BeginForm("Comment", "Posts", FormMethod.Post)) 
+                        {
+                            <label class="font-extrathin comment-label tracking-tighter">Write your comment:</label>
+                            <input name="id" type="number" value="@item.Id" hidden />
+                            <input name="CommentText" id="comment-input-@item.Id" type="text" />
+                            <input type="submit" value="Publish" class="outline btn-transparent text-black-700 mt-1" />
+                        }
+                        @if(@item.Comments.Count == 1) 
+                        {
+                            <h6>@item.Comments.Count Comment</h6>
+                        }
+                        else 
+                        {
+                            <h6>@item.Comments.Count Comments</h6>
+                        }
+                        @foreach (var comment in item.Comments)
+                        {
+                            <div class="bg-light">
+                                <div>
+                                    <p><b>@comment.Author.FullName</b></p>
+                                    <p class="post-card-date">
+                                        @comment.CreatedDated.ToString("ddd MMMM dd, yyyy") at
+                                        @comment.CreatedDated.ToString("h:mm tt")
+                                    </p>
+                                    <p>@comment.Content</p>
+                                </div>
+                            </div>
+                        }
                     </div>
                     @if (item.Author.UserName == User.Identity.Name)
                     {
