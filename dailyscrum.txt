@@ -391,8 +391,7 @@
 2/10/2023 Kevin
 1. Done/not done since last scrum:
 - Admin CRUD on Posts + JobPostings
-- Solved Deserializing errors for API
-& Plugged in API to index Side Bar
+- Solved Deserializing errors for API & Plugged in API to index Side Bar
 - Added a Modal to Edit Info on MyAccount
 2. To do until next Scrum:
 - Admin CRUD on Comments (just delete)
