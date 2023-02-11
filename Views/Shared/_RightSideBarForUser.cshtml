@@ -1,8 +1,15 @@
 @{
 var articles = ViewBag.Articles as List<NewsModel>;
-var stocks = ViewBag.Stocks as List<string>;
+var stocks = ViewBag.Stocks as Dictionary<string, Quote>;
     }
-
+<style>
+    .StockPara{
+        font-weight: 600;
+    }
+    .price{
+        font-weight: 900;
+    }
+</style>
     <div class="main-right">
         <div class="card p-4">
             <div class="card__container">
@@ -28,7 +35,10 @@ var stocks = ViewBag.Stocks as List<string>;
                 if (stocks != null){
                     foreach (var stock in stocks)
                     {
-                        <p >@stock</p>
+                        <p class="StockPara">@stock.Key - Open: <span class="price">@stock.Value.O$</span>
+                        Close: <span class="price">@stock.Value.C$</span>
+                        High: <span class="price">@stock.Value.H$</span>                       
+                        </p>
                     }
                 }
 

@@ -42,16 +42,9 @@ public class HomeController : Controller
             ViewBag.Articles = articles;
             //Stocks API
             var finnhubClient = new FinnhubClient("cfj7nn1r01que34nrafgcfj7nn1r01que34nrag0");
-            var symbols = new[] { "AAPL", "GOOG", "MSFT" };
-            var quotes = await finnhubClient.GetQuotesAsync(symbols);
-            List<string> stockTickers = new List<string>();
-            foreach (var quote in quotes)
-            {
-                string stock = ($"{quote.Key} Current:{quote.Value.C}  Open:{quote.Value.O} " +
-                $"Low:{quote.Value.L}   High:{quote.Value.H}");
-                stockTickers.Add(stock);
-            }
-            ViewBag.Stocks = stockTickers;
+            var symbols = new[] { "AAPL", "GOOG", "MSFT", "AMZN" };
+            var quotes = await finnhubClient.GetQuotesAsync(symbols);           
+            ViewBag.Stocks = quotes;
           
         }
         catch (Exception ex)
