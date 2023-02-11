@@ -2,6 +2,8 @@
 
     @{
     ViewData["Title"] = "My Network";
+    var count1 = 0;
+    var count2 = 0;
     }
     <div class="main-container">
 
@@ -61,7 +63,13 @@
                 <div class="card p-4 mt-6">
                     <details class="accordion">
                         <summary class="accordion__summary">
-                            <h4>Requests Sent</h4>
+                            @foreach (var item in Model)
+                            {
+                                if (item.AccountOwner.UserName == User.Identity.Name && item.Accepted == false) {
+                                    count1 += 1;
+                                }
+                            }
+                            <h4>Requests Sent (@count1)</h4>
                              @* FIXME: Attempting to display a span with number of requests sent
                                 @foreach (var item in Model)
                                 {
@@ -71,6 +79,7 @@
                                 }
                                 } 
                             *@
+                            
                         </summary>
                         <table class="table connectTable">
                             <thead class="text-indigo-500 bg-indigo-100">
@@ -107,7 +116,13 @@
                     </details>
                     <details class="accordion">
                         <summary class="accordion__summary">
-                            <h4>Requests Received</h4>
+                            @foreach (var item in Model)
+                            {
+                                if (item.Friend.UserName == User.Identity.Name && item.Accepted == false) {
+                                    count2 += 1;
+                                }
+                            }
+                            <h4>Requests Received (@count2)</h4>
                         </summary>
                         <table class="table connectTable">
                             <thead class="text-indigo-500 bg-indigo-100">
