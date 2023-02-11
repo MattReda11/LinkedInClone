@@ -22,12 +22,12 @@
                             <h4 class="tracking-loosest font-normal mt-3 ml-5">JobLink</h4>
                         </div>
                         
-                        var username = User.Identity.Name;
-                        var user = _db.Users.Where(u => u.UserName == username).FirstOrDefault();
+                        @* var username = User.Identity.Name;
+                        var user = _db.Users.Where(u => u.UserName == username).FirstOrDefault(); *@
 
                         //switching to ID as the form on MyAccount updates username
-                        @* var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                        var user = await UserManager.FindByIdAsync(userId); *@
+                        var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                        var user = await UserManager.FindByIdAsync(userId);
                         <div class="nav-right">
                             <div class="nav-item active">
                                 <div class="nav-item">
