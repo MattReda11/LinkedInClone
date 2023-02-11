@@ -17,13 +17,12 @@
 <body>
     <partial name="_NavBar" />
 
-    @if (TempData["generalInfo"] != null)
-    {
-        <div id="generalInfoMessage" class="toast toast--info w-auto">
-            <button class="btn-close"></button>
-            <p class="u-center">@TempData["generalInfo"]</p>
-        </div>
-    }
+    <div class="u-center h-6 u-z-40">
+        @if (TempData["generalInfo"] != null)
+        {
+        <p id="generalInfoMessage" class="u-text-center toast toast--info w-50p u-z-50 mt-4">@TempData["generalInfo"]</p>
+        }
+    </div>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
