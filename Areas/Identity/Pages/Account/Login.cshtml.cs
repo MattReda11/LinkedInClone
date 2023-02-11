@@ -139,7 +139,7 @@ namespace LinkedInClone.Areas.Identity.Pages.Account
                     if (roleIsAdmin)
                     {
                         _logger.LogInformation($"Admin ({Input.Email}) logged in.");
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("AdminPanel", "Home");
                     }
                 }
                 if (result.RequiresTwoFactor)
