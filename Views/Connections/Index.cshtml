@@ -17,11 +17,12 @@
 
                     <h4>My Connections</h4>
                     <table class="table">
-                        <thead>
+                        <thead class="">
                             <tr>
                                 <th>
                                     @Html.DisplayNameFor(model => model.Friend)
                                 </th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -30,22 +31,24 @@
                             @if (item.AccountOwner.UserName == User.Identity.Name && item.Accepted == true)
                             {
                             <tr>
-                                <td>
+                                <td class="pt-3">
                                     @Html.DisplayFor(modelItem => item.Friend.FullName)
                                 </td>
                                 <td>
-                                    <a asp-action="Delete" asp-route-id="@item.Id">Remove Friend</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id"><button
+                                            class="outline btn-danger">Remove Friend</button></a>
                                 </td>
                             </tr>
                             }
                             else if (item.Friend.UserName == User.Identity.Name && item.Accepted == true)
                             {
                             <tr>
-                                <td>
+                                <td class="pt-3">
                                     @Html.DisplayFor(modelItem => item.AccountOwner.FullName)
                                 </td>
                                 <td>
-                                    <a asp-action="Delete" asp-route-id="@item.Id">Remove Friend</a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id"><button
+                                            class="outline btn-danger">Remove Friend</button></a>
                                 </td>
                             </tr>
                             }
@@ -57,21 +60,21 @@
                 <div class="card p-4 mt-6">
                     <details class="accordion">
                         <summary class="accordion__summary">
-                            <h4>Requests Made</h4>
+                            <h4>Requests Sent</h4>
                         </summary>
-                        <table class="table">
-                            <thead>
-                                <tr class="u-flex u-flex-row u-justify-space-between">
-                                    <th class="text-indigo-500 bg-indigo-100">
-                                        @Html.DisplayNameFor(model => model.Friend)
+                        <table class="table connectTable">
+                            <thead class="text-indigo-500 bg-indigo-100">
+                                <tr>
+                                    <th>
+                                        To
                                     </th>
                                     <th>
-                                        @Html.DisplayNameFor(model => model.CreatedDate)
+                                        Sent On
                                     </th>
                                     <th>
                                         @Html.DisplayNameFor(model => model.Accepted)
                                     </th>
-                                    <th></th>
+                                    <th>Info</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -102,19 +105,19 @@
                         <summary class="accordion__summary">
                             <h4>Requests Received</h4>
                         </summary>
-                        <table class="table">
-                            <thead>
-                                <tr class="u-flex u-flex-row u-justify-space-between text-indigo-500 bg-indigo-100">
-                                    <th class="text-indigo-500 bg-indigo-100">
-                                        @Html.DisplayNameFor(model => model.AccountOwner)
+                        <table class="table connectTable">
+                            <thead class="text-indigo-500 bg-indigo-100">
+                                <tr>
+                                    <th>
+                                        From
                                     </th>
                                     <th>
-                                        Request Date
+                                        Received On
                                     </th>
                                     <th>
                                         Response
                                     </th>
-                                    <th></th>
+                                    <th>Info</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -130,11 +133,8 @@
                                         @Html.DisplayFor(modelItem => item.CreatedDate)
                                     </td>
                                     <td>
-                                        <a asp-action="Accept" asp-controller="Connections"
-                                            asp-route-id="@item.Id">Accept
-                                            Request</a>|
-                                        <a asp-action="Deny" asp-controller="Connections" asp-route-id="@item.Id">Deny
-                                            Request</a>
+                                        <a asp-action="Accept" asp-controller="Connections" asp-route-id="@item.Id">Accept</a> |
+                                        <a asp-action="Deny" asp-controller="Connections" asp-route-id="@item.Id">Deny</a>
                                     </td>
                                     <td>
                                         <a asp-action="Details" asp-route-id="@item.Id">User's Details</a>

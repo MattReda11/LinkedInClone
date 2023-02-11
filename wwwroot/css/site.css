@@ -111,3 +111,8 @@ textarea {
 .custom-screen-height {
   height: calc(100vh + 4rem);
 }
+
+.connectTable th,
+.connectTable td {
+  width: 100px;
+}
