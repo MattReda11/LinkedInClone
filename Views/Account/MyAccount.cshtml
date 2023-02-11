@@ -1,42 +1,62 @@
 @model dynamic
 @{
-    ViewData["Title"] = "My Account";
+ViewData["Title"] = "My Account";
 }
 @{
-    var data = ViewBag.Message;
+var data = ViewBag.Message;
 }
-<style>
-    .myAccount{
+@* <style>
+    .myAccount {
         margin-left: 40%;
         text-align: center;
-        background-color: lightblue; 
+        background-color: lightblue;
         display: inline-block;
-        padding:2rem;
+        padding: 2rem;
         border-radius: 15%;
-        opacity:0.9;
+        opacity: 0.9;
     }
-   .FieldNameBolded{
-    font-weight: bold;
-   }
-   span{
-    font-weight: normal;
-   }
-    </style>
-<div class="myAccount">
-<h2>User Details</h2>
 
-<p>
+    .FieldNameBolded {
+        font-weight: bold;
+    }
+
+    span {
+        font-weight: normal;
+    }
+</style> *@
+<div class="card p-4 w-50p u-center u-flex u-flex-column">
+    <h2>User Details</h2>
+    @*
+    <p>
     <div class="FieldNameBolded">User ID: <span> @data.Id</span></div>
     <div class="FieldNameBolded">Email:<span> @data.UserName</span></div>
     <div class="FieldNameBolded">Role: <span>@data.RoleId</span></div>
-    <div class="FieldNameBolded">Name:<span> @data.FullName</span></div> 
-</p>
+    <div class="FieldNameBolded">Name:<span> @data.FullName</span></div>
+    </p> *@
 
 
 
 
-<form method="post" asp-controller="Account" asp-action="UpdateUser" asp-route-id="@data.Id">
-    <a href="#basic-modal"><input type="button" value="Update Account Information"></a>
+    <form method="post" asp-controller="Account" asp-action="UpdateUser" asp-route-id="@data.Id" class="w-50p">
+        <div class="u-flex u-flex-row mb-3">
+            <label class="w-10 mt-1" for="userId"><b>User ID:</b></label>
+            <input name="userId" type="text" readonly value="@data.Id">
+        </div>
+        <div class="u-flex u-flex-row mb-3">
+            <label class="w-10 mt-1" for="userId"><b>Email:</b></label>
+            <input name="userId" type="text" readonly value="@data.UserName">
+        </div>
+        <div class="u-flex u-flex-row mb-3">
+            <label class="w-10 mt-1" for="userId"><b>Role: </b></label>
+            <input name="userId" type="text" readonly value="@data.RoleId">
+        </div>
+        <div class="u-flex u-flex-row mb-3">
+            <label class="w-10 mt-1" for="userId"><b>Name: </b></label>
+            <input name="userId" type="text" readonly value="@data.FullName">
+        </div>
+        <a class="u-center" href="#basic-modal"><input type="button" class="outline btn-primary"
+                value="Update Account Information"> </a>
+
 
 <div class="modal modal-animated--zoom-in" id="basic-modal">
     <a href="#searchModalDialog" class="modal-overlay close-btn" aria-label="Close"></a>
@@ -44,8 +64,12 @@
         <div class="modal-header">
             <a href="#components" class="u-pull-right" aria-label="Close">
                 <span class="icon">
-                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11 fa-wrapper" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512">
-                        <path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"></path>
+                    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times"
+                        class="svg-inline--fa fa-times fa-w-11 fa-wrapper" role="img" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 352 512">
+                        <path fill="currentColor"
+                            d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z">
+                        </path>
                     </svg>
                 </span>
             </a>
@@ -66,21 +90,21 @@
             </div>
         </div>
         <div class="modal-footer">
-            
+
             <input type="submit" value="Update Account Information" class="btn btn-primary" />
             </form>
         </div>
-        </div>
-
     </div>
+
+</div>
 </div>
 
-    @if (data.RoleId == "Admin")
-    {
-                <p><a asp-action="AdminPanel" asp-controller="Home">Access Admin Panel</a></p>
-    }
-    @* Makes current user admin
-     <form method="post" asp-controller="Home" asp-action="AdminX">
+@if (data.RoleId == "Admin")
+{
+<p><a asp-action="AdminPanel" asp-controller="Home">Access Admin Panel</a></p>
+}
+@* Makes current user admin
+<form method="post" asp-controller="Home" asp-action="AdminX">
     <input type="submit" value="Make user admin" />
 </form> *@
 </div>
