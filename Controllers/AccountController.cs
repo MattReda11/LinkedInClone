@@ -42,19 +42,17 @@ public class AccountController : Controller
     [AllowAnonymous]
     [Route("/Account/GoogleResponse")]
     public async Task<IActionResult> GoogleResponse()
-    {
-        Debug.WriteLine("1");
+    {        
         ExternalLoginInfo info = await _signInManager.GetExternalLoginInfoAsync();
 
         if (info == null)
-            return View("ExternalLoginFailed");
-        Debug.WriteLine("2");
+            return View("ExternalLoginFailed");        
         var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, false);
 
         string[] userInfo = { info.Principal.FindFirst(ClaimTypes.Name).Value, info.Principal.FindFirst(ClaimTypes.Email).Value };
         if (result.Succeeded)
         {
-            _logger.LogInformation($"[DEBUG-1]User {userInfo[0]} signed in successfully using google.");
+            _logger.LogInformation($"User {userInfo[0]} signed in successfully using google.");
             return RedirectToAction("Index", "Home");
         }
         else
@@ -106,15 +104,43 @@ public class AccountController : Controller
             Console.WriteLine($"User with ID:{id} does not exist!");
             return NotFound();
         }
-
         var result = await _userManager.DeleteAsync(user);
         if (result.Succeeded)
         {
             Console.WriteLine("User deleted successfully!");
             return RedirectToAction("AdminPanel", "Home");
         }
-
         return BadRequest();
+    }
+
+    [HttpPost("/Account/UpdateUser/{id}")]
+    public async Task<IActionResult> UpdateUser(string id)
+    {
+        var user = await _userManager.FindByIdAsync(id);
+        if (user == null)
+        {
+            Debug.WriteLine($"User with ID:{id} does not exist!");
+            return NotFound();
+        }
+        Debug.WriteLine($"Found user {user.Email} , {user.FullName} \n FOUND VALUES IN FORM : {Request.Form["FullName"]} , {Request.Form["Email"]} ");
+        
+        user.FullName = Request.Form["FullName"];
+        user.Email = Request.Form["Email"];
+        user.UserName = Request.Form["Email"];
+        Debug.WriteLine($"user after update {user.Email} , {user.FullName}");
+        // Save the changes to the user
+        var result = await _userManager.UpdateAsync(user);
+        if (result.Succeeded)
+        {
+            // Redirect the user to the updated user information page
+            return RedirectToAction("MyAccount", "Home");
+        }
+        else
+        {
+            // Return an error page
+            return View("Error");
+        }       
+        
     }
 
     public IActionResult AccessDenied()

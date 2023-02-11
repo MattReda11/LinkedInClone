@@ -96,10 +96,9 @@ public class HomeController : Controller
     {
         //not the best solution, will try to optimize later
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var userName = User.FindFirstValue(ClaimTypes.Name);
-        var res = _db.AppUsers.Where(u => (u.Id == userId)).FirstOrDefault(); //u.Id == userId
-        var checkRecruiter = await _userManager.IsInRoleAsync(res, "Recruiter");
-        var checkAdmin = await _userManager.IsInRoleAsync(res, "Admin");
+        var user = await _userManager.FindByIdAsync(userId);       
+        var checkRecruiter = await _userManager.IsInRoleAsync(user, "Recruiter");
+        var checkAdmin = await _userManager.IsInRoleAsync(user, "Admin");
         var role = "User";
         if (checkRecruiter)
         {
@@ -110,15 +109,15 @@ public class HomeController : Controller
             role = "Admin";
         }
 
-        ApplicationUser user = new ApplicationUser
+        ApplicationUser retrievedData = new ApplicationUser
         {
             Id = userId,
-            Email = userName,
-            FullName = res.FullName,
+            UserName = user.UserName,
+            FullName = user.FullName,
             RoleId = role,
 
         };
-        ViewBag.Message = user;
+        ViewBag.Message = retrievedData;
 
         return View("~/Views/Account/MyAccount.cshtml");
     }
