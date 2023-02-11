@@ -2,123 +2,139 @@
 @using LinkedInClone.Models
 @using LinkedInClone.Data
 @inject SignInManager<ApplicationUser> SignInManager
-@inject UserManager<ApplicationUser> UserManager
-@inject AppDbContext _db
+    @inject UserManager<ApplicationUser> UserManager
+        @inject AppDbContext _db
 
-<header>
-    <div class="header-container">
-        <nav class="no-hover">
-            <div class="header header-fixed custom-header">
+        <header>
+            <div class="header-container">
+                <nav class="no-hover">
+                    <div class="header header-fixed custom-header">
 
-                <div class=" nav-left no-hover">
-                    <a asp-controller="Home" asp-action="Index"><img id="anchor-to-background" class="img-nav-logo"
-                            srcset="/Images/nav-icon.png" />
-                    </a>
-                    <h4 class="tracking-loosest font-normal mt-3 ml-5">JobLink</h4>
-                </div>
 
-                @if (SignInManager.IsSignedIn(User) && User.IsInRole("User"))
-                {
-                    var username = User.Identity.Name;
-                    var user = _db.Users.Where(u => u.UserName == username).FirstOrDefault();
-                    <partial name="_SearchBar" />
-                    <div class="nav-right">
-                        <div class="nav-item active">
-                            <div class="nav-item">
-                                <a class="nav-link text-dark utb utb-C" asp-area="" asp-controller="Home"
-                                asp-action="Index">Home</a>
-                            </div>
-                            <div class="nav-item">
-                                <a class="nav-link text-dark utb utb-C" asp-area="" asp-controller="Connections"
-                                asp-action="Index">My
-                                    Network</a>
-                            </div>
-                            <div class="nav-item">
-                                <a class="nav-link text-dark utb utb-C" asp-area="" asp-controller="Messages"
-                                asp-action="Conversations">Messages</a>
-                            </div>
-                            <div class="nav-item">
-                                <a id="manage" data-tooltip="Tooltip 1" class="nav-link text-dark utb utb-C"
-                                asp-controller="Home" asp-area="" asp-action="MyAccount" title="Manage">Hello
-                                    @user.FullName!</a>
-                            </div>
-                            <div class="nav-item">
-                                <a class="nav-link text-dark utb utb-C" asp-area="Identity" asp-page="/Account/Logout"
-                                asp-route-returnUrl="@Url.Action(" Index", "Home" ,
+
+                        @if (SignInManager.IsSignedIn(User) && User.IsInRole("User"))
+                        {
+                        <div class=" nav-left no-hover">
+                            <a asp-controller="Home" asp-action="Index"><img id="anchor-to-background"
+                                    class="img-nav-logo" srcset="/Images/nav-icon.png" />
+                            </a>
+                            <h4 class="tracking-loosest font-normal mt-3 ml-5">JobLink</h4>
+                        </div>
+                        var username = User.Identity.Name;
+                        var user = _db.Users.Where(u => u.UserName == username).FirstOrDefault();
+                        <div class="nav-right">
+                            <div class="nav-item active">
+                                <div class="nav-item">
+                                    <partial name="_SearchBar" />
+                                </div>
+                                <div class="nav-item">
+                                    <a class="nav-link text-dark utb utb-C" asp-area="" asp-controller="Home"
+                                        asp-action="Index">Home</a>
+                                </div>
+                                <div class="nav-item">
+                                    <a class="nav-link text-dark utb utb-C" asp-area="" asp-controller="Connections"
+                                        asp-action="Index">My
+                                        Network</a>
+                                </div>
+                                <div class="nav-item">
+                                    <a class="nav-link text-dark utb utb-C" asp-area="" asp-controller="Messages"
+                                        asp-action="Conversations">Messages</a>
+                                </div>
+                                <div class="nav-item">
+                                    <a id="manage" data-tooltip="Tooltip 1" class="nav-link text-dark utb utb-C"
+                                        asp-controller="Home" asp-area="" asp-action="MyAccount" title="Manage">Hello
+                                        @user.FullName!</a>
+                                </div>
+                                <div class="nav-item">
+                                    <a class="nav-link text-dark utb utb-C" asp-area="Identity"
+                                        asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action(" Index", "Home" ,
                                         new { area="" })">Log Out
-                                </a>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                }
-                else if (SignInManager.IsSignedIn(User) && User.IsInRole("Recruiter"))
-                {
-                    var username = User.Identity.Name;
-                    var user = _db.Users.Where(u => u.UserName == username).FirstOrDefault();
-                    <partial name="_SearchBar" />
-                    <div class="nav-item">
-                        <a class="nav-link text-dark utb utb-C" asp-area="" asp-controller="Home"
-                        asp-action="Recruiter">Home</a>
-                    </div>
+                        }
+                        else if (SignInManager.IsSignedIn(User) && User.IsInRole("Recruiter"))
+                        {
+                        <div class=" nav-left no-hover">
+                            <a asp-controller="Home" asp-action="Recruiter"><img id="anchor-to-background"
+                                    class="img-nav-logo" srcset="/Images/nav-icon.png" />
+                            </a>
+                            <h4 class="tracking-loosest font-normal mt-3 ml-5">JobLink</h4>
+                        </div>
+                        var username = User.Identity.Name;
+                        var user = _db.Users.Where(u => u.UserName == username).FirstOrDefault();
+                        <partial name="_SearchBar" />
+                        <div class="nav-item">
+                            <a class="nav-link text-dark utb utb-C" asp-area="" asp-controller="Home"
+                                asp-action="Recruiter">Home</a>
+                        </div>
+                        <div class="nav-item">
+                            <a class="nav-link text-dark utb utb-C" asp-area="" asp-controller="Connections"
+                                asp-action="Index">My
+                                Network</a>
+                        </div>
+                        <div class="nav-item">
+                            <a class="nav-link text-dark utb utb-C" asp-area="" asp-controller="Messages"
+                                asp-action="Conversations">Messages</a>
+                        </div>
+                        <div class="nav-item">
+                            <a id="manage" data-tooltip="Tooltip 1" class="nav-link text-dark utb utb-C"
+                                asp-controller="Home" asp-area="" asp-action="MyAccount" title="Manage">Hello
+                                @user.FullName!</a>
+                        </div>
 
-                    <div class="nav-item">
-                        <a id="manage" data-tooltip="Tooltip 1" class="nav-link text-dark utb utb-C" asp-controller="Home"
-                        asp-area="" asp-action="MyAccount" title="Manage">Hello @user.FullName!</a>
-                    </div>
-                    <div class="nav-item">
-                        <a class="nav-link text-dark utb utb-C" asp-area="" asp-controller="Messages"
-                        asp-action="Conversations">Messages</a>
-                    </div>
-                    <div class="nav-item">
-                        <a class="nav-link text-dark utb utb-C" asp-area="Identity" asp-page="/Account/Logout"
-                        asp-route-returnUrl="@Url.Action(" Index", "Home" , new { area="" })">Log Out
-                        </a>
-                    </div>
+                        <div class="nav-item">
+                            <a class="nav-link text-dark utb utb-C" asp-area="Identity" asp-page="/Account/Logout"
+                                asp-route-returnUrl="@Url.Action(" Index", "Home" , new { area="" })">Log Out
+                            </a>
+                        </div>
 
-                }
-                else if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
-                {
-                    var username = User.Identity.Name;
-                    var user = _db.Users.Where(u => u.UserName == username).FirstOrDefault();
-                    @* TODO: Add Admin tabs and associated controller/views *@
-                    <div class="nav-item">
-                        <a class="nav-link text-dark utb utb-C" asp-area="" asp-controller="Home"
-                        asp-action="Index">Home</a>
-                    </div>
-
-                    <div class="nav-item">
-                        <a id="manage" data-tooltip="Tooltip 1" class="nav-link text-dark utb utb-C" asp-controller="Home"
-                        asp-area="" asp-action="MyAccount" title="Manage">Hello @user.FullName!</a>
-                    </div>
-
-                    <div class="nav-item">
-                        <a class="nav-link text-dark utb utb-C" asp-area="Identity" asp-page="/Account/Logout"
-                        asp-route-returnUrl="@Url.Action(" Index", "Home" , new { area="" })">Log Out
-                        </a>
-                    </div>
-                }
-                else
-                {
-                    <div class="nav-right">
-                        <div class="nav-item active">
-                            <div class="nav-item">
-                                <a class="nav-link text-dark utb utb-C" asp-area="" asp-controller="Home"
+                        }
+                        else if (SignInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                        {
+                        var username = User.Identity.Name;
+                        var user = _db.Users.Where(u => u.UserName == username).FirstOrDefault();
+                        @* TODO: Add Admin tabs and associated controller/views *@
+                        <div class="nav-item">
+                            <a class="nav-link text-dark utb utb-C" asp-area="" asp-controller="Home"
                                 asp-action="Index">Home</a>
-                            </div>
-                            <div class="nav-item">
-                                <a class="nav-link text-dark utb utb-C" id="register" asp-area="Identity"
-                                asp-page="/Account/Register">Register</a>
-                            </div>
-                            <div class="nav-item">
-                                <a class="nav-link text-dark utb utb-C" id="login" asp-area="Identity"
-                                asp-page="/Account/Login">Log
-                                    In</a>
+                        </div>
+
+                        <div class="nav-item">
+                            <a id="manage" data-tooltip="Tooltip 1" class="nav-link text-dark utb utb-C"
+                                asp-controller="Home" asp-area="" asp-action="MyAccount" title="Manage">Hello
+                                @user.FullName!</a>
+                        </div>
+
+                        <div class="nav-item">
+                            <a class="nav-link text-dark utb utb-C" asp-area="Identity" asp-page="/Account/Logout"
+                                asp-route-returnUrl="@Url.Action(" Index", "Home" , new { area="" })">Log Out
+                            </a>
+                        </div>
+                        }
+                        else
+                        {
+                        <div class="nav-right">
+                            <div class="nav-item active">
+                                <div class="nav-item">
+                                    <a class="nav-link text-dark utb utb-C" asp-area="" asp-controller="Home"
+                                        asp-action="Index">Home</a>
+                                </div>
+                                <div class="nav-item">
+                                    <a class="nav-link text-dark utb utb-C" id="register" asp-area="Identity"
+                                        asp-page="/Account/Register">Register</a>
+                                </div>
+                                <div class="nav-item">
+                                    <a class="nav-link text-dark utb utb-C" id="login" asp-area="Identity"
+                                        asp-page="/Account/Login">Log
+                                        In</a>
+                                </div>
                             </div>
                         </div>
+                        }
                     </div>
-                }
+                </nav>
             </div>
-        </nav>
-    </div>
-</header>
+        </header>

@@ -1,147 +1,153 @@
 @model IEnumerable<LinkedInClone.Models.Connection>
 
-@{
+    @{
     ViewData["Title"] = "My Network";
-}
-<div class="main-container">
+    }
+    <div class="main-container">
 
-    <partial name="_LeftSideBarForUser" />
-    <div class="main-center">
-        <div>
-            <div class="card p-4">
+        @if (User.IsInRole("User")){
+        <partial name="_LeftSideBarForUser" />
 
-                <h4>My Connections</h4>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Friend)
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var item in Model)
-                        {
+        } else if (User.IsInRole("Recruiter")){
+        <partial name="_LeftSideBarForRecruiter" />
+        }
+        <div class="main-center">
+            <div>
+                <div class="card p-4">
+
+                    <h4>My Connections</h4>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Friend)
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
                             @if (item.AccountOwner.UserName == User.Identity.Name && item.Accepted == true)
                             {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Friend.FullName)
+                                </td>
+                                <td>
+                                    <a asp-action="Delete" asp-route-id="@item.Id">Remove Friend</a>
+                                </td>
+                            </tr>
+                            }
+                            else if (item.Friend.UserName == User.Identity.Name && item.Accepted == true)
+                            {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.AccountOwner.FullName)
+                                </td>
+                                <td>
+                                    <a asp-action="Delete" asp-route-id="@item.Id">Remove Friend</a>
+                                </td>
+                            </tr>
+                            }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card p-4 mt-6">
+                    <details class="accordion">
+                        <summary class="accordion__summary">
+                            <h4>Requests Made</h4>
+                        </summary>
+                        <table class="table">
+                            <thead>
+                                <tr class="u-flex u-flex-row u-justify-space-between">
+                                    <th class="text-indigo-500 bg-indigo-100">
+                                        @Html.DisplayNameFor(model => model.Friend)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CreatedDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Accepted)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                if (item.AccountOwner.UserName == User.Identity.Name && item.Accepted == false)
+                                {
                                 <tr>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Friend.FullName)
                                     </td>
                                     <td>
-                                        <a asp-action="Delete" asp-route-id="@item.Id">Remove Friend</a>
+                                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Accepted)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@item.Id">Friend Details</a>
                                     </td>
                                 </tr>
-                            }
-                            else if (item.Friend.UserName == User.Identity.Name && item.Accepted == true)
-                            {
+                                }
+                                }
+                            </tbody>
+                        </table>
+                    </details>
+                    <details class="accordion">
+                        <summary class="accordion__summary">
+                            <h4>Requests Received</h4>
+                        </summary>
+                        <table class="table">
+                            <thead>
+                                <tr class="u-flex u-flex-row u-justify-space-between text-indigo-500 bg-indigo-100">
+                                    <th class="text-indigo-500 bg-indigo-100">
+                                        @Html.DisplayNameFor(model => model.AccountOwner)
+                                    </th>
+                                    <th>
+                                        Request Date
+                                    </th>
+                                    <th>
+                                        Response
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                if (item.Friend.UserName == User.Identity.Name && item.Accepted == false)
+                                {
                                 <tr>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.AccountOwner.FullName)
                                     </td>
                                     <td>
-                                        <a asp-action="Delete" asp-route-id="@item.Id">Remove Friend</a>
+                                        @Html.DisplayFor(modelItem => item.CreatedDate)
+                                    </td>
+                                    <td>
+                                        <a asp-action="Accept" asp-controller="Connections"
+                                            asp-route-id="@item.Id">Accept
+                                            Request</a>|
+                                        <a asp-action="Deny" asp-controller="Connections" asp-route-id="@item.Id">Deny
+                                            Request</a>
+                                    </td>
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@item.Id">User's Details</a>
                                     </td>
                                 </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="card p-4 mt-6">
-                <details class="accordion">
-                    <summary class="accordion__summary">
-                        <h4>Requests Made</h4>
-                    </summary>
-                    <table class="table">
-                        <thead>
-                            <tr class="u-flex u-flex-row u-justify-space-between">
-                                <th class="text-indigo-500 bg-indigo-100">
-                                    @Html.DisplayNameFor(model => model.Friend)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.CreatedDate)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.Accepted)
-                                </th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                if (item.AccountOwner.UserName == User.Identity.Name && item.Accepted == false)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Friend.FullName)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.CreatedDate)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Accepted)
-                                        </td>
-                                        <td>
-                                            <a asp-action="Details" asp-route-id="@item.Id">Friend Details</a>
-                                        </td>
-                                    </tr>
                                 }
-                            }
-                        </tbody>
-                    </table>
-                </details>
-                <details class="accordion">
-                    <summary class="accordion__summary">
-                        <h4>Requests Received</h4>
-                    </summary>
-                    <table class="table">
-                        <thead>
-                            <tr class="u-flex u-flex-row u-justify-space-between text-indigo-500 bg-indigo-100">
-                                <th class="text-indigo-500 bg-indigo-100">
-                                    @Html.DisplayNameFor(model => model.AccountOwner)
-                                </th>
-                                <th>
-                                    Request Date
-                                </th>
-                                <th>
-                                    Response
-                                </th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                if (item.Friend.UserName == User.Identity.Name && item.Accepted == false)
-                                {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.AccountOwner.FullName)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.CreatedDate)
-                                        </td>
-                                        <td>
-                                            <a asp-action="Accept" asp-controller="Connections" asp-route-id="@item.Id">Accept
-                                                Request</a>|
-                                            <a asp-action="Deny" asp-controller="Connections" asp-route-id="@item.Id">Deny
-                                                Request</a>
-                                        </td>
-                                        <td>
-                                            <a asp-action="Details" asp-route-id="@item.Id">User's Details</a>
-                                        </td>
-                                    </tr>
                                 }
-                            }
-                        </tbody>
-                    </table>
-                </details>
-            </div>
+                            </tbody>
+                        </table>
+                    </details>
+                </div>
 
+            </div>
         </div>
+        <partial name="_RightSideBarForUser" />
     </div>
-    <partial name="_RightSideBarForUser" />
-</div>

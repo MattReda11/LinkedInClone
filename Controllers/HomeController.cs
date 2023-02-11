@@ -142,6 +142,16 @@ public class HomeController : Controller
     [Authorize(Roles = "Recruiter")]
     public async Task<IActionResult> Recruiter()
     {
+        try
+        {
+            NewsResponse apiResponse = await _newsAPIService.GetHeadlines();
+            var articles = apiResponse.articles;
+            ViewBag.Articles = articles;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
         var username = User.Identity.Name;
         var user = _db.Users.Where(u => u.UserName == username).FirstOrDefault();
 
