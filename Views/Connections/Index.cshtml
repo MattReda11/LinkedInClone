@@ -32,7 +32,7 @@
                             {
                             <tr>
                                 <td class="pt-3">
-                                    @Html.DisplayFor(modelItem => item.Friend.FullName)
+                                     <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Friend.FullName)</a>
                                 </td>
                                 <td>
                                     <a asp-action="Delete" asp-route-id="@item.Id"><button
@@ -44,7 +44,8 @@
                             {
                             <tr>
                                 <td class="pt-3">
-                                    @Html.DisplayFor(modelItem => item.AccountOwner.FullName)
+                                    <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.AccountOwner.FullName)</a>
+                                    
                                 </td>
                                 <td>
                                     <a asp-action="Delete" asp-route-id="@item.Id"><button
@@ -61,6 +62,15 @@
                     <details class="accordion">
                         <summary class="accordion__summary">
                             <h4>Requests Sent</h4>
+                             @* FIXME: Attempting to display a span with number of requests sent
+                                @foreach (var item in Model)
+                                {
+                                if (item.AccountOwner.UserName == User.Identity.Name && item.Accepted == false)
+                                {
+                                    <span>@Model.Count</span>
+                                }
+                                } 
+                            *@
                         </summary>
                         <table class="table connectTable">
                             <thead class="text-indigo-500 bg-indigo-100">
