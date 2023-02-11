@@ -71,9 +71,6 @@
                                     <th>
                                         Sent On
                                     </th>
-                                    <th>
-                                        @Html.DisplayNameFor(model => model.Accepted)
-                                    </th>
                                     <th>Info</th>
                                 </tr>
                             </thead>
@@ -88,9 +85,6 @@
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.CreatedDate)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Accepted)
                                     </td>
                                     <td>
                                         <a asp-action="Details" asp-route-id="@item.Id">Friend Details</a>
