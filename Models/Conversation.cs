@@ -20,7 +20,7 @@ namespace LinkedInClone.Models
         [DataType(DataType.DateTime)]
         public DateTime CreatedDate { get; set; }
 
-        public ICollection<Message> Messages { get; set; }
+        public IList<Message> Messages { get; set; }
 
     }
 }
