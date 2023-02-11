@@ -462,6 +462,7 @@
 - populate database 
 - final touches
 3. Need assistance / figure things out:
+-
 
 2/11/2023 Seena
 1. Done/not done since last scrum:
