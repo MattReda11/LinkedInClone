@@ -3,8 +3,8 @@
 @using LinkedInClone.Models
 @using LinkedInClone.Data
 @inject SignInManager<ApplicationUser> SignInManager
-    @inject UserManager<ApplicationUser> UserManager
-        @inject AppDbContext _db
+@inject UserManager<ApplicationUser> UserManager
+@inject AppDbContext _db
 
 <div class="main-left">
     <div class="card p-4">
@@ -14,7 +14,7 @@
             <div class="tree">
                 <div class="tree-item">
                     <input type="checkbox" id="tree" class="u-none">
-                    <label class="tree-item-header" for="tree2">
+                    <label class="tree-item-header" for="tree">
                         <span class="icon">
                             <i class="fa fa-wrapper fa-chevron-right small" aria-hidden="true"></i>
                         </span> Posts
@@ -64,8 +64,8 @@
                     </label>
                     <div class="tree-item-body">
                         <ul class="menu">
-                            <li class="menu-item"><a asp-controller="Connections"
-                                    asp-action="Index">My Connections</a></li>
+                            <li class="menu-item"><a asp-controller="Connections" asp-action="Index">My Connections</a>
+                            </li>
                             <li class="menu-item"><a asp-controller="Messages" asp-action="Conversations">Messaging</a>
                             </li>
                         </ul>
@@ -83,11 +83,11 @@
                     </label>
                     <div class="tree-item-body">
                         <ul class="menu">
-                            <li class="menu-item"><a asp-controller="Home"
-                                    asp-action="MyAccount">Account Details</a></li>
-            
+                            <li class="menu-item"><a asp-controller="Home" asp-action="MyAccount">Account Details</a>
+                            </li>
+
                             <li class="menu-item"><a asp-area="Identity" asp-page="/Account/Logout"
-                                asp-route-returnUrl="@Url.Action("Index", "Home" , new { area="" })">Log Out</a>
+                                    asp-route-returnUrl="@Url.Action("Index", "Home" , new { area="" })">Log Out</a>
                             </li>
                         </ul>
                     </div>
