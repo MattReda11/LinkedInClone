@@ -22,10 +22,11 @@
                         @if (item.Messages.IndexOf(message) == item.Messages.Count - 1 && message.ReceivedBy.UserName ==
                        User.Identity.Name)
                         {
-                            <p>📫</p>
+                            <p class="text-lg">📫</p>
                         }
                     }
-                    <img src="https://fsd05regex.blob.core.windows.net/blob-storage/profile.png" width="5%" class="h-6" />
+                    <img src="https://fsd05regex.blob.core.windows.net/blob-storage/profile.png" width="4%"
+                        class="h-5 ml-2 mt-1" />
                     @if (item.StartedBy.UserName == User.Identity.Name)
                     {
                         <h6 class="mt-2 ml-2"><a href="#Message">@item.ReceivedBy.FullName</a></h6>
