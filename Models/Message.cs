@@ -15,11 +15,13 @@ namespace LinkedInClone.Models
 
         public ApplicationUser SentBy { get; set; }
 
-        public ApplicationUser ReceivedUser { get; set; }
+        public ApplicationUser ReceivedBy { get; set; }
 
         [Required, MinLength(1), MaxLength(20000)]
         public string Content { get; set; }
 
-        public DateTime CreatedDate { get; set; }
+        public DateTime SentDate { get; set; }
+
+        public Conversation Conversation { get; set; }
     }
 }

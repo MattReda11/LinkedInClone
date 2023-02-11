@@ -4,6 +4,7 @@ using LinkedInClone.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LinkedInClone.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230211153354_AddConversationsTable")]
+    partial class AddConversationsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -197,7 +200,7 @@ namespace LinkedInClone.Data.Migrations
 
                     b.HasIndex("StartedById");
 
-                    b.ToTable("Conversations");
+                    b.ToTable("Conversation");
                 });
 
             modelBuilder.Entity("LinkedInClone.Models.JobApplication", b =>

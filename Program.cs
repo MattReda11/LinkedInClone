@@ -9,7 +9,6 @@ using LinkedInClone.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using LinkedInClone.Hubs;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using LinkedInClone;
 
@@ -57,12 +56,12 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 });
 
 builder.Services.AddSignalR();
-builder.Services.AddTransient<IEmailSender, EmailSender>();
+// builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<LinkedInClone.AuthMessageSenderOptions>(builder.Configuration);
 
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 {
-     googleOptions.ClientId = "379601028963-alml822od0odsmo04m5hl4png6ikqasp.apps.googleusercontent.com"; //builder.Configuration["Authentication:Google:ClientId"];
+    googleOptions.ClientId = "379601028963-alml822od0odsmo04m5hl4png6ikqasp.apps.googleusercontent.com"; //builder.Configuration["Authentication:Google:ClientId"];
     googleOptions.ClientSecret = "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";
     googleOptions.SignInScheme = IdentityConstants.ExternalScheme;
     googleOptions.SaveTokens = true;
@@ -107,8 +106,6 @@ app.UseEndpoints(endpoints =>
     endpoints.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=Index}/{id?}");
-
-    endpoints.MapHub<ChatHub>("/Message");
 });
 
 app.Run();

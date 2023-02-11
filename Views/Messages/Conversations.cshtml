@@ -9,6 +9,32 @@
 
     <div class="main-center">
         <h4>Recent Messages</h4>
+        <a type="button" class="outline btn-transparent text-black-700 mt-1" href="#NewConvo">Start New Conversation</a>
 
+        @foreach (var item in Model)
+        {
+            <div class="card">
+                <div class="u-flex u-flex-row">
+                    <img src="https://fsd05regex.blob.core.windows.net/blob-storage/profile.png" width="5%" class="h-6" />
+                    @if (item.StartedBy.UserName == User.Identity.Name)
+                    {
+                        <h6 class="mt-2 ml-2"><a asp-action="Message" asp-route-id="@item.Id">@item.ReceivedBy.FullName</a></h6>
+                    }
+                    else if (item.ReceivedBy.UserName == User.Identity.Name)
+                    {
+                        <h6 class="mt-3"><a asp-action="Message" asp-route-id="@item.Id">@item.StartedBy.FullName</a></h6>
+                    }
+                </div>
+                <div class="post-card-date">
+                    <p>
+                        @item.CreatedDate.ToString("ddd MMMM dd, yyyy") at
+                        @item.CreatedDate.ToString("h:mm tt")
+                    </p>
+                </div>
+            </div>
+        }
     </div>
 </div>
+
+@await Html.PartialAsync("_NewConversation", new Conversation())
+@await Html.PartialAsync("_Messages", new Message())

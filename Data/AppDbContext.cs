@@ -35,6 +35,8 @@ namespace LinkedInClone.Data
 
         public DbSet<Connection> Connections { get; set; }
 
+        public DbSet<Conversation> Conversations { get; set; }
+
         public DbSet<JobPosting> JobPostings { get; set; }
 
         public DbSet<JobApplication> JobApplications { get; set; }
