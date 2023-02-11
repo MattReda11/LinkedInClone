@@ -17,15 +17,18 @@ public class HomeController : Controller
     private readonly AppDbContext _db;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly INewsAPIService _newsAPIService;
+  
 
 
-    public HomeController(ILogger<HomeController> logger, AppDbContext db, RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager, INewsAPIService newsAPIService)
+    public HomeController(ILogger<HomeController> logger, AppDbContext db, RoleManager<IdentityRole> roleManager,
+     UserManager<ApplicationUser> userManager, INewsAPIService newsAPIService)
     {
         _logger = logger;
         _db = db;
         _roleManager = roleManager;
         _userManager = userManager;
         _newsAPIService = newsAPIService;
+        
     }
 
     [Authorize(Roles = "User, Admin")]
@@ -33,17 +36,23 @@ public class HomeController : Controller
     {
         try
         {
+            //News API
             NewsResponse apiResponse = await _newsAPIService.GetHeadlines();
             var articles = apiResponse.articles;
             ViewBag.Articles = articles;
-            // int count = 0;
-            // foreach (NewsModel news in articles)
-            // {
-            //     //just to see if its working
-            //     Console.WriteLine($"News output #{count}: {news.title},{news.description}, {news.publishedAt} ");
-            //     count++;
-            //     if (count >= 5) break;
-            // }
+            //Stocks API
+            var finnhubClient = new FinnhubClient("cfj7nn1r01que34nrafgcfj7nn1r01que34nrag0");
+            var symbols = new[] { "AAPL", "GOOG", "MSFT" };
+            var quotes = await finnhubClient.GetQuotesAsync(symbols);
+            List<string> stockTickers = new List<string>();
+            foreach (var quote in quotes)
+            {
+                string stock = ($"{quote.Key} Current:{quote.Value.C}  Open:{quote.Value.O} " +
+                $"Low:{quote.Value.L}   High:{quote.Value.H}");
+                stockTickers.Add(stock);
+            }
+            ViewBag.Stocks = stockTickers;
+          
         }
         catch (Exception ex)
         {

@@ -1,5 +1,6 @@
 @{
 var articles = ViewBag.Articles as List<NewsModel>;
+var stocks = ViewBag.Stocks as List<string>;
     }
 
     <div class="main-right">
@@ -7,14 +8,15 @@ var articles = ViewBag.Articles as List<NewsModel>;
             <div class="card__container">
                 <h6 class=" tooltip tooltip--bottom" data-tooltip="Access external news source">JobLink News</h6>
                 @{
-                if (articles == null) {
+                if (articles != null) {
 
-                }
+                
                 int count = 0;
                 foreach (var article in articles){
                 <p class="u-text-justify"><a href="@article.url" target="_blank">@article.title</a></p>
                 count++;
                 if (count >= 4) break;
+                }
                 }
 
                 }
@@ -22,12 +24,15 @@ var articles = ViewBag.Articles as List<NewsModel>;
             </div>
             <div class="divider"></div>
             <h6>JobLink Market Trends</h6>
-            <p>stock ticker</p>
-            <p>stock ticker</p>
-            <p>stock ticker</p>
-            <p>stock ticker</p>
-            <p>stock ticker</p>
-            <p>stock ticker</p>
+            @{
+                if (stocks != null){
+                    foreach (var stock in stocks)
+                    {
+                        <p >@stock</p>
+                    }
+                }
+
+            }
 
         </div>
     </div>
