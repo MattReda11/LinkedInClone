@@ -107,3 +107,7 @@ textarea {
   font-size: small;
   margin: -17px auto;
 }
+
+.custom-screen-height {
+  height: calc(100vh + 4rem);
+}

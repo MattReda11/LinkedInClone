@@ -15,23 +15,26 @@
 </head>
 
 <body>
-    <partial name="_NavBar" />
+    <div class="u-flex u-flex-column custom-screen-height u-justify-space-between">
+        <partial name="_NavBar" />
 
-    <div class="u-center h-6 u-z-40">
-        @if (TempData["generalInfo"] != null)
-        {
-        <p id="generalInfoMessage" class="u-text-center toast toast--info w-50p u-z-50 mt-4">@TempData["generalInfo"]</p>
-        }
-    </div>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
+        <div class="container mb-auto">
+            <div class="u-center h-6 u-z-40">
+                @if (TempData["generalInfo"] != null)
+                {
+                <p id="generalInfoMessage" class="u-text-center u-round-full bg-blue-500 text-white w-50p u-z-50 mt-4">
+                    @TempData["generalInfo"]</p>
+                }
+            </div>
+            <main role="main" class="pb-3">
+                @RenderBody()
+            </main>
+        </div>
 
-    <footer class="border-top custom-footer container">
-        <b>© @DateTime.Now.Year - JobLink</b>
-    </footer>
+        <footer class="border-top custom-footer container">
+            <b>© @DateTime.Now.Year - JobLink</b>
+        </footer>
+    </div>
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
