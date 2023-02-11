@@ -1,44 +1,22 @@
 @model LinkedInClone.Models.Connection
 
 @{
-    ViewData["Title"] = "Friend Details";
+ViewData["Title"] = "Friend Details";
 }
-
-<h1>Friend Details</h1>
-
-<div>
-    <h4>Connection</h4>
+<div class="card p-4 w-50p u-center u-flex u-flex-column">
+    <h3 class="mb-3">Friend Details</h3>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            Username:
-        </dt>
-        @if (Model.AccountOwner.UserName == User.Identity.Name)
-        {
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Friend.UserName)
-            </dd>
-            <dt class="col-sm-2">
-                Full Name:
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.Friend.FullName)
-            </dd>
-        }
-        else if (Model.Friend.UserName == User.Identity.Name)
-        {
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.AccountOwner.UserName)
-            </dd>
-            <dt class="col-sm-2">
-                Full Name:
-            </dt>
-            <dd class="col-sm-10">
-                @Html.DisplayFor(model => model.AccountOwner.FullName)
-            </dd>
-        }
-    </dl>
-</div>
-<div>
-    <a asp-action="Index">Back to List</a>
+    @if (Model.AccountOwner.UserName == User.Identity.Name)
+    {
+    <p class="mt-0 mb-3"><b>Username:</b> &nbsp; @Html.DisplayFor(model => model.Friend.UserName)</p>
+    <p class="mt-0 mb-3"><b>Full Name:</b> &nbsp; @Html.DisplayFor(model => model.Friend.FullName)</p>
+    }
+    else if (Model.Friend.UserName == User.Identity.Name)
+    {
+    <p class="mt-0 mb-3"><b>Username:</b> &nbsp; @Html.DisplayFor(model => model.AccountOwner.UserName)</p>
+    <p class="mt-0 mb-3"><b>Full Name:</b> &nbsp; @Html.DisplayFor(model => model.AccountOwner.FullName)</p>
+    }
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
 </div>
