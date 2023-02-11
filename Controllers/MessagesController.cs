@@ -27,7 +27,7 @@ namespace LinkedInClone.Controllers
             var username = User.Identity.Name;
             var user = _context.Users.Where(u => u.UserName == username).FirstOrDefault();
 
-            return View(await _context.Conversations.Where(c => c.StartedBy == user || c.ReceivedBy == user).Include("ReceivedBy").Include("StartedBy").ToListAsync());
+            return View(await _context.Conversations.Where(c => c.StartedBy == user || c.ReceivedBy == user).Include("ReceivedBy").Include("StartedBy").Include("Messages").Include("Messages.SentBy").Include("Messages.ReceivedBy").ToListAsync());
         }
 
         public IActionResult Create()
@@ -68,15 +68,28 @@ namespace LinkedInClone.Controllers
             return RedirectToAction(nameof(Conversations));
         }
 
-        // public IActionResult Message(int id)
-        // {
-        //     var conversation = _context.Conversations.Find(id);
+        public IActionResult Message(int id)
+        {
+            Conversation conversation = _context.Conversations.Where(c => c.Id == id).Include("StartedBy").Include("ReceivedBy").Include("Messages").Include("Messages.SentBy").Include("Messages.ReceivedBy").FirstOrDefault();
 
-        //     var username = User.Identity.Name;
-        //     var user = _context.Users.Where(u => u.UserName == username).FirstOrDefault();
+            return PartialView("_Messages", conversation);
+        }
 
+        public async Task<IActionResult> NewMessage(string id, string MessageContent, int conversationId)
+        {
+            var username = User.Identity.Name;
+            var user = _context.Users.Where(u => u.UserName == username).FirstOrDefault();
+            var user2 = _context.Users.Find(id);
 
-        // }
+            var conversation = _context.Conversations.Find(conversationId);
+
+            var newMessage = new Message { Content = MessageContent, SentBy = user, ReceivedBy = user2, Conversation = conversation, SentDate = DateTime.Now };
+
+            _context.Messages.Add(newMessage);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Conversations));
+        }
 
     }
 }

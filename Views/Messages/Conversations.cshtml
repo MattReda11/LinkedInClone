@@ -1,4 +1,6 @@
 @model dynamic
+@using LinkedInClone.Data
+@inject AppDbContext _db
 @{
     ViewData["Title"] = "Conversations";
 }
@@ -8,8 +10,8 @@
     <partial name="_LeftSideBarForUser" />
 
     <div class="main-center">
-        <h4>Recent Messages</h4>
-        <a type="button" class="outline btn-transparent text-black-700 mt-1" href="#NewConvo">Start New Conversation</a>
+        <h4>Recent Conversations</h4>
+        <a class="outline btn-transparent text-black-700 mt-1" href="#NewConvo">Start New Conversation</a>
 
         @foreach (var item in Model)
         {
@@ -18,11 +20,11 @@
                     <img src="https://fsd05regex.blob.core.windows.net/blob-storage/profile.png" width="5%" class="h-6" />
                     @if (item.StartedBy.UserName == User.Identity.Name)
                     {
-                        <h6 class="mt-2 ml-2"><a asp-action="Message" asp-route-id="@item.Id">@item.ReceivedBy.FullName</a></h6>
+                        <h6 class="mt-2 ml-2"><a href="#Message">@item.ReceivedBy.FullName</a></h6>
                     }
                     else if (item.ReceivedBy.UserName == User.Identity.Name)
                     {
-                        <h6 class="mt-3"><a asp-action="Message" asp-route-id="@item.Id">@item.StartedBy.FullName</a></h6>
+                        <h6 class="mt-3"><a href="#Message">@item.StartedBy.FullName</a></h6>
                     }
                 </div>
                 <div class="post-card-date">
@@ -32,9 +34,64 @@
                     </p>
                 </div>
             </div>
+            <div class="modal modal-animated--zoom-in" id="Message">
+                <a href="#searchModalDialog" class="modal-overlay close-btn" aria-label="Close"></a>
+                <div class="modal-content" role="document">
+                    <div class="modal-header"><a href="#components" class="u-pull-right" aria-label="Close"><span
+                                class="icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times"
+                                    class="svg-inline--fa fa-times fa-w-11 fa-wrapper" role="img"
+                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512">
+                                    <path fill="currentColor"
+                                        d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z">
+                                    </path>
+                                </svg></span></a>
+                        @if (item.StartedBy.UserName == User.Identity.Name)
+                        {
+                            <div class="modal-title mb-2">@item.ReceivedBy.FullName</div>
+                        }
+                        else if (item.ReceivedBy.UserName == User.Identity.Name)
+                        {
+                            <div class="modal-title mb-2">@item.StartedBy.FullName</div>
+                        }
+                        <div>
+                            @if (item.Messages.Count == 0)
+                            {
+                                <h6>Be the first to send a Message!👍</h6>
+                            }
+                            @foreach (Message message in item.Messages)
+                            {
+                                @if (message.SentBy.UserName == User.Identity.Name)
+                                {
+                                    <div class="ml-auto mb-3 u-round-full u-text-center bg-info text-white w-70p u-flex u-flex-row">
+                                        <p class="u-text-center ml-3 mt-2">@message.Content</p>
+                                    </div>
+                                }
+                                else if (message.ReceivedBy.UserName == User.Identity.Name)
+                                {
+                                    <div class="u-round-full mb-3 bg-light u-text-center text-dark w-70p u-flex u-flex-row">
+                                        <p class="u-text-center ml-3 mt-2">@message.Content</p>
+                                    </div>
+                                }
+                            }
+                        </div>
+                        @using (Html.BeginForm("NewMessage", "Messages", FormMethod.Post))
+                        {
+                            @if (item.StartedBy.UserName == User.Identity.Name)
+                            {
+                                <input type="text" value="@item.ReceivedBy.Id" name="id" hidden />
+                            }
+                            else if (item.ReceivedBy.UserName == User.Identity.Name)
+                            {
+                                <input type="text" value="@item.StartedBy.Id" name="id" hidden />
+                            }
+                            <input type="number" value="@item.Id" name="conversationId" hidden />
+                            <input type="text" name="MessageContent" placeholder="Write your message here..." />
+                            <input type="submit" value="Send" class="btn-info u-inline-block mt-2" />
+                        }
+                    </div>
+                </div>
+            </div>
         }
     </div>
 </div>
-
 @await Html.PartialAsync("_NewConversation", new Conversation())
-@await Html.PartialAsync("_Messages", new Message())
