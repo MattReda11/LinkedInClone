@@ -10,6 +10,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using LinkedInClone.Hubs;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using LinkedInClone;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("AppDbContext") ?? throw new InvalidOperationException("Connection string 'AppDbContext' not found.");
@@ -55,6 +57,8 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 });
 
 builder.Services.AddSignalR();
+builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.Configure<LinkedInClone.AuthMessageSenderOptions>(builder.Configuration);
 
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 {
