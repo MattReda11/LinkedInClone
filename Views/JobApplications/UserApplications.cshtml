@@ -1,48 +1,47 @@
 @model IEnumerable<LinkedInClone.Models.JobApplication>
 
-@{
+    @{
     ViewData["Title"] = "My Applications";
-}
+    }
 
-<div class="main-container">
-    <partial name="_LeftSideBarForUser" />
-    <div class="main-center">
+    <div class="main-container">
+        <partial name="_LeftSideBarForUser" />
+        <div class="main-center">
+
+            <div class="card p-4">
 
 
-        <h1>@ViewData["Title"]</h1>
+                <h1>@ViewData["Title"]</h1>
 
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Job.JobTitle)
-                    </th>
-                    <th>
-                        CV Uploaded
-                    </th>
-                    <th>
-                        Submitted On
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Job.JobTitle)
-                        </td>
-                        <td>
-                            @if (item.FileName != null)
-                            {
-                                @* FIXME:
-                        Currently: Hard coded "Dummy Resume.pdf"
-                        Attempting: src='.../.../blob-storage/@item.FileName&embedded=true'
-                        *@
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Job.JobTitle)
+                            </th>
+                            <th>
+                                CV Uploaded
+                            </th>
+                            <th>
+                                Submitted On
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Job.JobTitle)
+                            </td>
+                            <td>
+                                @if (item.FileName != null)
+                                {
                                 <div class="modal" id="cv">
-                                    <a href="#anchor-to-background" class="modal-overlay close-btn" aria-label="Close"></a>
+                                    <a href="#anchor-to-background" class="modal-overlay close-btn"
+                                        aria-label="Close"></a>
                                     <iframe class="u-z-0"
                                         src='https://docs.google.com/gview?url=https://fsd05regex.blob.core.windows.net/blob-storage/@item.FileName&embedded=true'
                                         style="width:718px; height:700px;" frameborder="0">
@@ -51,22 +50,22 @@
 
                                 <a href="#cv">View CV</a>
 
-                            }
-                            else
-                            {
+                                }
+                                else
+                                {
                                 <p>File Name seems to be null</p>
-                            }
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CreatedDate)
-                        </td>
-                        <td>
-                            <a asp-action="Delete" asp-route-id="@item.JobApplicationId">Delete</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.CreatedDate)
+                            </td>
+                            <td>
+                                <a asp-action="Delete" asp-route-id="@item.JobApplicationId">Delete</a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
-    @* <partial name="_RightSideBarForUser" /> *@
-</div>

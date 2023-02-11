@@ -3,19 +3,13 @@
 @{
 ViewData["Title"] = "Create";
 }
-
-@* TODO: Implement CV Upload to Azure Blob Storage
-FIXME: Add actual job title *@
-
 <div class="universal-container">
     <div class="row level">
         <form asp-action="Create">
 
-            <h1 class="header-brand">
-                Apply for this job
-            </h1>
-            <h6 class="header-brand">[job title]</h6>
-
+            <h2 class="header-brand">
+                Apply for @ViewData["jobTitle"]
+            </h2>
             <div class="divider"></div>
             <div class="divider"></div>
 
@@ -46,7 +40,7 @@ FIXME: Add actual job title *@
     </div>
 
     <div>
-        <a asp-controller="Home" asp-action="Index" class="ml-1 u u-RL">Back to List</a>
+        <a asp-controller="JobApplications" asp-action="AllAvailableJobs" class="ml-1 u u-RL">Back to List</a>
     </div>
 </div>
 
@@ -55,15 +49,3 @@ FIXME: Add actual job title *@
 @section Scripts {
 @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
-
-@* <div asp-validation-summary="All" class="text-danger"></div> *@
-@* <div class="form-group">
-    <label asp-for="FilePath" class="control-label"></label>
-    <input asp-for="FilePath" class="form-control" />
-    <span asp-validation-for="FilePath" class="text-danger"></span>
-</div>
-<div class="form-group">
-    <label asp-for="FileName" class="control-label"></label>
-    <input asp-for="FileName" class="form-control" />
-    <span asp-validation-for="FileName" class="text-danger"></span>
-</div> *@

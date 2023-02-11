@@ -56,8 +56,16 @@ namespace LinkedInClone.Controllers
         }
 
         // GET: JobApplications/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
+            var numOfApplications = _context.JobApplications.Where(ja => (ja.Job.Id == id && ja.Applicant.Id == HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)).Count();
+            if (numOfApplications > 0)
+            {
+                TempData["generalInfo"] = $"Sorry {User.Identity.Name}, you have already applied for this job!";
+                return RedirectToAction(nameof(AllAvailableJobs));
+            }
+            var job = _context.JobPostings.Where(jobPost => jobPost.Id == id).FirstOrDefault();
+            ViewData["jobTitle"] = job.JobTitle;
             return View();
         }
 
@@ -129,8 +137,6 @@ namespace LinkedInClone.Controllers
         }
 
         // POST: JobApplications/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,FilePath,FileName,CreatedDate")] JobApplication jobApplication)
@@ -171,7 +177,7 @@ namespace LinkedInClone.Controllers
                 return NotFound();
             }
 
-            var jobApplication = await _context.JobApplications
+            var jobApplication = await _context.JobApplications.Include("Job")
                 .FirstOrDefaultAsync(m => m.JobApplicationId == id);
             if (jobApplication == null)
             {
@@ -197,6 +203,7 @@ namespace LinkedInClone.Controllers
             }
 
             await _context.SaveChangesAsync();
+            TempData["generalInfo"] = $"Deleted job application successfully!";
             return RedirectToAction(nameof(UserApplications));
         }
 
