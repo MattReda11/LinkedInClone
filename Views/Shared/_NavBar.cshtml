@@ -86,14 +86,14 @@
                                 asp-action="Conversations">Messages</a>
                         </div>
                         <div class="nav-item">
-                            <a id="manage" data-tooltip="Tooltip 1" class="nav-link text-dark utb utb-C"
-                                asp-controller="Home" asp-area="" asp-action="MyAccount" title="Manage">Hello
+                            <a id="manage" class="nav-link text-dark utb utb-C"
+                                asp-controller="Home" asp-area="" asp-action="MyAccount" title="Manage Account">Hello
                                 @user.FullName!</a>
                         </div>
 
                         <div class="nav-item">
                             <a class="nav-link text-dark utb utb-C" asp-area="Identity" asp-page="/Account/Logout"
-                                asp-route-returnUrl="@Url.Action(" Index", "Home" , new { area="" })">Log Out
+                                asp-route-returnUrl="@Url.Action("Index", "Home" , new { area="" })">Log Out
                             </a>
                         </div>
 
