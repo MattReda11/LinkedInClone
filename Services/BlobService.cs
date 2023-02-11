@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Azure;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using LinkedInClone.Models.Blobs;
@@ -73,7 +74,7 @@ namespace LinkedInClone.Services
             }
             catch (Exception ex)
             {
-                throw;
+                throw new RequestFailedException(ex.Message + "BlobService.cs DownloadContentAsync has failed");
             }
         }
 
