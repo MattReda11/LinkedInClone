@@ -1,4 +1,4 @@
-@model dynamic
+@model IEnumerable<LinkedInClone.Models.Conversation>
 @using LinkedInClone.Data
 @inject AppDbContext _db
 @{
@@ -29,11 +29,19 @@
                         class="h-5 ml-2 mt-1" />
                     @if (item.StartedBy.UserName == User.Identity.Name)
                     {
-                        <h6 class="mt-2 ml-2"><a href="#Message">@item.ReceivedBy.FullName</a></h6>
+                        <h6 class="mt-2 ml-2">
+                            <a href="#Message-@item.Id">
+                                @Html.DisplayFor(modelItem => item.ReceivedBy.FullName)
+                            </a>
+                        </h6>
                     }
                     else if (item.ReceivedBy.UserName == User.Identity.Name)
                     {
-                        <h6 class="mt-2 ml-2"><a href="#Message">@item.StartedBy.FullName</a></h6>
+                        <h6 class="mt-2 ml-2">
+                            <a href="#Message-@item.Id">
+                                @Html.DisplayFor(modelItem => item.StartedBy.FullName)
+                            </a>
+                        </h6>
                     }
                 </div>
                 <div class="post-card-date">
@@ -43,7 +51,7 @@
                     </p>
                 </div>
             </div>
-            <div class="modal modal-animated--zoom-in" id="Message">
+            <div class="modal modal-animated--zoom-in" id="Message-@item.Id">
                 <a href="#searchModalDialog" class="modal-overlay close-btn" aria-label="Close"></a>
                 <div class="modal-content" role="document">
                     <div class="modal-header"><a href="#components" class="u-pull-right" aria-label="Close"><span
@@ -56,11 +64,11 @@
                                 </svg></span></a>
                         @if (item.StartedBy.UserName == User.Identity.Name)
                         {
-                            <div class="modal-title mb-2">@item.ReceivedBy.FullName</div>
+                            <div class="modal-title mb-2">@Html.DisplayFor(modelItem => item.ReceivedBy.FullName)</div>
                         }
                         else if (item.ReceivedBy.UserName == User.Identity.Name)
                         {
-                            <div class="modal-title mb-2">@item.StartedBy.FullName</div>
+                            <div class="modal-title mb-2"> @Html.DisplayFor(modelItem => item.StartedBy.FullName)</div>
                         }
                         <div class="u-overflow-auto h-32">
                             @if (item.Messages.Count == 0)

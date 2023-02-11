@@ -17,7 +17,7 @@ namespace LinkedInClone.Controllers
         private readonly ILogger _logger;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IBlobService _blobService;
-        private readonly IEmailSender _emailSender; 
+        private readonly IEmailSender _emailSender;
 
         public JobApplicationsController(AppDbContext context, ILogger<JobPosting> logger, UserManager<ApplicationUser> userManager,
          IBlobService blobService, IEmailSender emailSender)
@@ -119,21 +119,21 @@ namespace LinkedInClone.Controllers
 
                 _context.Add(jobApplication);
                 await _context.SaveChangesAsync();
-                //Send emails upon successful application
-                // Retrieve the user's email address
-                var user = jobApplication.Applicant;
-                var userEmail = user.Email;
+                // //Send emails upon successful application
+                // // Retrieve the user's email address
+                // var user = jobApplication.Applicant;
+                // var userEmail = user.Email;
 
-                // Retrieve the recruiter's email address
-                var jobPosting = await _context.JobPostings.FindAsync(jobApplication.Job);
-                var recruiter = await _userManager.FindByIdAsync(jobPosting.Recruiter.Id);
-                var recruiterEmail = recruiter.Email;
+                // // Retrieve the recruiter's email address
+                // var jobPosting = await _context.JobPostings.FindAsync(jobApplication.Job.Id);
+                // var recruiter = await _userManager.FindByIdAsync(jobPosting.Recruiter.Id);
+                // var recruiterEmail = recruiter.Email;
 
-                // Send an email to the recruiter
-                await _emailSender.SendEmailAsync(recruiterEmail, "New Job Application", $"A new job application has been submitted for your job posting: {jobPosting.JobTitle}. It now has {jobPosting.JobApplications.Count()} applicants.");
+                // // Send an email to the recruiter
+                // await _emailSender.SendEmailAsync(recruiterEmail, "New Job Application", $"A new job application has been submitted for your job posting: {jobPosting.JobTitle}. It now has {jobPosting.JobApplications.Count()} applicants.");
 
-                // Send an email to the user
-                await _emailSender.SendEmailAsync(userEmail, "Job Application Submitted", $"Your job application for {jobPosting.JobTitle} has been submitted successfully.");
+                // // Send an email to the user
+                // await _emailSender.SendEmailAsync(userEmail, "Job Application Submitted", $"Your job application for {jobPosting.JobTitle} has been submitted successfully.");
                 return RedirectToAction(nameof(UserApplications));
             }
             return View(jobApplication);
