@@ -431,3 +431,45 @@
 - Fix Styling for My Network + Recruiter Homepage
 3. Need assistance / figure things out:
 -
+
+------------------------------------------------------------------------------------
+2/11/2023 Kevin
+1. Done/not done since last scrum:
+- Admin CRUD on Comments (just delete)
+- Update User Info on MyAccount
+- Plugged in Stocks API
+2. To do until next Scrum:
+- Configure EmailSender & Smtp Client
+- Add flash messages where appropriate
+- code clean up
+3. Need assistance / figure things out:
+-
+
+2/11/2023 Matthew
+1. Done/not done since last scrum:
+- Messages implemented
+2. To do until next Scrum:
+- Assist in Styling
+- Work on Powerpoint
+3. Need assistance / figure things out:
+-
+
+2/11/2023 Chris
+1. Done/not done since last scrum:
+- App-wide styling, bug fixes
+2. To do until next Scrum:
+- Work on Powerpoint 
+- populate database 
+- final touches
+3. Need assistance / figure things out:
+-
+
+2/11/2023 Seena
+1. Done/not done since last scrum:
+- App-wide styling
+2. To do until next Scrum:
+- Wrap up styling and code clean up
+- Add flash messages where appropriate
+- Work on Powerpoint
+3. Need assistance / figure things out:
+-
