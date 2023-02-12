@@ -2,8 +2,9 @@
     ViewData["Title"] = "Access Denied";
 }
 
-<div class="text-center universal-container">
-    <h1 class="text-danger">@ViewData["Title"]</h1>
-    <h5 class="text-danger">You do not have permission to view this resource.</h5>
+<div class="text-center universal-container u-center u-flex u-flex-column">
+    <h1 class="text-danger mb-5">@ViewData["Title"]</h1>
+    <img src="/Images/accessDenied.png" alt="Access Denied" width="15%">
+    <h5 class="text-danger mt-5">You do not have permission to view this resource</h5>
     <a class="utb utb-C" href="javascript: history.go(-1)">Back to previous page</a>
 </div>

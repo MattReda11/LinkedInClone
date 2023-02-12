@@ -90,7 +90,7 @@ app.UseStatusCodePages(async context =>
     if (response.StatusCode == (int)System.Net.HttpStatusCode.Unauthorized ||
             response.StatusCode == (int)System.Net.HttpStatusCode.Forbidden ||
             response.StatusCode == (int)System.Net.HttpStatusCode.NotFound)
-        response.Redirect("/Identity/Account/Login");
+        response.Redirect("/Home/PageNotFound");
 });
 //? any issues with https - comment/uncomment this
 app.UseHttpsRedirection();

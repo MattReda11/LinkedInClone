@@ -166,6 +166,13 @@ public class HomeController : Controller
         return View();
     }
 
+    [HttpGet]
+    [AllowAnonymous]
+    public IActionResult PageNotFound()
+    {
+        return View();
+    }
+
     [HttpGet, ActionName("Message")]
     public IActionResult Message()
     {
