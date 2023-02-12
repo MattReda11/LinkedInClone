@@ -42,11 +42,11 @@ public class AccountController : Controller
     [AllowAnonymous]
     [Route("/Account/GoogleResponse")]
     public async Task<IActionResult> GoogleResponse()
-    {        
+    {
         ExternalLoginInfo info = await _signInManager.GetExternalLoginInfoAsync();
 
         if (info == null)
-            return View("ExternalLoginFailed");        
+            return View("ExternalLoginFailed");
         var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, false);
 
         string[] userInfo = { info.Principal.FindFirst(ClaimTypes.Name).Value, info.Principal.FindFirst(ClaimTypes.Email).Value };
@@ -63,7 +63,8 @@ public class AccountController : Controller
                 user = new ApplicationUser
                 {
                     Email = info.Principal.FindFirst(ClaimTypes.Email).Value,
-                    UserName = info.Principal.FindFirst(ClaimTypes.Email).Value
+                    UserName = info.Principal.FindFirst(ClaimTypes.Email).Value,
+                    FullName = info.Principal.FindFirst(ClaimTypes.Name).Value
                 };
 
                 IdentityResult identResult = await _userManager.CreateAsync(user);
@@ -76,6 +77,7 @@ public class AccountController : Controller
                     identResult = await _userManager.AddLoginAsync(user, info);
                     if (identResult.Succeeded)
                     {
+                        await _userManager.AddToRoleAsync(user, "User");
                         _logger.LogInformation($"Google login information added for user {userInfo[0]}");
                         await _signInManager.SignInAsync(user, false);
                         return RedirectToAction("Index", "Home");
@@ -123,7 +125,7 @@ public class AccountController : Controller
             return NotFound();
         }
         Debug.WriteLine($"Found user {user.Email} , {user.FullName} \n FOUND VALUES IN FORM : {Request.Form["FullName"]} , {Request.Form["Email"]} ");
-        
+
         user.FullName = Request.Form["FullName"];
         user.Email = Request.Form["Email"];
         user.UserName = Request.Form["Email"];
@@ -139,8 +141,8 @@ public class AccountController : Controller
         {
             // Return an error page
             return View("Error");
-        }       
-        
+        }
+
     }
 
     public IActionResult AccessDenied()
