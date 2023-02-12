@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Applicants";
 }
-<div class="universal-container">
+<div class="card p-4 w-80p u-center u-flex u-flex-column">
 
 
     <h1>@ViewData["Title"]</h1>
@@ -12,7 +12,7 @@
         <thead>
             <tr>
                 <th>
-                    @Html.DisplayNameFor(model => model.JobApplicationId)
+                    @Html.DisplayNameFor(model => model.Applicant.FullName)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Applicant.Email)
@@ -27,14 +27,8 @@
             @foreach (var item in Model)
             {
                 <tr>
-                    @* TODO:
-                - Display CV column, where recruiter can click and view user CV
-                - Implement Follow Up button --> send an email/notification to user or something
-                - ?Implement Delete Application? --> user will automatically receive email/notification saying their
-                application was considered, but rejected
-                *@
                     <td>
-                        @Html.DisplayFor(modelItem => item.JobApplicationId)
+                        @Html.DisplayFor(modelItem => item.Applicant.FullName)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Applicant.Email)
@@ -46,6 +40,10 @@
                         <a asp-action="AddConversationRecruiter" asp-controller="Messages"
                             asp-route-id="@item.Applicant.Id">Follow
                             Up</a>
+                    </td>
+                    <td>
+                        <a asp-action="DeleteApplication" asp-controller="JobPostings"
+                            asp-route-id="@item.JobApplicationId">Reject Application</a>
                     </td>
                 </tr>
             }

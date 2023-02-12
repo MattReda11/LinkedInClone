@@ -174,5 +174,28 @@ namespace LinkedInClone.Controllers
         {
             return _context.JobPostings.Any(e => e.Id == id);
         }
+
+        // GET: JobApplications/Delete/5
+        public async Task<IActionResult> DeleteApplication(int? id)
+        {
+            if (id == null || _context.JobApplications == null)
+            {
+                return NotFound();
+            }
+
+            var jobApplication = await _context.JobApplications.Include("Job")
+                .FirstOrDefaultAsync(m => m.JobApplicationId == id);
+            if (jobApplication != null)
+            {
+                _context.JobApplications.Remove(jobApplication);
+            }
+
+            await _context.SaveChangesAsync();
+
+            TempData["generalInfo"] = $"Application successfully deleted!";
+            return RedirectToAction("RecruiterJobPostings", "JobPostings");
+        }
     }
+
+
 }
