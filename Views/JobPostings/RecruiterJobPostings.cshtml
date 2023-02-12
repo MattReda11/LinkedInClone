@@ -3,26 +3,36 @@
     @{
     ViewData["Title"] = "My Postings";
     }
-<div class="divider"></div>
-    <div class="u-flex u-justify-center mb-4">
-        <a asp-action="Create" class="hover hover-grow tooltip tooltip--top hover hover-grow text-xl" data-tooltip="Post a new job opportunity">Add Job Posting</a>
-    </div>
-<div class="divider"></div>
-    @foreach (var item in Model) {
-    <div class="card max-w-md mx-auto">
-        <div class="card__header u-flex u-justify-space-between">
-            <p class="font-bold px-3">@Html.DisplayFor(modelItem => item.JobTitle)</p>
-            <p class="font-bold px-3">@Html.DisplayFor(modelItem => item.CreatedDate)</p>
+
+    <div class="main-container">
+
+        <partial name="_LeftSideBarForRecruiter" />
+
+        <div class="main-center">
+            @foreach (var item in Model) {
+            <div class="card max-w-md mx-auto">
+                <div class="card__header u-flex u-justify-space-between">
+                    <p class="font-bold px-3">@Html.DisplayFor(modelItem => item.JobTitle)</p>
+                    <p class="font-bold px-3">@Html.DisplayFor(modelItem => item.CreatedDate)</p>
+                </div>
+                <div class="content">
+                    <p class="mx-4 u-text-justify">@Html.DisplayFor(modelItem => item.Description)</p>
+                </div>
+                <div class="ml-6 font-bold">Total Applicants: @Html.DisplayFor(modelItem => item.JobApplications.Count)
+                </div>
+                <div class="card__action-bar u-center">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="mr-1 tooltip tooltip--left hover hover-grow"
+                        data-tooltip="Edit this post">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id"
+                        class="mr-1 ml-1 tooltip tooltip--top hover hover-grow"
+                        data-tooltip="View this posts' details">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id"
+                        class="mr-1 ml-1 tooltip tooltip--top hover hover-grow"
+                        data-tooltip="Remove this post">Delete</a> |
+                    <a asp-action="Applicants" asp-route-id="@item.Id"
+                        class="ml-1 tooltip tooltip--right hover hover-grow" data-tooltip="View who applied">View
+                        Applicants</a>
+                </div>
+            </div>
+            }
         </div>
-        <div class="content">
-            <p class="mx-4 u-text-justify">@Html.DisplayFor(modelItem => item.Description)</p>
-        </div>
-        <div class="ml-6 font-bold">Total Applicants: @Html.DisplayFor(modelItem => item.JobApplications.Count)</div>
-        <div class="card__action-bar u-center">
-            <a asp-action="Edit" asp-route-id="@item.Id" class="mr-1 tooltip tooltip--left hover hover-grow" data-tooltip="Edit this post">Edit</a> | 
-            <a asp-action="Details" asp-route-id="@item.Id" class="mr-1 ml-1 tooltip tooltip--top hover hover-grow" data-tooltip="View this posts' details">Details</a> |
-            <a asp-action="Delete" asp-route-id="@item.Id" class="mr-1 ml-1 tooltip tooltip--top hover hover-grow" data-tooltip="Remove this post">Delete</a> |
-            <a asp-action="Applicants" asp-route-id="@item.Id" class="ml-1 tooltip tooltip--right hover hover-grow" data-tooltip="View who applied">View Applicants</a>
-        </div>
-    </div>
-    }
