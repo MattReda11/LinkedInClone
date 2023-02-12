@@ -240,7 +240,7 @@ namespace LinkedInClone.Controllers
             var userName = User.Identity.Name;
             var user = _context.Users.Where(u => u.UserName == userName).FirstOrDefault();
 
-            return View(await _context.Posts.OrderByDescending(p => p.PostedDate).Where(p => p.Author == user).Include("Author").Include("Comments").Include("Likes").Include("Likes.LikedBy").ToListAsync());
+            return View(await _context.Posts.OrderByDescending(p => p.PostedDate).Where(p => p.Author == user).Include("Author").Include("Comments").Include("Comments.Author").Include("Likes").Include("Likes.LikedBy").ToListAsync());
         }
 
         [HttpGet, ActionName("Like")]
