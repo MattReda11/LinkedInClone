@@ -7,7 +7,15 @@
 
 <div class="main-container">
 
-    <partial name="_LeftSideBarForUser" />
+    @if (User.IsInRole("User"))
+    {
+        <partial name="_LeftSideBarForUser" />
+
+    }
+    else if (User.IsInRole("Recruiter"))
+    {
+        <partial name="_LeftSideBarForRecruiter" />
+    }
 
     <div class="main-center">
         <h4>Recent Conversations</h4>

@@ -313,6 +313,23 @@ namespace LinkedInClone.Controllers
             return RedirectToAction("Index", "Home", new { area = "" });
         }
 
+        [HttpGet, ActionName("LikedPosts")]
+        public ActionResult LikedPosts()
+        {
+            List<Post> Posts = new List<Post>();
+            var userName = User.Identity.Name;
+            ApplicationUser user = _context.Users.Where(u => u.UserName == userName).FirstOrDefault();
+
+            var likes = _context.Likes.Where(l => l.LikedBy == user).Include("LikedBy").Include("LikedPost").ToList();
+
+            foreach (var like in likes)
+            {
+                var post = _context.Posts.Include("Author").Include("Likes").Include("Likes.LikedBy").Include("Comments").Include("Comments.Author").Where(p => p.Id == like.LikedPost.Id).FirstOrDefault();
+                Posts.Add(post);
+            }
+            return View(Posts.OrderByDescending(p => p.PostedDate));
+        }
+
         private bool PostExists(int id)
         {
             return _context.Posts.Any(e => e.Id == id);
