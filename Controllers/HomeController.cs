@@ -17,7 +17,7 @@ public class HomeController : Controller
     private readonly AppDbContext _db;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly INewsAPIService _newsAPIService;
-  
+
 
 
     public HomeController(ILogger<HomeController> logger, AppDbContext db, RoleManager<IdentityRole> roleManager,
@@ -28,7 +28,7 @@ public class HomeController : Controller
         _roleManager = roleManager;
         _userManager = userManager;
         _newsAPIService = newsAPIService;
-        
+
     }
 
     [Authorize(Roles = "User, Admin")]
@@ -43,9 +43,9 @@ public class HomeController : Controller
             //Stocks API
             var finnhubClient = new FinnhubClient("cfj7nn1r01que34nrafgcfj7nn1r01que34nrag0");
             var symbols = new[] { "AAPL", "GOOG", "MSFT", "AMZN" };
-            var quotes = await finnhubClient.GetQuotesAsync(symbols);           
+            var quotes = await finnhubClient.GetQuotesAsync(symbols);
             ViewBag.Stocks = quotes;
-          
+
         }
         catch (Exception ex)
         {
@@ -56,7 +56,9 @@ public class HomeController : Controller
         var username = User.Identity.Name;
         var user = _db.Users.Where(u => u.UserName == username).FirstOrDefault();
 
-        var connections = _db.Connections.Where(c => c.Accepted == true && c.AccountOwner == user || c.Friend == user).Include("AccountOwner").Include("Friend").ToList();
+        var connections1 = _db.Connections.Where(c => c.Accepted == true && c.AccountOwner == user).Include("AccountOwner").Include("Friend").ToList();
+
+        var connections2 = _db.Connections.Where(c => c.Accepted == true && c.Friend == user).Include("AccountOwner").Include("Friend").ToList();
 
         var userPosts = _db.Posts.Where(p => p.Author == user).Include("Author").Include("Comments").Include("Comments.Author").Include("Likes").Include("Likes.LikedBy").ToList();
 
@@ -65,27 +67,25 @@ public class HomeController : Controller
             Posts.Add(userPost);
         }
 
-        foreach (var con in connections)
+        foreach (var con in connections1)
         {
-            if (con.Friend == user)
+            var posts = await _db.Posts.Where(p => p.Author == con.Friend).Include("Author").Include("Comments").Include("Comments.Author").Include("Likes").Include("Likes.LikedBy").ToListAsync();
+
+
+            foreach (var post in posts)
             {
-                var posts = await _db.Posts.Where(p => p.Author == con.AccountOwner).Include("Author").Include("Comments").Include("Comments.Author").Include("Likes").Include("Likes.LikedBy").ToListAsync();
-
-
-                foreach (var post in posts)
-                {
-                    Posts.Add(post);
-                }
+                Posts.Add(post);
             }
-            else if (con.AccountOwner == user)
+        }
+
+        foreach (var con in connections2)
+        {
+            var posts = await _db.Posts.Where(p => p.Author == con.AccountOwner).Include("Author").Include("Comments").Include("Comments.Author").Include("Likes").Include("Likes.LikedBy").ToListAsync();
+
+
+            foreach (var post in posts)
             {
-                var posts = await _db.Posts.Where(p => p.Author == con.Friend).Include("Author").Include("Comments").Include("Comments.Author").Include("Likes").Include("Likes.LikedBy").ToListAsync();
-
-
-                foreach (var post in posts)
-                {
-                    Posts.Add(post);
-                }
+                Posts.Add(post);
             }
         }
         return View(Posts.OrderByDescending(p => p.PostedDate));
@@ -96,7 +96,7 @@ public class HomeController : Controller
     {
         //not the best solution, will try to optimize later
         var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        var user = await _userManager.FindByIdAsync(userId);       
+        var user = await _userManager.FindByIdAsync(userId);
         var checkRecruiter = await _userManager.IsInRoleAsync(user, "Recruiter");
         var checkAdmin = await _userManager.IsInRoleAsync(user, "Admin");
         var role = "User";
