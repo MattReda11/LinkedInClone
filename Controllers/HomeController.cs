@@ -123,7 +123,7 @@ public class HomeController : Controller
     }
 
 
-
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> AdminPanel()
     {
         var model = new AdminPanelViewModel();

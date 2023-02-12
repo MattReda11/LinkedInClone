@@ -15,6 +15,7 @@ using System.Drawing.Imaging;
 
 namespace LinkedInClone.Controllers
 {
+    [Authorize(Roles = "User")]
     public class PostsController : Controller
     {
         private readonly AppDbContext _context;
@@ -68,7 +69,6 @@ namespace LinkedInClone.Controllers
             return View(post);
         }
 
-        [Authorize]
         // GET: Posts/Create
         public IActionResult Create()
         {
@@ -76,10 +76,6 @@ namespace LinkedInClone.Controllers
         }
 
         // POST: Posts/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-
-        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Content,FileName")] Post post)
@@ -118,7 +114,6 @@ namespace LinkedInClone.Controllers
             return View(post);
         }
 
-        [Authorize]
         // GET: Posts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
@@ -136,10 +131,6 @@ namespace LinkedInClone.Controllers
         }
 
         // POST: Posts/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-
-        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Content,FileName")] Post post)
@@ -195,7 +186,6 @@ namespace LinkedInClone.Controllers
             return View(post);
         }
 
-        [Authorize]
         // GET: Posts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
@@ -214,7 +204,6 @@ namespace LinkedInClone.Controllers
             return View(post);
         }
 
-        [Authorize]
         // POST: Posts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -234,7 +223,7 @@ namespace LinkedInClone.Controllers
             return RedirectToAction("Index", "Home", new { area = "" });
         }
 
-        [Authorize]
+
         public async Task<IActionResult> MyPosts()
         {
             var userName = User.Identity.Name;
