@@ -54,7 +54,7 @@ public class AdminController : Controller
     public async Task<IActionResult> DeletePost(int id)
     {
         
-        var post = await _db.Posts.FindAsync(id);  //await _userManager.FindByIdAsync(id);
+        var post = await _db.Posts.FindAsync(id); 
         if (post == null)
         {
             Console.WriteLine($"Post with ID:{id} does not exist!");

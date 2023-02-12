@@ -68,6 +68,7 @@ namespace LinkedInClone.Controllers
             ModelState.Remove("Recruiter");
             ApplicationUser loggedInUser = await _userManager.GetUserAsync(User);
             jobPosting.Recruiter = loggedInUser;
+            jobPosting.SetRecruiter(jobPosting.Recruiter);
 
             if (ModelState.IsValid)
             {
