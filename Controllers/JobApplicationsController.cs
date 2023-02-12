@@ -120,30 +120,34 @@ namespace LinkedInClone.Controllers
 
                 _context.Add(jobApplication);
                 await _context.SaveChangesAsync();
+
+                //Couldnt get Recruiter Id from JobPosting obj
+
                 //Send emails upon successful application
                 // Retrieve the user's email address
-                try{
-                var user = jobApplication.Applicant;
-                var userEmail = user.Email;
+                // try{
+                // var user = jobApplication.Applicant;
+                // var userEmail = user.Email;
 
-                // Retrieve the recruiter's email address
-                var jobPosting = await _context.JobPostings.FindAsync(jobApplication.Job.Id);
-                var recruiter = await _context.AppUsers.FindAsync(jobPosting.RecruitId);
-                
-                var recruiterEmail = recruiter.Email;
-               
-                // Send an email to the recruiter
-                await _emailSender.SendEmailAsync(recruiterEmail, "New Job Application", $"A new job application has been submitted for your job posting: {jobPosting.JobTitle}. It now has {jobPosting.JobApplications.Count()} applicants.");
-                Console.WriteLine($"Notified recruiter {recruiter.FullName} of job posting application: {jobPosting.JobTitle}");
+                // // Retrieve the recruiter's email address
+                // var jobPosting = await _context.JobPostings.Where(jp => jp.Id == id).FirstOrDefaultAsync();
+                // Debug.WriteLine($" JP.R {jobPosting.Recruiter} JP.RID {jobPosting.RecruitId}");
+                // var recruiter = await _context.AppUsers.FindAsync(jobPosting.Recruiter);
 
-                // Send an email to the user
-                await _emailSender.SendEmailAsync(userEmail, "Job Application Submited", $"Your job application for {jobPosting.JobTitle} has been submitted successfully.");
-                Console.WriteLine($"Notified user {jobApplication.Applicant.FullName} of their application to: {jobPosting.JobTitle}");
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.Message);
-                }
+                // var recruiterEmail = recruiter.Email;
+
+                // // Send an email to the recruiter
+                // await _emailSender.SendEmailAsync(recruiterEmail, "New Job Application", $"A new job application has been submitted for your job posting: {jobPosting.JobTitle}. It now has {jobPosting.JobApplications.Count()} applicants.");
+                // Console.WriteLine($"Notified recruiter {recruiter.FullName} of job posting application: {jobPosting.JobTitle}");
+
+                // // Send an email to the user
+                // await _emailSender.SendEmailAsync(userEmail, "Job Application Submited", $"Your job application for {jobPosting.JobTitle} has been submitted successfully.");
+                // Console.WriteLine($"Notified user {jobApplication.Applicant.FullName} of their application to: {jobPosting.JobTitle}");
+                // }
+                // catch (Exception ex)
+                // {
+                //     Debug.WriteLine(ex.Message);
+                // }
                 return RedirectToAction(nameof(UserApplications));
                 
             }
