@@ -1,176 +1,187 @@
 ﻿@model IEnumerable<LinkedInClone.Models.Post>
-@{
-ViewData["Title"] = "Home";
-}
-<div class="main-container">
-    
-    <partial name="_LeftSideBarForUser" />
+    @{
+    ViewData["Title"] = "Home";
+    }
+    <div class="main-container">
 
-    <div class="main-center">
-        @if(Model.Count() == 0) 
-        {
-            <h6 class="u-text-center">It looks like you have no Connections 😕. You can search for other users to connect with!</h6>
-        }
-        @foreach (var item in Model)
-        {
+        <partial name="_LeftSideBarForUser" />
 
-        <div class="card" runat="server">
-            <div class="card__container m-2">
-                <div class="content">
-                  <img src="https://fsd05regex.blob.core.windows.net/blob-storage/profile.png" width="5%"/><h6>@item.Author.FullName</h6>
-                </div>
+        <div class="main-center">
+            @if(Model.Count() == 0)
+            {
+            <h6 class="u-text-center">It looks like you have no Connections 😕. You can search for other users to
+                connect with!</h6>
+            }
+            @foreach (var item in Model)
+            {
 
-                <div class="post-card-date">
-                    <p>Posted on @item.PostedDate.ToString("ddd MMMM dd, yyyy") at
-                        @item.PostedDate.ToString("h:mm tt") </p>
-                </div>
-
-                <div class="post-card-content">
-                    <p>@item.Content</p>
-                </div>
-                <div>
-                    @if (item.FileName != null)
-                    {
-                    <img src='@Url.Action("GetMediaFile","Posts", new {fileName = item.FileName})' />
-                    }
-                    else
-                    {
-                    <div>
+            <div class="card" runat="server">
+                <div class="card__container m-2">
+                    <div class="content">
+                        <img src="https://fsd05regex.blob.core.windows.net/blob-storage/profile.png" width="5%" />
+                        <h6>@item.Author.FullName</h6>
                     </div>
-                    }
-                    <div class="post-card-interaction-counter">
 
-                        <p><i class="fa-regular fa-thumbs-up fa-lg"></i><a href="#Likes-@item.Id" class="tooltip tooltip--right" data-tooltip="View Likes">@item.Likes.Count</a></p>
+                    <div class="post-card-date">
+                        <p>Posted on @item.PostedDate.ToString("ddd MMMM dd, yyyy") at
+                            @item.PostedDate.ToString("h:mm tt") </p>
+                    </div>
 
-                             <div class="modal modal-animated--zoom-in" id="Likes-@item.Id">
+                    <div class="post-card-content">
+                        <p>@item.Content</p>
+                    </div>
+                    <div>
+                        @if (item.FileName != null)
+                        {
+                        <img src='@Url.Action("GetMediaFile","Posts", new {fileName = item.FileName})' />
+                        }
+                        else
+                        {
+                        <div>
+                        </div>
+                        }
+                        <div class="post-card-interaction-counter">
+
+                            <p><i class="fa-regular fa-thumbs-up fa-lg"></i><a href="#Likes-@item.Id"
+                                    class="tooltip tooltip--right" data-tooltip="View Likes">@item.Likes.Count</a></p>
+
+                            <div class="modal modal-animated--zoom-in" id="Likes-@item.Id">
                                 <a href="#searchModalDialog" class="modal-overlay close-btn" aria-label="Close"></a>
-                                    <div class="modal-content w-80p" role="document">
-                                        <div class="modal-header"><a href="#components" class="u-pull-right" aria-label="Close"><span
-                                        class="icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times" class="svg-inline--fa fa-times fa-w-11 fa-wrapper" role="img"
-                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512">
-                                            <path fill="currentColor"
-                                            d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z">
-                                            </path>
-                                            </svg></span></a>
-                                            <div class="modal-title mb-2">Post Liked By</div>
-                                            <div class="u-overflow-auto h-32">
+                                <div class="modal-content w-80p" role="document">
+                                    <div class="modal-header"><a href="#components" class="u-pull-right"
+                                            aria-label="Close"><span class="icon"><svg aria-hidden="true"
+                                                    focusable="false" data-prefix="fas" data-icon="times"
+                                                    class="svg-inline--fa fa-times fa-w-11 fa-wrapper" role="img"
+                                                    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512">
+                                                    <path fill="currentColor"
+                                                        d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z">
+                                                    </path>
+                                                </svg></span></a>
+                                        <div class="modal-title mb-2">Post Liked By</div>
+                                        <div class="u-overflow-auto h-32">
                                             @foreach (var like in item.Likes)
                                             {
-                                                <div class="u-flex u-flex-row">
-                                                    <img src="https://fsd05regex.blob.core.windows.net/blob-storage/profile.png" width="8%" class="h-5 ml-2 mt-1" />
-                                                    <h6 class="mt-2 ml-2">
-                                                        @like.LikedBy.FullName
-                                                    </h6>
-                                                </div>
-                                            }
+                                            <div class="u-flex u-flex-row">
+                                                <img src="https://fsd05regex.blob.core.windows.net/blob-storage/profile.png"
+                                                    width="8%" class="h-5 ml-2 mt-1" />
+                                                <h6 class="mt-2 ml-2">
+                                                    @like.LikedBy.FullName
+                                                </h6>
                                             </div>
+                                            }
                                         </div>
                                     </div>
-                             </div>
+                                </div>
+                            </div>
 
-                    </div>
-                    <div class="card__action-bar u-center">
-                        @if (item.Likes.Count == 0)
-                        {
+                        </div>
+                        <div class="card__action-bar u-center">
+                            @if (item.Likes.Count == 0)
+                            {
                             <div class="btn-group" runat="server">
                                 <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
                                     data-tooltip="Like this post"><i class="fa-regular fa-thumbs-up fa-xl"></i>
                                     <a asp-controller="Posts" asp-action="Like" asp-route-id="@item.Id">Like</a>
                                 </button>
-                               <button onclick="ShowCommentBox(@item.Id)" id="comment-btn-@item.Id"
-                                class="outline btn-transparent text-blue-700 tooltip tooltip--right"
-                                data-tooltip="Leave a comment"><i id="comment-btn-icon"
-                                    class="fa-regular fa-comment-dots fa-xl"></i>
-                                <a id="comment-link-@item.Id">Comment</a>
-                            </button>
+                                <button onclick="ShowCommentBox(@item.Id)" id="comment-btn-@item.Id"
+                                    class="outline btn-transparent text-blue-700 tooltip tooltip--right"
+                                    data-tooltip="Leave a comment"><i id="comment-btn-icon"
+                                        class="fa-regular fa-comment-dots fa-xl"></i>
+                                    <a id="comment-link-@item.Id">Comment</a>
+                                </button>
                             </div>
-                        }
-                        else
-                        {
+                            }
+                            else
+                            {
                             @foreach (var like in item.Likes)
                             {
-                                @if (like.LikedBy.UserName == User.Identity.Name)
-                                {
-                                    <div class="btn-group" runat="server">
-                                        <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
-                                            data-tooltip="Unlike this post"><i class="fa-regular fa-thumbs-down fa-xl"></i>
-                                            <a asp-controller="Posts" asp-action="Unlike" asp-route-id="@item.Id">Unlike</a>
-                                        </button>
-                                        <button onclick="ShowCommentBox(@item.Id)" id="comment-btn-@item.Id"
-                                        class="outline btn-transparent text-blue-700 tooltip tooltip--right"
-                                        data-tooltip="Leave a comment"><i id="comment-btn-icon"
+                            @if (like.LikedBy.UserName == User.Identity.Name)
+                            {
+                            <div class="btn-group" runat="server">
+                                <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
+                                    data-tooltip="Unlike this post"><i class="fa-regular fa-thumbs-down fa-xl"></i>
+                                    <a asp-controller="Posts" asp-action="Unlike" asp-route-id="@item.Id">Unlike</a>
+                                </button>
+                                <button onclick="ShowCommentBox(@item.Id)" id="comment-btn-@item.Id"
+                                    class="outline btn-transparent text-blue-700 tooltip tooltip--right"
+                                    data-tooltip="Leave a comment"><i id="comment-btn-icon"
                                         class="fa-regular fa-comment-dots fa-xl"></i>
-                                <a id="comment-link-@item.Id">Comment</a>
-                            </button>
-                                    </div>
-                                    break;
-                                }
-                                else if(like.LikedBy.UserName != User.Identity.Name && item.Likes.IndexOf(like) == item.Likes.Count - 1)
-                                {
-                                    <div class="btn-group" runat="server">
-                                        <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
-                                            data-tooltip="Like this post"><i class="fa-regular fa-thumbs-up fa-xl"></i>
-                                            <a asp-controller="Posts" asp-action="Like" asp-route-id="@item.Id">Like</a>
-                                        </button>
-                                        <button onclick="ShowCommentBox(@item.Id)" id="comment-btn-@item.Id"
-                                        class="outline btn-transparent text-blue-700 tooltip tooltip--right"
-                                        data-tooltip="Leave a comment">
-                                            <i id="comment-btn-icon"
-                                            class="fa-regular fa-comment-dots fa-xl"></i>
-                                            <a id="comment-link-@item.Id">Comment</a>
-                                        </button>
-                                    </div>
-                                }
+                                    <a id="comment-link-@item.Id">Comment</a>
+                                </button>
+                            </div>
+                            break;
                             }
-                        }
-                    </div>
-                    <div class="commentbox" id="commentbox-@item.Id" hidden>
-                        @using (Html.BeginForm("Comment", "Posts", FormMethod.Post)) 
-                        {
+                            else if(like.LikedBy.UserName != User.Identity.Name && item.Likes.IndexOf(like) ==
+                            item.Likes.Count - 1)
+                            {
+                            <div class="btn-group" runat="server">
+                                <button class="outline btn-transparent text-orange-700 tooltip btn--sm tooltip--left"
+                                    data-tooltip="Like this post"><i class="fa-regular fa-thumbs-up fa-xl"></i>
+                                    <a asp-controller="Posts" asp-action="Like" asp-route-id="@item.Id">Like</a>
+                                </button>
+                                <button onclick="ShowCommentBox(@item.Id)" id="comment-btn-@item.Id"
+                                    class="outline btn-transparent text-blue-700 tooltip tooltip--right"
+                                    data-tooltip="Leave a comment">
+                                    <i id="comment-btn-icon" class="fa-regular fa-comment-dots fa-xl"></i>
+                                    <a id="comment-link-@item.Id">Comment</a>
+                                </button>
+                            </div>
+                            }
+                            }
+                            }
+                        </div>
+                        <div class="commentbox" id="commentbox-@item.Id" hidden>
+                            @using (Html.BeginForm("Comment", "Posts", FormMethod.Post))
+                            {
                             <label class="font-extrathin comment-label tracking-tighter">Write your comment:</label>
                             <input name="id" type="number" value="@item.Id" hidden />
                             <input name="CommentText" id="comment-input-@item.Id" type="text" />
                             <input type="submit" value="Publish" class="outline btn-transparent text-black-700 mt-1" />
-                        }
-                        @if(@item.Comments.Count == 1) 
-                        {
+                            }
+                            @if(@item.Comments.Count == 1)
+                            {
                             <h6>@item.Comments.Count Comment</h6>
-                        }
-                        else 
-                        {
+                            }
+                            else
+                            {
                             <h6>@item.Comments.Count Comments</h6>
-                        }
-                        @foreach (var comment in item.Comments)
-                        {
+                            }
+                            @foreach (var comment in item.Comments)
+                            {
                             <div class="bg-light">
                                 <div>
                                     <p><b>@comment.Author.FullName</b></p>
                                     <div class="post-card-date">
 
-                                    <p >
-                                        @comment.CreatedDated.ToString("ddd MMMM dd, yyyy") at
-                                        @comment.CreatedDated.ToString("h:mm tt")
-                                    </p>
+                                        <p>
+                                            @comment.CreatedDated.ToString("ddd MMMM dd, yyyy") at
+                                            @comment.CreatedDated.ToString("h:mm tt")
+                                        </p>
                                     </div>
+                                    @if(@comment.Content.StartsWith("http") || @comment.Content.StartsWith("https")){
+                                    <a class="tooltip tooltip--top-right" data-tooltip="Access external link"
+                                        href="@comment.Content">@comment.Content</a>
+                                    }else{
+
                                     <p>@comment.Content</p>
+                                    }
                                 </div>
                             </div>
-                        }
-                    </div>
-                    @if (item.Author.UserName == User.Identity.Name)
-                    {
+                            }
+                        </div>
+                        @if (item.Author.UserName == User.Identity.Name)
+                        {
                         <div class="post-card-content">
                             <p>
                                 <a asp-controller="Posts" asp-action="Edit" asp-route-id="@item.Id">Edit Post</a>
                                 <a asp-controller="Posts" asp-action="Delete" asp-route-id="@item.Id">Delete Post</a>
                             </p>
                         </div>
-                    }
+                        }
+                    </div>
                 </div>
             </div>
+            }
         </div>
-        }
-    </div>
 
-    <partial name="_RightSideBarForUser" />
-    
+        <partial name="_RightSideBarForUser" />
