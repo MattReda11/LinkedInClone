@@ -18,19 +18,22 @@ namespace LinkedInClone
                 BaseAddress = new Uri("https://finnhub.io/api/v1/")
             };
         }
-
+        // This method receives an array of stock Tickers {@string[] symbols} from the HomeController
+        // and populates a Dictionary with the name of the stock as the Key,
+        // and the data as the Value
         public async Task<Dictionary<string, Quote>> GetQuotesAsync(string[] symbols)
         {
             var quotes = new Dictionary<string, Quote>();
             foreach (var symbol in symbols)
             {
-                var quote = await GetQuoteAsync(symbol);
+                var quote = await GetQuoteAsync(symbol); 
                 quotes[symbol] = quote;
             }
 
             return quotes;
         }
-
+        //this method runs for each stock in the array from the method above and returns
+        //a Quote object representing the API response
         public async Task<Quote> GetQuoteAsync(string symbol)
         {
             var response = await _httpClient.GetAsync($"quote?symbol={symbol}&token={_apiKey}");

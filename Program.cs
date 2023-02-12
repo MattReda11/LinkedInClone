@@ -62,8 +62,8 @@ builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration.GetSe
 
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 {
-    googleOptions.ClientId = "379601028963-alml822od0odsmo04m5hl4png6ikqasp.apps.googleusercontent.com"; //builder.Configuration["Authentication:Google:ClientId"];
-    googleOptions.ClientSecret = "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";
+    googleOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Google:ClientId"); //"379601028963-alml822od0odsmo04m5hl4png6ikqasp.apps.googleusercontent.com"; 
+    googleOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Google:ClientSecret");
     googleOptions.SignInScheme = IdentityConstants.ExternalScheme;
     googleOptions.SaveTokens = true;
 
