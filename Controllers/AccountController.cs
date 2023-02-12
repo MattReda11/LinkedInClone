@@ -31,8 +31,7 @@ public class AccountController : Controller
     [AllowAnonymous]
     [Route("/Account/GoogleLogin")]
     public IActionResult GoogleLogin()
-    {
-        Debug.WriteLine("0");
+    {        
         string redirectUrl = Url.Action("GoogleResponse", "Account");
         var properties = _signInManager.ConfigureExternalAuthenticationProperties("Google", redirectUrl);
         return new ChallengeResult("Google", properties);
@@ -130,7 +129,7 @@ public class AccountController : Controller
         user.Email = Request.Form["Email"];
         user.UserName = Request.Form["Email"];
         Debug.WriteLine($"user after update {user.Email} , {user.FullName}");
-        // Save the changes to the user
+       
         var result = await _userManager.UpdateAsync(user);
         if (result.Succeeded)
         {
@@ -138,11 +137,9 @@ public class AccountController : Controller
             return RedirectToAction("MyAccount", "Home");
         }
         else
-        {
-            // Return an error page
+        {           
             return View("Error");
         }
-
     }
 
     public IActionResult AccessDenied()

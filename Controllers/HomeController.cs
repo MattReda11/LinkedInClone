@@ -148,6 +148,11 @@ public class HomeController : Controller
             NewsResponse apiResponse = await _newsAPIService.GetHeadlines();
             var articles = apiResponse.articles;
             ViewBag.Articles = articles;
+
+            var finnhubClient = new FinnhubClient("cfj7nn1r01que34nrafgcfj7nn1r01que34nrag0");
+            var symbols = new[] { "AAPL", "GOOG", "MSFT", "AMZN" };
+            var quotes = await finnhubClient.GetQuotesAsync(symbols);
+            ViewBag.Stocks = quotes;
         }
         catch (Exception ex)
         {

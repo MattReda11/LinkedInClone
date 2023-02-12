@@ -27,9 +27,6 @@ public class AdminController : Controller
         _userManager = userManager;
     }
 
-    
-    
-  
     [HttpDelete("/Admin/DeleteUser/{id}")]
     public async Task<IActionResult> DeleteUser(string id)
     {
@@ -105,21 +102,3 @@ public class AdminController : Controller
         return View();
     }
 }
-//     public IActionResult LoadUsersTable()
-//     {
-//         var users = _db.AppUsers.ToList();
-//         return PartialView("_UsersTable", users);
-//     }
-
-//     public IActionResult LoadUserPostsTable()
-//     {
-//         var posts = _db.Posts.ToList();
-//         return PartialView("_UserPostsTable", posts);
-//     }
-
-//     public IActionResult LoadJobPostingsTable()
-//     {
-//         var jobPostings = _db.JobPostings.ToList();
-//         return PartialView("_JobPostingsTable", jobPostings);
-//     }
-// }
