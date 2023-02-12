@@ -119,21 +119,23 @@ namespace LinkedInClone.Controllers
 
                 _context.Add(jobApplication);
                 await _context.SaveChangesAsync();
-                // //Send emails upon successful application
-                // // Retrieve the user's email address
-                // var user = jobApplication.Applicant;
-                // var userEmail = user.Email;
+                //Send emails upon successful application
+                // Retrieve the user's email address
+                var user = jobApplication.Applicant;
+                var userEmail = user.Email;
 
-                // // Retrieve the recruiter's email address
-                // var jobPosting = await _context.JobPostings.FindAsync(jobApplication.Job.Id);
-                // var recruiter = await _userManager.FindByIdAsync(jobPosting.Recruiter.Id);
-                // var recruiterEmail = recruiter.Email;
+                // Retrieve the recruiter's email address
+                var jobPosting = await _context.JobPostings.FindAsync(jobApplication.Job.Id);
+                var recruiter = await _userManager.FindByIdAsync(jobPosting.Recruiter.Id);
+                var recruiterEmail = recruiter.Email;
 
-                // // Send an email to the recruiter
-                // await _emailSender.SendEmailAsync(recruiterEmail, "New Job Application", $"A new job application has been submitted for your job posting: {jobPosting.JobTitle}. It now has {jobPosting.JobApplications.Count()} applicants.");
+                // Send an email to the recruiter
+                await _emailSender.SendEmailAsync(recruiterEmail, "New Job Application", $"A new job application has been submitted for your job posting: {jobPosting.JobTitle}. It now has {jobPosting.JobApplications.Count()} applicants.");
+                Console.WriteLine($"Notified recruiter {jobPosting.Recruiter.FullName} of job posting application: {jobPosting.JobTitle}");
 
-                // // Send an email to the user
-                // await _emailSender.SendEmailAsync(userEmail, "Job Application Submitted", $"Your job application for {jobPosting.JobTitle} has been submitted successfully.");
+                // Send an email to the user
+                await _emailSender.SendEmailAsync(userEmail, "Job Application Submited", $"Your job application for {jobPosting.JobTitle} has been submitted successfully.");
+                Console.WriteLine($"Notified user {jobApplication.Applicant.FullName} of their application to: {jobPosting.JobTitle}");
                 return RedirectToAction(nameof(UserApplications));
             }
             return View(jobApplication);
