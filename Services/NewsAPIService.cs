@@ -26,7 +26,7 @@ namespace LinkedInClone.Services
         public async Task<NewsResponse> GetHeadlines()
         {
             string API_KEY = "fcf0c85067c3433ca27e2dd8079fd0b1"; //just trying to get it  working atm, will store more securely later
-            var url = string.Format("https://newsapi.org/v2/top-headlines?country=us&apiKey={0}", API_KEY);
+            var url = string.Format("https://newsapi.org/v2/top-headlines?category=business&country=us&apiKey={0}", API_KEY);
             try
             {
                 var response = await client.GetAsync(url);
