@@ -158,11 +158,19 @@
                                             @comment.CreatedDated.ToString("h:mm tt")
                                         </p>
                                     </div>
-                                    @if(@comment.Content.StartsWith("http") || @comment.Content.StartsWith("https")){
-                                    <a class="tooltip tooltip--top-right" data-tooltip="Access external link"
-                                        href="@comment.Content">@comment.Content</a>
-                                    }else{
+                                    @if(@comment.Content.StartsWith("http") || @comment.Content.StartsWith("https")
+                                    ||@comment.Content.StartsWith("www") ){
 
+                                    <button onclick="RenderPreview('@comment.Content')">EXPAND PREVIEW</button>
+
+                                    <a class="tooltip tooltip--top-right" data-tooltip="Access external link"
+                                        href="@comment.Content">@comment.Content
+                                    </a>
+                                    <p id="title"></p>
+                                    <p id="description"></p>
+                                    <img class="preview-image" id="img" src="">
+
+                                    }else{
                                     <p>@comment.Content</p>
                                     }
                                 </div>

@@ -92,8 +92,9 @@ app.UseStatusCodePages(async context =>
             response.StatusCode == (int)System.Net.HttpStatusCode.NotFound)
         response.Redirect("/Identity/Account/Login");
 });
-//? any issues with https - uncomment below
-// app.UseHttpsRedirection();
+//? any issues with https - comment/uncomment this
+app.UseHttpsRedirection();
+
 app.UseStaticFiles();
 
 app.UseRouting();
