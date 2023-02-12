@@ -20,7 +20,7 @@
                 @if (SignInManager.IsSignedIn(User) && User.IsInRole("User"))
                 {
                     <div class=" nav-left no-hover">
-                        <a asp-controller="Home" asp-action="Index"><img id="anchor-to-background" class="img-nav-logo"
+                        <a asp-controller="Home" asp-action="Index"><img id="anchor-to-background" class="img-nav-logo mt-1"
                                 srcset="/Images/nav-icon.png" />
                         </a>
                         <h4 class="tracking-loosest font-normal mt-3 ml-5">JobLink</h4>
@@ -100,7 +100,7 @@
                     }
 
                     <div class=" nav-left no-hover">
-                        <a asp-controller="Home" asp-action="Recruiter"><img id="anchor-to-background" class="img-nav-logo"
+                        <a asp-controller="Home" asp-action="Recruiter"><img id="anchor-to-background" class="img-nav-logo mt-1"
                                 srcset="/Images/nav-icon.png" />
                         </a>
                         <h4 class="tracking-loosest font-normal mt-3 ml-5">JobLink</h4>
@@ -139,7 +139,7 @@
                     var user = _db.Users.Where(u => u.UserName == username).FirstOrDefault();
 
                     <div class=" nav-left no-hover">
-                        <a asp-controller="Home" asp-action="AdminPanel"><img id="anchor-to-background" class="img-nav-logo"
+                        <a asp-controller="Home" asp-action="AdminPanel"><img id="anchor-to-background" class="img-nav-logo mt-1"
                                 srcset="/Images/nav-icon.png" />
                         </a>
                         <h4 class="tracking-loosest font-normal mt-3 ml-5">JobLink</h4>
@@ -165,7 +165,7 @@
                 else
                 {
                     <div class=" nav-left no-hover">
-                        <a asp-controller="Home" asp-action="Index"><img id="anchor-to-background" class="img-nav-logo"
+                        <a asp-controller="Home" asp-action="Index"><img id="anchor-to-background" class="img-nav-logo mt-1"
                                 srcset="/Images/nav-icon.png" />
                         </a>
                         <h4 class="tracking-loosest font-normal mt-3 ml-5">JobLink</h4>
