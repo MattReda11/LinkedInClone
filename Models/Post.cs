@@ -22,12 +22,14 @@ namespace LinkedInClone.Models
         [DataType(DataType.DateTime)]
         public DateTime PostedDate { get; set; }
 
+#nullable enable
         public string? FilePath { get; set; }
 
+#nullable enable
         public string? FileName { get; set; }
 
-        public IList<Like> Likes { get; set; }
-        public IList<Comment> Comments { get; set; }
+        public IList<Like>? Likes { get; set; }
+        public IList<Comment>? Comments { get; set; }
 
     }
 }

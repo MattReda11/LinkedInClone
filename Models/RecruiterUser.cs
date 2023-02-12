@@ -11,10 +11,10 @@ namespace LinkedInClone.Models
     {
         [Required]
         [StringLength(100)]
-        public string Company { get; set; }
+        public new string Company { get; set; }
 
         [Required]
         [StringLength(100)]
-        public string FullName { get; set; }
+        public new string FullName { get; set; }
     }
 }

@@ -5,6 +5,9 @@
     <Nullable>disable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>ae53c41d-42da-493a-a776-c288ad5e7027</UserSecretsId>
+    <!--? following line makes all warnings appear as errors -->
+    <!-- <TreatWarningsAsErrors>true</TreatWarningsAsErrors> -->
+
   </PropertyGroup>
 
   <ItemGroup>

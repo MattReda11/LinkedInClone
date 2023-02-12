@@ -82,6 +82,7 @@ if (!app.Environment.IsDevelopment())
 }
 
 //redirects to login page if any restricted url is accessed
+#pragma warning disable 1998
 app.UseStatusCodePages(async context =>
 {
     var response = context.HttpContext.Response;
@@ -91,6 +92,7 @@ app.UseStatusCodePages(async context =>
             response.StatusCode == (int)System.Net.HttpStatusCode.NotFound)
         response.Redirect("/Identity/Account/Login");
 });
+//? any issues with https - uncomment below
 // app.UseHttpsRedirection();
 app.UseStaticFiles();
 

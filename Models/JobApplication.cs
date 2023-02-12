@@ -13,8 +13,10 @@ namespace LinkedInClone.Models
         [Required]
         public JobPosting Job { get; set; }
 
+#nullable enable
         public string? FilePath { get; set; }
 
+#nullable enable
         public string? FileName { get; set; }
 
         [Display(Name = "Creation Date"), DataType(DataType.Date)]
