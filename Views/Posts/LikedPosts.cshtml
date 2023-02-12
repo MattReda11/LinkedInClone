@@ -12,8 +12,9 @@ ViewData["Title"] = "Liked Posts";
 
         <div class="card" runat="server">
             <div class="card__container m-2">
-                <div class="content">
-                  <img src="https://fsd05regex.blob.core.windows.net/blob-storage/profile.png" width="5%"/><h6>@item.Author.FullName</h6>
+                <div class="content u-flex u-flex-row">
+                    <img src="https://fsd05regex.blob.core.windows.net/blob-storage/profile.png" width="7%" />
+                    <h6 class="ml-2">@item.Author.FullName</h6>
                 </div>
 
                 <div class="post-card-date">

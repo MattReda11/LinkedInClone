@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 
 namespace LinkedInClone.Models
@@ -8,7 +9,17 @@ namespace LinkedInClone.Models
         public int Id { get; set; }
 
         [Required]
-        public ApplicationUser Recruiter { get; set; }
+        [ForeignKey("RecruiterId")]
+        public virtual ApplicationUser Recruiter { get; set; }
+
+        [NotMapped]
+        public string RecruitId { get; set; }
+
+        public void SetRecruiter(ApplicationUser recruiter)
+        {
+            Recruiter = recruiter;
+            RecruitId = Recruiter.Id;
+        }
 
         [Required]
         [StringLength(200)]

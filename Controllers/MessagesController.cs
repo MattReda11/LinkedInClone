@@ -10,6 +10,7 @@ using LinkedInClone.Models;
 
 namespace LinkedInClone.Controllers
 {
+    [Authorize(Roles = "User, Recruiter")]
     public class MessagesController : Controller
     {
         private readonly AppDbContext _context;

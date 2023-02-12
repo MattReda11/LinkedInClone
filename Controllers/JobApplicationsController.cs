@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using LinkedInClone.Services;
 using Microsoft.AspNetCore.Identity.UI.Services;
+using System.Diagnostics;
 
 namespace LinkedInClone.Controllers
 {
@@ -39,24 +40,6 @@ namespace LinkedInClone.Controllers
         public async Task<IActionResult> AllAvailableJobs()
         {
             return View(await _context.JobPostings.Include("Recruiter").ToListAsync());
-        }
-
-        // GET: JobApplications/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null || _context.JobApplications == null)
-            {
-                return NotFound();
-            }
-
-            var jobApplication = await _context.JobApplications
-                .FirstOrDefaultAsync(m => m.JobApplicationId == id);
-            if (jobApplication == null)
-            {
-                return NotFound();
-            }
-
-            return View(jobApplication);
         }
 
         // GET: JobApplications/Create
@@ -119,71 +102,36 @@ namespace LinkedInClone.Controllers
 
                 _context.Add(jobApplication);
                 await _context.SaveChangesAsync();
-                // //Send emails upon successful application
-                // // Retrieve the user's email address
+
+                //Couldnt get Recruiter Id from JobPosting obj
+
+                //Send emails upon successful application
+                // Retrieve the user's email address
+                // try{
                 // var user = jobApplication.Applicant;
                 // var userEmail = user.Email;
 
                 // // Retrieve the recruiter's email address
-                // var jobPosting = await _context.JobPostings.FindAsync(jobApplication.Job.Id);
-                // var recruiter = await _userManager.FindByIdAsync(jobPosting.Recruiter.Id);
+                // var jobPosting = await _context.JobPostings.Where(jp => jp.Id == id).FirstOrDefaultAsync();
+                // Debug.WriteLine($" JP.R {jobPosting.Recruiter} JP.RID {jobPosting.RecruitId}");
+                // var recruiter = await _context.AppUsers.FindAsync(jobPosting.Recruiter);
+
                 // var recruiterEmail = recruiter.Email;
 
                 // // Send an email to the recruiter
                 // await _emailSender.SendEmailAsync(recruiterEmail, "New Job Application", $"A new job application has been submitted for your job posting: {jobPosting.JobTitle}. It now has {jobPosting.JobApplications.Count()} applicants.");
+                // Console.WriteLine($"Notified recruiter {recruiter.FullName} of job posting application: {jobPosting.JobTitle}");
 
                 // // Send an email to the user
-                // await _emailSender.SendEmailAsync(userEmail, "Job Application Submitted", $"Your job application for {jobPosting.JobTitle} has been submitted successfully.");
+                // await _emailSender.SendEmailAsync(userEmail, "Job Application Submited", $"Your job application for {jobPosting.JobTitle} has been submitted successfully.");
+                // Console.WriteLine($"Notified user {jobApplication.Applicant.FullName} of their application to: {jobPosting.JobTitle}");
+                // }
+                // catch (Exception ex)
+                // {
+                //     Debug.WriteLine(ex.Message);
+                // }
                 return RedirectToAction(nameof(UserApplications));
-            }
-            return View(jobApplication);
-        }
 
-        // GET: JobApplications/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.JobApplications == null)
-            {
-                return NotFound();
-            }
-
-            var jobApplication = await _context.JobApplications.FindAsync(id);
-            if (jobApplication == null)
-            {
-                return NotFound();
-            }
-            return View(jobApplication);
-        }
-
-        // POST: JobApplications/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FilePath,FileName,CreatedDate")] JobApplication jobApplication)
-        {
-            if (id != jobApplication.JobApplicationId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(jobApplication);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!JobApplicationExists(jobApplication.JobApplicationId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(UserApplications));
             }
             return View(jobApplication);
         }

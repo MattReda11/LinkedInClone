@@ -57,13 +57,13 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
 });
 
 builder.Services.AddSignalR();
-// builder.Services.AddTransient<IEmailSender, EmailSender>();
-//builder.Services.Configure<AuthMessageSenderOptions>(Configuration.GetSection("AuthMessageSenderOptions"));
+builder.Services.AddTransient<IEmailSender, EmailSender>();
+builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration.GetSection("AuthMessageSenderOptions"));
 
 builder.Services.AddAuthentication().AddGoogle(googleOptions =>
 {
-    googleOptions.ClientId = "379601028963-alml822od0odsmo04m5hl4png6ikqasp.apps.googleusercontent.com"; //builder.Configuration["Authentication:Google:ClientId"];
-    googleOptions.ClientSecret = "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";
+    googleOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Google:ClientId"); 
+    googleOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Google:ClientSecret");
     googleOptions.SignInScheme = IdentityConstants.ExternalScheme;
     googleOptions.SaveTokens = true;
 
@@ -90,7 +90,7 @@ app.UseStatusCodePages(async context =>
     if (response.StatusCode == (int)System.Net.HttpStatusCode.Unauthorized ||
             response.StatusCode == (int)System.Net.HttpStatusCode.Forbidden ||
             response.StatusCode == (int)System.Net.HttpStatusCode.NotFound)
-        response.Redirect("/Identity/Account/Login");
+        response.Redirect("/Home/PageNotFound");
 });
 //? any issues with https - comment/uncomment this
 app.UseHttpsRedirection();

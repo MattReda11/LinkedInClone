@@ -8,9 +8,11 @@ using Microsoft.EntityFrameworkCore;
 using LinkedInClone.Data;
 using LinkedInClone.Models;
 using LinkedInClone.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace LinkedInClone.Controllers
 {
+    [Authorize(Roles = "User, Recruiter")]
     public class ConnectionsController : Controller
     {
         private readonly AppDbContext _context;
@@ -37,11 +39,11 @@ namespace LinkedInClone.Controllers
             NewsResponse apiResponse = await _newsAPIService.GetHeadlines();
             var articles = apiResponse.articles;
             ViewBag.Articles = articles;
-            
+
             //Stocks API
             var finnhubClient = new FinnhubClient("cfj7nn1r01que34nrafgcfj7nn1r01que34nrag0");
             var symbols = new[] { "AAPL", "GOOG", "MSFT", "AMZN" };
-            var quotes = await finnhubClient.GetQuotesAsync(symbols);         
+            var quotes = await finnhubClient.GetQuotesAsync(symbols);
             ViewBag.Stocks = quotes;
 
             //connections
