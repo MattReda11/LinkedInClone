@@ -8,6 +8,8 @@
     <!--? following line makes all warnings appear as errors -->
     <!-- <TreatWarningsAsErrors>true</TreatWarningsAsErrors> -->
 
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+
   </PropertyGroup>
 
   <ItemGroup>
