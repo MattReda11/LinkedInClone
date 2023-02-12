@@ -61,6 +61,17 @@ async function resetLogin() {
 
 // renders metadata if the user pastes a link into comment box
 function RenderPreview(comment) {
+  let content = document.getElementById("comment-preview-container");
+  let btn = document.getElementById("preview-btn");
+
+  if (content.hasAttribute("hidden")) {
+    content.removeAttribute("hidden");
+    btn.innerHTML = "Collapse";
+  } else if ((btn.innerHTML = "Collapse")) {
+    content.hidden = true;
+    btn.innerHTML = "LINK PREVIEW";
+  }
+
   var data = {
     key: "f5ca2c10c2c50ce7857ee67ae4564597",
     q: comment,

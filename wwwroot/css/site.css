@@ -116,3 +116,32 @@ textarea {
 .connectTable td {
   width: 100px;
 }
+
+/*  comment preview  */
+#comment-preview-container {
+  margin-left: 10px;
+}
+
+.preview-image {
+  height: 160px;
+  width: 160px;
+  margin-right: 20px;
+}
+
+.preview {
+  display: flex;
+  flex-flow: row-reverse nowrap;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 500px;
+  font-size: 10px;
+}
+
+.desc {
+  margin-top: -40px;
+  line-height: 95%;
+}
+
+#preview-btn {
+  margin-left: 2px;
+}

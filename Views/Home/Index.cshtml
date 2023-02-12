@@ -161,14 +161,18 @@
                                     @if(@comment.Content.StartsWith("http") || @comment.Content.StartsWith("https")
                                     ||@comment.Content.StartsWith("www") ){
 
-                                    <button onclick="RenderPreview('@comment.Content')">EXPAND PREVIEW</button>
 
                                     <a class="tooltip tooltip--top-right" data-tooltip="Access external link"
                                         href="@comment.Content">@comment.Content
                                     </a>
-                                    <p id="title"></p>
-                                    <p id="description"></p>
+                                    <button id="preview-btn" onclick="RenderPreview('@comment.Content')">LINK PREVIEW</button>
+                                    <div id="comment-preview-container" hidden>
+                                    <p class="title"id="title"></p>
+                                    <div class="preview">
+                                    <p class="desc"id="description"></p>
                                     <img class="preview-image" id="img" src="">
+                                    </div>
+                                    </div>
 
                                     }else{
                                     <p>@comment.Content</p>
