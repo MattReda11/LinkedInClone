@@ -1,4 +1,4 @@
-﻿@model dynamic
+﻿@model IEnumerable<LinkedInClone.Models.Post>
 @{
 ViewData["Title"] = "Home";
 }
@@ -7,6 +7,10 @@ ViewData["Title"] = "Home";
     <partial name="_LeftSideBarForUser" />
 
     <div class="main-center">
+        @if(Model.Count() == 0) 
+        {
+            <h6 class="u-text-center">It looks like you have no Connections 😕. You can search for other users to connect with!</h6>
+        }
         @foreach (var item in Model)
         {
 
@@ -36,7 +40,7 @@ ViewData["Title"] = "Home";
                     }
                     <div class="post-card-interaction-counter">
 
-                        <p><i class="fa-regular fa-thumbs-up fa-lg"></i><a href="#Likes-@item.Id">@item.Likes.Count</a></p>
+                        <p><i class="fa-regular fa-thumbs-up fa-lg"></i><a href="#Likes-@item.Id" class="tooltip tooltip--right" data-tooltip="View Likes">@item.Likes.Count</a></p>
 
                              <div class="modal modal-animated--zoom-in" id="Likes-@item.Id">
                                 <a href="#searchModalDialog" class="modal-overlay close-btn" aria-label="Close"></a>
@@ -53,7 +57,7 @@ ViewData["Title"] = "Home";
                                             @foreach (var like in item.Likes)
                                             {
                                                 <div class="u-flex u-flex-row">
-                                                    <img src="https://fsd05regex.blob.core.windows.net/blob-storage/profile.png" width="10%" class="h-5 ml-2 mt-1" />
+                                                    <img src="https://fsd05regex.blob.core.windows.net/blob-storage/profile.png" width="8%" class="h-5 ml-2 mt-1" />
                                                     <h6 class="mt-2 ml-2">
                                                         @like.LikedBy.FullName
                                                     </h6>
