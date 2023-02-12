@@ -173,6 +173,14 @@ public class HomeController : Controller
         return View();
     }
 
+    [HttpGet]
+    [AllowAnonymous]
+    public IActionResult UnderConstruction()
+    {
+        return View();
+    }
+
+
     [HttpGet, ActionName("Message")]
     public IActionResult Message()
     {
