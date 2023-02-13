@@ -61,14 +61,14 @@ builder.Services.AddSignalR();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration.GetSection("AuthMessageSenderOptions"));
 
-builder.Services.AddAuthentication().AddGoogle(googleOptions =>
-{
-    googleOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Google:ClientId"); 
-    googleOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Google:ClientSecret");
-    googleOptions.SignInScheme = IdentityConstants.ExternalScheme;
-    googleOptions.SaveTokens = true;
+// builder.Services.AddAuthentication().AddGoogle(googleOptions =>
+// {
+//     googleOptions.ClientId = builder.Configuration.GetValue<string>("Authentication:Google:ClientId"); 
+//     googleOptions.ClientSecret = builder.Configuration.GetValue<string>("Authentication:Google:ClientSecret");
+//     googleOptions.SignInScheme = IdentityConstants.ExternalScheme;
+//     googleOptions.SaveTokens = true;
 
-});
+// });
 
 var app = builder.Build();
 
