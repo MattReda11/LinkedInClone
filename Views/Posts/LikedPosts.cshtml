@@ -19,7 +19,7 @@ ViewData["Title"] = "Liked Posts";
 
                 <div class="post-card-date">
                     <p>Posted on @item.PostedDate.ToString("ddd MMMM dd, yyyy") at
-                        @item.PostedDate.ToString("h:mm tt") </p>
+                        @item.PostedDate.AddHours(-5).ToString("h:mm tt") </p>
                 </div>
 
                 <div class="post-card-content">
@@ -145,7 +145,7 @@ ViewData["Title"] = "Liked Posts";
 
                                     <p >
                                         @comment.CreatedDated.ToString("ddd MMMM dd, yyyy") at
-                                        @comment.CreatedDated.ToString("h:mm tt")
+                                        @comment.CreatedDated.AddHours(-5).ToString("h:mm tt")
                                     </p>
                                     </div>
                                     <p>@comment.Content</p>

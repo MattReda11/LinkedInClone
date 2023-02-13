@@ -55,7 +55,7 @@
                 <div class="post-card-date">
                     <p>
                         @item.CreatedDate.ToString("ddd MMMM dd, yyyy") at
-                        @item.CreatedDate.ToString("h:mm tt")
+                        @item.CreatedDate.AddHours(-5).ToString("h:mm tt")
                     </p>
                 </div>
             </div>
