@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: "joblink22"
           slot-name: "Production"
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_71B2B915EBAE42BA81783E99C9C01F84 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_068CBAB156534EFCBDE9B18488671DCF }}
           package: .
