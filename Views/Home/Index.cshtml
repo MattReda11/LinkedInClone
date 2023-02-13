@@ -165,12 +165,12 @@
                                     <a class="tooltip tooltip--top-right" data-tooltip="Access external link"
                                         href="@comment.Content">@comment.Content
                                     </a>
-                                    <button id="preview-btn" onclick="RenderPreview('@comment.Content')">LINK PREVIEW</button>
-                                    <div id="comment-preview-container" hidden>
-                                    <p class="title"id="title"></p>
+                                    <button id="preview-btn-@comment.Id" onclick="RenderPreview('@comment.Content', '@comment.Id')">LINK PREVIEW</button>
+                                    <div id="comment-preview-container-@comment.Id" hidden>
+                                    <p class="title"id="title-@comment.Id"></p>
                                     <div class="preview">
-                                    <p class="desc"id="description"></p>
-                                    <img class="preview-image" id="img" src="">
+                                    <p class="desc"id="description-@comment.Id"></p>
+                                    <img class="preview-image" id="img-@comment.Id" src="">
                                     </div>
                                     </div>
 

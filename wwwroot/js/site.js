@@ -60,9 +60,9 @@ async function resetLogin() {
 }
 
 // renders metadata if the user pastes a link into comment box
-function RenderPreview(comment) {
-  let content = document.getElementById("comment-preview-container");
-  let btn = document.getElementById("preview-btn");
+function RenderPreview(comment, id) {
+  let content = document.getElementById("comment-preview-container-" + id);
+  let btn = document.getElementById("preview-btn-" + id);
 
   if (content.hasAttribute("hidden")) {
     content.removeAttribute("hidden");
@@ -77,15 +77,15 @@ function RenderPreview(comment) {
     q: comment,
   };
 
-  fetch("http://api.linkpreview.net", {
+  fetch("https://api.linkpreview.net", {
     method: "POST",
     mode: "cors",
     body: JSON.stringify(data),
   })
     .then((res) => res.json())
     .then((response) => {
-      document.getElementById("title").innerHTML = response.title;
-      document.getElementById("description").innerHTML = response.description;
-      document.getElementById("img").src = response.image;
+      document.getElementById("title-" + id).innerHTML = response.title;
+      document.getElementById("description-" + id).innerHTML = response.description;
+      document.getElementById("img-" + id).src = response.image;
     });
 }

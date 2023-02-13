@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "storage1": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Storage/storageAccounts/fsd05regex",
+      "type": "storage.azure",
+      "connectionId": "ConnectionStrings:BlobConnectionString",
+      "dynamicId": null
+    },
+    "mssql1": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/fsd05regex/databases/JobLinkDb2",
+      "type": "mssql.azure",
+      "connectionId": "ConnectionStrings:AppDbContext",
+      "dynamicId": null
+    }
+  }
+}

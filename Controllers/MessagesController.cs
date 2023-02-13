@@ -28,7 +28,7 @@ namespace LinkedInClone.Controllers
             var username = User.Identity.Name;
             var user = _context.AppUsers.Where(u => u.UserName == username).FirstOrDefault();
 
-            return View(await _context.Conversations.Where(c => c.StartedBy == user || c.ReceivedBy == user).Include("ReceivedBy").Include("StartedBy").Include("Messages").Include("Messages.SentBy").Include("Messages.ReceivedBy").ToListAsync());
+            return View(await _context.Conversations.Where(c => c.StartedBy == user || c.ReceivedBy == user).OrderByDescending(c => c.CreatedDate).Include("ReceivedBy").Include("StartedBy").Include("Messages").Include("Messages.SentBy").Include("Messages.ReceivedBy").ToListAsync());
         }
 
         public IActionResult Create()
